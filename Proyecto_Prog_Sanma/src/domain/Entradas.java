@@ -81,7 +81,7 @@ public class Entradas implements descontable, sociable {
 	@Override
 	public boolean esDescontable() {
 		/**
-		 * Descontar el precio a las entradas si son socios del club, sino el precio sigue igual.
+		 * Descontar el precio a las entradas si son socios del club.
 		 * */
 		return false;
 	}
