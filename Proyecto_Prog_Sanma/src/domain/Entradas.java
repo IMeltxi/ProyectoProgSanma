@@ -6,11 +6,10 @@ public class Entradas implements descontable, sociable {
 	private enum TipoEntrada {
 		GENERAL, SOCIOS, GAZTEABONO, VIP
 	}
-	private TipoEntrada tipoEntrada;
-	
 	private enum Localidad {
 		NORTE, SUR, ESTE, PRINCIPAL
 	}
+	private TipoEntrada tipoEntrada;
 	private Localidad localidad;
 	private String bloque;
 	private String asiento;
