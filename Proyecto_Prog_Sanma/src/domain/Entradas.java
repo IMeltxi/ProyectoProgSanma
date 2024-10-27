@@ -25,6 +25,22 @@ public class Entradas implements descontable, sociable {
 	}
 	
 	
+	public Entradas(String partido, TipoEntrada tipoEntrada, Localidad localidad, String bloque, String asiento,
+			float precio, String nombre, String apellido, String email, String contraseña) {
+		super();
+		this.partido = partido;
+		this.tipoEntrada = tipoEntrada;
+		this.localidad = localidad;
+		this.bloque = bloque;
+		this.asiento = asiento;
+		this.precio = precio;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.email = email;
+		this.contraseña = contraseña;
+	}
+
+
 	public String getPartido() {
 		return partido;
 	}
