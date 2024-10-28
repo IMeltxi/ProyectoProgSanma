@@ -53,7 +53,7 @@ public class VentanaEntradas extends JFrame{
 		
 		JLabel lPartido = new JLabel("Seleccionar Partido: ");
 		cbPartido= new JComboBox<>(new String[] 
-				{"Athletic vs Madrid", "Athletic vs Barça", "Athletic vs Real Suciedad"});
+				{"Athletic vs Real Madrid", "Athletic vs Barcelona", "Athletic vs Real Sociedad", "Athletic vs Sevilla", "Athletic vs Atlético de Madrid", "Athletic vs Betis", "Athletic vs Mallorca", "Athletic vs Rayo Vallecano", "Athletic vs Villarreal", "Athletic vs Osasuna", "Athletic vs Celta", "Athletic vs Granada", "Athletic vs Alavés", "Athletic vs Cádiz", "Athletic vs Getafe", "Athletic vs Valencia", "Athletic vs Girona", "Athletic vs Las Palmas"});
 		pPartido.add(lPartido);
 		pPartido.add(cbPartido);
 		

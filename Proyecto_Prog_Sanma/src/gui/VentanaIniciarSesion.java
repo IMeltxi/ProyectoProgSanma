@@ -43,41 +43,48 @@ public class VentanaIniciarSesion extends JFrame {
         gbc.anchor = GridBagConstraints.CENTER;
         
 		//BoxLayaout
-		JPanel panel2 = new JPanel();
+		JPanel panelBotones = new JPanel();
 		TitledBorder titledBorder = BorderFactory.createTitledBorder("Inicio de Sesion");
-        panel2.setBorder(BorderFactory.createCompoundBorder(titledBorder,new EmptyBorder(20, 20, 20, 20)));
-		panel2.setLayout(new BoxLayout(panel2, BoxLayout.Y_AXIS));
+        panelBotones.setBorder(BorderFactory.createCompoundBorder(titledBorder,new EmptyBorder(20, 20, 20, 20)));
+		panelBotones.setLayout(new BoxLayout(panelBotones, BoxLayout.Y_AXIS));
 		
 		//Correo etiqueta
 		JLabel correoLabel = new JLabel("Correo:");
 		correoLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-		panel2.add(correoLabel);
+		panelBotones.add(correoLabel);
 		
 		//Correo Texto
 		JTextField correoField = new JTextField(20);
 		correoField.setMaximumSize(new Dimension(400,30));//Tamaño maximo para campos
 		correoField.setAlignmentX(Component.CENTER_ALIGNMENT);
-		panel2.add(correoField);
+		panelBotones.add(correoField);
 		
-		panel2.add(Box.createRigidArea(new Dimension(0,10)));//Espacio entre los campos
+		panelBotones.add(Box.createRigidArea(new Dimension(0,10)));//Espacio entre los campos
 		
 		//Contraseña etiqutea
 		JLabel contraseñaLabel = new JLabel("Contraseña:");
 		contraseñaLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panel2.add(contraseñaLabel);
+        panelBotones.add(contraseñaLabel);
 		
         //Contraseña Texto
 		JTextField contraseñaField = new JTextField(20);
 		contraseñaField.setMaximumSize(new Dimension(400,30));
 		contraseñaField.setAlignmentX(Component.CENTER_ALIGNMENT);
-		panel2.add(contraseñaField);
+		panelBotones.add(contraseñaField);
 		
-		panel2.add(Box.createRigidArea(new Dimension(0,20)));
+		panelBotones.add(Box.createRigidArea(new Dimension(0,20)));
 		
 		//Boton iniciar sesion
 		
 		JButton botonInicioSesion = new JButton("Iniciar Sesion");
 		botonInicioSesion.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		//etiqueta registrate
+		JLabel registroetiqueta = new JLabel("Registrate si no tienes cuenta");
+		registroetiqueta.setPreferredSize(new Dimension(200, 50)); // Ancho de 200 y alto de 50
+		//registro boton
+		JButton botonregistrate = new JButton("registrate");
+		botonregistrate.setAlignmentX(Component.CENTER_ALIGNMENT);
 		//Action listener
 		
 		botonInicioSesion.addActionListener(new ActionListener() {
@@ -103,10 +110,12 @@ public class VentanaIniciarSesion extends JFrame {
 		});
 		
 		//Agregar boton de inicio de sesion al panel
-		panel2.add(botonInicioSesion);
+		panelBotones.add(botonInicioSesion);
+		panelBotones.add(Box.createRigidArea(new Dimension(0, 20))); // Espacio horizontal de 20 píxeles
+		panelBotones.add(botonregistrate);
 		
 		// Agregar panel2 centrado en el panel principal
-        panelprincipal.add(panel2, gbc);
+        panelprincipal.add(panelBotones, gbc);
 		
 		add(panelprincipal);
 		
