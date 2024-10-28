@@ -53,7 +53,7 @@ public class VentanaEntradas extends JFrame{
 		
 		JLabel lPartido = new JLabel("Seleccionar Partido: ");
 		cbPartido= new JComboBox<>(new String[] 
-				{"Athletic vs Madrid", "Athletic vs Barça", "Athletic vs real Suciedad"});
+				{"Athletic vs Madrid", "Athletic vs Barça", "Athletic vs Real Suciedad"});
 		pPartido.add(lPartido);
 		pPartido.add(cbPartido);
 		
@@ -93,10 +93,10 @@ public class VentanaEntradas extends JFrame{
 				String partido = (String) cbPartido.getSelectedItem();
 				String socio = (String) cbTipoSocio.getSelectedItem();
 				
-				if (!nombre.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Compra Existosa!");
+				if (nombre.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Error! Nombre Necesario.");
 				}else {
-					JOptionPane.showMessageDialog(null, "Campos sin rellenar");
+					JOptionPane.showMessageDialog(null, "Compra Existosa!");
 				}
 				
 				
@@ -108,5 +108,6 @@ public class VentanaEntradas extends JFrame{
 	public static void main(String[] args) {
             VentanaEntradas ventana = new VentanaEntradas();
             ventana.setVisible(true);
+            
 	};
 }
