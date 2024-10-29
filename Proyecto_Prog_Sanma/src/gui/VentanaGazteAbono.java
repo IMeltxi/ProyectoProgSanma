@@ -25,11 +25,10 @@ public class VentanaGazteAbono extends JFrame {
         
         // Panel principal con borde y márgenes
         JPanel panelPrincipal = new JPanel(new BorderLayout());
-        panelPrincipal.setBorder(new EmptyBorder(20, 20, 20, 20));
         
         // Panel para la información
         JPanel panelInfo = new JPanel();
-        JLabel info = new JLabel("El Gazte Abono solo está disponible para personas entre 14 y 26 años");
+        JLabel info = new JLabel("El Gazte Abono solo está disponible para personas entre 14 y 26 años. \n \n Las localidades destinadas al Gazte Abonoa están ubicadas en la Tribuna Norte Baja (Grada Popular de Animación).");
         info.setFont(new Font("Arial", Font.BOLD, 16));
         info.setForeground(new Color(70, 70, 70));
         panelInfo.add(info);
@@ -40,6 +39,8 @@ public class VentanaGazteAbono extends JFrame {
         JLabel etiquetaDNI = new JLabel("DNI:");
         //DNI Texto
         JTextField TextoDNI = new JTextField(20);
+        
+        
         
         panelDNI.add(etiquetaDNI);
         panelDNI.add(TextoDNI);
@@ -97,7 +98,7 @@ public class VentanaGazteAbono extends JFrame {
         panelFecha.add(añoValor, gbc);
         
         // Botón de envío 
-        JButton botonEnviar = new JButton("Enviar");
+        JButton botonEnviar = new JButton("Darse de Alta");
         botonEnviar.setFont(new Font("Arial", Font.BOLD, 14));
         gbc.gridx = 0;
         gbc.gridy = 3;
