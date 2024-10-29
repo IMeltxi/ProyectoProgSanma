@@ -11,6 +11,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 public class VentanaGazteAbono extends JFrame {
@@ -32,6 +33,17 @@ public class VentanaGazteAbono extends JFrame {
         info.setFont(new Font("Arial", Font.BOLD, 16));
         info.setForeground(new Color(70, 70, 70));
         panelInfo.add(info);
+        
+        //Panel para el DNI 
+        JPanel panelDNI = new JPanel();
+        //Etiqueta DNI
+        JLabel etiquetaDNI = new JLabel("DNI:");
+        //DNI Texto
+        JTextField TextoDNI = new JTextField(20);
+        
+        panelDNI.add(etiquetaDNI);
+        panelDNI.add(TextoDNI);
+        
         
         // Panel central para la de fecha de nacimiento
         JPanel panelFecha = new JPanel(new GridBagLayout());
@@ -84,7 +96,7 @@ public class VentanaGazteAbono extends JFrame {
         gbc.gridy = 2;
         panelFecha.add(añoValor, gbc);
         
-        // Botón de envío con espaciado adicional
+        // Botón de envío 
         JButton botonEnviar = new JButton("Enviar");
         botonEnviar.setFont(new Font("Arial", Font.BOLD, 14));
         gbc.gridx = 0;
@@ -94,8 +106,9 @@ public class VentanaGazteAbono extends JFrame {
         panelFecha.add(botonEnviar, gbc);
         
         // Añadir los paneles al panel principal
+        panelPrincipal.add(panelDNI ,BorderLayout.CENTER);
         panelPrincipal.add(panelInfo, BorderLayout.NORTH);
-        panelPrincipal.add(panelFecha, BorderLayout.CENTER);
+        panelPrincipal.add(panelFecha, BorderLayout.SOUTH);
         
         // Añadir panel principal al JFrame
         add(panelPrincipal);
