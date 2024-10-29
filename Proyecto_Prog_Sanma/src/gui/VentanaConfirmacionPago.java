@@ -1,84 +1,88 @@
 package gui;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 public class VentanaConfirmacionPago extends JFrame {
+    private JTextArea areaResumen;
     private JTextField campoNombre;
     private JTextField campoNumeroTarjeta;
     private JTextField campoFechaCaducidad;
     private JTextField campoCVV;
-    private JTextArea areaResumen;
 
     public VentanaConfirmacionPago(String resumenAsientos, double total) {
         setTitle("Confirmación de Pago");
         setSize(400, 500);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Cierra esta ventana, no toda la app
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Panel principal con layout vertical
-        JPanel panelPrincipal = new JPanel();
-        panelPrincipal.setLayout(new BoxLayout(panelPrincipal, BoxLayout.Y_AXIS));
-
-        // Resumen de asientos y total
         areaResumen = new JTextArea("Resumen de Asientos:\n" + resumenAsientos + "\n\nTotal: €" + total);
         areaResumen.setEditable(false);
-        areaResumen.setBackground(getBackground()); // Fondo igual al de la ventana
-        panelPrincipal.add(new JScrollPane(areaResumen));
-
-        // Formulario de pago
-        panelPrincipal.add(new JLabel("Nombre del Titular:"));
+        // panel donde se ve lo siguiente
+        JPanel panelFormulario = new JPanel();
+        panelFormulario.setLayout(new FlowLayout());
+        //Nombre Comprador:
+        panelFormulario.add(new JLabel("Nombre del Titular:"));
         campoNombre = new JTextField(20);
-        panelPrincipal.add(campoNombre);
-
-        panelPrincipal.add(new JLabel("Número de Tarjeta:"));
+        panelFormulario.add(campoNombre);
+        //Apartado num tarjeta
+        panelFormulario.add(new JLabel("Número de Tarjeta:"));
         campoNumeroTarjeta = new JTextField(20);
-        panelPrincipal.add(campoNumeroTarjeta);
-
-        panelPrincipal.add(new JLabel("Fecha de Caducidad (MM/YY):"));
+        panelFormulario.add(campoNumeroTarjeta);
+        //PArte fecha tarjeta
+        panelFormulario.add(new JLabel("Fecha de Caducidad (MM/YY):"));
         campoFechaCaducidad = new JTextField(5);
-        panelPrincipal.add(campoFechaCaducidad);
+        panelFormulario.add(campoFechaCaducidad);
 
-        panelPrincipal.add(new JLabel("CVV:"));
+        //Apartado Contraseña tarjwta
+        panelFormulario.add(new JLabel("CVV Tarjeta"));
         campoCVV = new JTextField(3);
-        panelPrincipal.add(campoCVV);
+        panelFormulario.add(campoCVV);
 
-        // Botón de confirmación de compra
-        JButton btnConfirmar = new JButton("Confirmar Compra");
-        btnConfirmar.addActionListener(new ConfirmarPagoListener());
-        panelPrincipal.add(btnConfirmar);
-
-        add(panelPrincipal);
-    }
-
-    private class ConfirmarPagoListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
+        
+        setLayout(new BorderLayout());
+        add(areaResumen, BorderLayout.NORTH);
+        add(panelFormulario, BorderLayout.CENTER);
+        
+        JButton botonConfirmarPago = new JButton("Confirmar Pago");
+        botonConfirmarPago.addActionListener(e -> {
             String nombre = campoNombre.getText();
             String numeroTarjeta = campoNumeroTarjeta.getText();
             String fechaCaducidad = campoFechaCaducidad.getText();
             String cvv = campoCVV.getText();
 
-            // Validación simple de campos
-            if (nombre.isEmpty() || numeroTarjeta.isEmpty() || fechaCaducidad.isEmpty() || cvv.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
+            // se comprueba si esran llenos
+            if (nombre.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos antes de realizar el pago ", "Error", JOptionPane.ERROR_MESSAGE);
             }
-
-            // Mensaje de confirmación
-            JOptionPane.showMessageDialog(null, "Compra realizada con éxito. ¡Disfruta del partido!", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
-            
-            // Aquí podrías añadir lógica para almacenar la compra en el historial del usuario
-            dispose(); // Cierra la ventana de confirmación de pago
-        }
+            if (numeroTarjeta.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos antes de realizar el pago ", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            if (fechaCaducidad.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos antes de realizar el pago ", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            if (cvv.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos antes de realizar el pago ", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Pago realizado y confirmado.", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+        add(botonConfirmarPago, BorderLayout.PAGE_END);
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            VentanaConfirmacionPago ventana = new VentanaConfirmacionPago("Asiento (1,1), Asiento (1,2)", 80.0);
+            VentanaConfirmacionPago ventana = new VentanaConfirmacionPago("Asiento-1, Asiento-2", 80.0);
             ventana.setVisible(true);
-        });
+        };
     }
-}
+
