@@ -8,7 +8,7 @@ import java.util.Objects;
 
 public class Usuario implements Serializable{
 	public enum tipoSocio{
-		SOCIOMENSUAL,SOCIO, VIP, GAZTEABONO
+		SOCIOMENSUAL,SOCIO,VIP,GAZTEABONO
 	}
 	private tipoSocio tiposocio;
 	private String nombre;
