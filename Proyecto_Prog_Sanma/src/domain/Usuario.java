@@ -7,6 +7,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Usuario implements Serializable{
+	public enum tipoSocio{
+		SOCIOMENSUAL,SOCIO, VIP, GAZTEABONO
+	}
+	private tipoSocio tiposocio;
 	private String nombre;
 	private String apellido;
 	private String tlf;
@@ -24,6 +28,16 @@ public class Usuario implements Serializable{
 		this.fechNac = LocalDate.parse(fechNac,DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 		this.email = email;
 		this.contrasena = contrasena;
+	}
+
+	
+	public tipoSocio getTiposocio() {
+		return tiposocio;
+	}
+
+
+	public void setTiposocio(tipoSocio tiposocio) {
+		this.tiposocio = tiposocio;
 	}
 
 
