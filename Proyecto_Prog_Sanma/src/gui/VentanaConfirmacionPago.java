@@ -60,20 +60,10 @@ public class VentanaConfirmacionPago extends JFrame {
             String fechaCaducidad = campoFechaCaducidad.getText();
             String cvv = campoCVV.getText();
 
-            // se comprueba si esran llenos
-            if (nombre.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos antes de realizar el pago ", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-            if (numeroTarjeta.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos antes de realizar el pago ", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-            if (fechaCaducidad.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos antes de realizar el pago ", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-            if (cvv.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos antes de realizar el pago ", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-            else {
+            // se comprueba si estan llenos
+           if(nombre.isEmpty() || numeroTarjeta.isEmpty() || fechaCaducidad.isEmpty() || cvv.isEmpty()) {
+        	   JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos antes de realizar el pago ", "Error", JOptionPane.ERROR_MESSAGE);
+           }else {
                 JOptionPane.showMessageDialog(null, "Pago realizado y confirmado.", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
             }
         });
