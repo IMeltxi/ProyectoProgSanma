@@ -106,11 +106,11 @@ public class Usuario implements Serializable{
 		this.contrasena = contrasena;
 	}
 	
-	public int getNumeroUsuario() {
+	public int getNumeroSocio() {
 		return numeroSocio;
 	}
 	
-	public void setNumeroUsuario() {
+	public void setNumeroSocio() {
 		this.numeroSocio = numeroSocio;
 	}
 
