@@ -103,7 +103,7 @@ public class Usuario implements Serializable{
 	@Override
 	public String toString() {
 		return "Usuario [nombre=" + nombre + ", apellido=" + apellido + ", tlf=" + tlf + 
-				", fechNac=" + fechNac+ ", email=" + email + ", contrasena=" + contrasena + ", numeroUsuario="+ numeroSocio + "]";
+				", fechNac=" + fechNac+ ", email=" + email + ", contrasena=" + contrasena + ", numeroSocio="+ numeroSocio + "]";
 	}
 
 
