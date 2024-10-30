@@ -13,10 +13,11 @@ public class Usuario implements Serializable{
 	private LocalDate fechNac;
 	private String email;
 	private String contrasena;
+	private int numeroSocio;
 	
 	
 	public Usuario(String nombre, String apellido, String tlf, String fechNac, 
-			String email, String contrasena) {
+			String email, String contrasena, int numeroSocio) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -24,6 +25,7 @@ public class Usuario implements Serializable{
 		this.fechNac = LocalDate.parse(fechNac,DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 		this.email = email;
 		this.contrasena = contrasena;
+		this.numeroSocio = numeroSocio;
 	}
 
 
@@ -89,12 +91,19 @@ public class Usuario implements Serializable{
 	public void setContrasena(String contrasena) {
 		this.contrasena = contrasena;
 	}
-
+	
+	public int getNumeroUsuario() {
+		return numeroSocio;
+	}
+	
+	public void setNumeroUsuario() {
+		this.numeroSocio = numeroSocio;
+	}
 
 	@Override
 	public String toString() {
 		return "Usuario [nombre=" + nombre + ", apellido=" + apellido + ", tlf=" + tlf + 
-				", fechNac=" + fechNac+ ", email=" + email + ", contrasena=" + contrasena + "]";
+				", fechNac=" + fechNac+ ", email=" + email + ", contrasena=" + contrasena + ", numeroUsuario="+ numeroSocio + "]";
 	}
 
 
