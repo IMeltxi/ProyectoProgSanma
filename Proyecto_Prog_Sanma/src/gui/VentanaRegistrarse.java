@@ -8,6 +8,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -21,6 +22,9 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+
+import domain.Admin;
+import domain.Usuario;
 
 public class VentanaRegistrarse extends JFrame {
     
@@ -74,7 +78,7 @@ public class VentanaRegistrarse extends JFrame {
         panel2.add(Box.createRigidArea(new Dimension(0,10)));
         
         // Etiqueta y campo de texto de Telefono
-        JLabel tlfLabel = new JLabel("Correo:");
+        JLabel tlfLabel = new JLabel("Telefono:");
         tlfLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel2.add(tlfLabel);
         
@@ -86,7 +90,7 @@ public class VentanaRegistrarse extends JFrame {
         panel2.add(Box.createRigidArea(new Dimension(0,10)));
         
         // Etiqueta y campo de texto de Fecha de nacimiento
-        JLabel fechaNacimientoLabel = new JLabel("Fecha de nacimiento:");
+        JLabel fechaNacimientoLabel = new JLabel("Fecha de nacimiento:(dd-MM-AAAA)");
         fechaNacimientoLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel2.add(fechaNacimientoLabel);
         
@@ -139,17 +143,25 @@ public class VentanaRegistrarse extends JFrame {
         botonInicioSesion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String nombre = nombreField.getText();
+                String apellido = apellidoField.getText();                
+                String telefono = tlfField.getText();
+                String fechanac = fechaNacimientoField.getText();
                 String gmail = correoField.getText();
                 String contraseña = contraseniaField.getText();
+                String confirmarContraseña = contrasenia2Field.getText();
                 
-                if(gmail.equals("ejemplo") && contraseña.equals("ejemplo")) {
-                    JOptionPane.showMessageDialog(null, "Inicio valido");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Inicio no valido");
-                   
+                if(contraseña.equals(confirmarContraseña)) {
+                	Usuario u = new Usuario(nombre, apellido, telefono, fechanac, gmail, contraseña, 1 );
+                	System.out.println(u);
+                }else {
+					JOptionPane.showMessageDialog(null, "contraseña no coincide");
+
                 }
-            }
-        });
+                
+               
+        }
+            });
         
         panel2.add(botonInicioSesion);
         
