@@ -1,6 +1,6 @@
 package domain;
 
-public class Entradas implements descontable, sociable {
+public class Entradas implements Descontable, Sociable {
 	private String partido;
 	
 	private enum TipoEntrada {

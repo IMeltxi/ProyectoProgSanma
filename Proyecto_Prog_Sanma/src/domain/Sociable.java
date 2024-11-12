@@ -1,5 +1,5 @@
 package domain;
 
-public interface sociable {
+public interface Sociable {
 	boolean esSocio();
 }
