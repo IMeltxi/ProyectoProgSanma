@@ -1,6 +1,6 @@
 package domain;
 
-public class Entradas implements Descontable, Sociable {
+public class Entradas{
 	private String partido;
 	
 	public enum TipoEntrada {
@@ -93,22 +93,10 @@ public class Entradas implements Descontable, Sociable {
 	}
 
 	
-	@Override
-	public boolean esDescontable() {
-		/**
-		 * Descontar el precio a las entradas si son socios del club.
-		 * */
-		return false;
-	}
+	
 
 
-	@Override
-	public boolean esSocio() {
-		/**
-		 * Metodo para comprobar si son socios.
-		 * */
-		return false;
-	}
+
 	public TipoEntrada[] getTipoEntradas() {
 		return TipoEntrada.values();
 	}
