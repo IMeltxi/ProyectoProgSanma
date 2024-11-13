@@ -14,8 +14,9 @@ import javax.swing.JTextField;
 import domain.Admin;
 
 public class VentanaDarDeBaja extends JFrame {
-
-		public VentanaDarDeBaja(){
+	private Admin admin;
+		public VentanaDarDeBaja(Admin admin){
+			this.admin = admin;
 			//Configuracion basica
 			setTitle("Dar de Baja");
 	        setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -87,17 +88,28 @@ public class VentanaDarDeBaja extends JFrame {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					darDeBajaSocio();
-				}
+	                try {
+	                    int numeroSocio = Integer.parseInt(UsuarioTexto.getText());
+	                    String contrasena = ContraseñaTexto.getText();
+	                    
+	                    boolean eliminado = admin.eliminarUsuario(numeroSocio, contrasena);
+	                    if (eliminado) {
+	                        JOptionPane.showMessageDialog(null, "Usuario eliminado exitosamente.");
+	                    } else {
+	                        JOptionPane.showMessageDialog(null, "No se encontró el usuario o la contraseña es incorrecta.");
+	                    }
+	                } catch (NumberFormatException ex) {
+	                    JOptionPane.showMessageDialog(null, "El número de socio debe ser numérico.");
+	                }
+					}
+				
 			});
 
 			}
 		
-		private void darDeBajaSocio() {
 
-		}
-		
 	    public static void main(String[] args) {
-	        new VentanaDarDeBaja();
+	    	Admin admin = new Admin();
+	        new VentanaDarDeBaja(admin);
 	    }
 }
