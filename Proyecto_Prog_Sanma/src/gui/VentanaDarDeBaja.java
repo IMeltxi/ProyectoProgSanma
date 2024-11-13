@@ -87,11 +87,15 @@ public class VentanaDarDeBaja extends JFrame {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					
+					darDeBajaSocio();
 				}
 			});
 
 			}
+		
+		private void darDeBajaSocio() {
+
+		}
 		
 	    public static void main(String[] args) {
 	        new VentanaDarDeBaja();
