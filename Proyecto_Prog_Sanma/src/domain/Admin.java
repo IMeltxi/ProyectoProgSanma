@@ -14,6 +14,7 @@ public class Admin {
 		private List<Usuario>listaEsperaUsuarios;
 		private List<Partido>listaPartidos;
 		
+		
 		public Admin() {
 			super();
 			mapaUsuarios = new HashMap<tipoSocio,ArrayList<Usuario>>();
@@ -23,7 +24,8 @@ public class Admin {
 		}
 		
 		
-		private void añadirUsuario(Usuario user) {
+		
+		public void añadirUsuario(Usuario user) {
 			if(user.getTiposocio().equals(tipoSocio.GAZTEABONO)) {
 				if(!mapaUsuarios.containsKey(user.getTiposocio())) {
 					mapaUsuarios.put(user.getTiposocio(), new ArrayList<>());		
@@ -47,8 +49,13 @@ public class Admin {
 			}
 		}
 		
-		private void borrarUsuario(Usuario user) {
-		}
+//		public boolean borrarUsuario(int numeroSocio) {
+		//			if(socios.containsKey(numeroSocio)) {
+		//				socios.remove(idSocio);
+		//				return true;
+		//			}
+//			return false;
+		//		}
 		
 		
 		

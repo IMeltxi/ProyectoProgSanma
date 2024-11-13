@@ -11,6 +11,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import domain.Admin;
+
 public class VentanaDarDeBaja extends JFrame {
 
 		public VentanaDarDeBaja(){
@@ -85,11 +87,7 @@ public class VentanaDarDeBaja extends JFrame {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					String usuario = UsuarioTexto.getText();
-					String contraseña = ContraseñaTexto.getText();
 					
-	                // Comprobar si el usuario esta en la base de datos
-				
 				}
 			});
 
