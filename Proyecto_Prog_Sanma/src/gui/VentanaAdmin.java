@@ -1,10 +1,13 @@
 package gui;
 
 import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.BorderFactory;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -37,15 +40,16 @@ public class VentanaAdmin extends JFrame {
 		JPanel panelIzqInf = new JPanel();
 		
 		
-		
-		/**
-		 * Falta combobox
-		 */
+		String[] tipoSocios = {"Cualquiera", "SocioMensual", "Socio", "VIP","GAZTEABONO"};
+		ComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>(tipoSocios);
+        JComboBox<String> cBTipoSocio = new JComboBox<>(comboBoxModel);
+		panelIzqSup.add(cBTipoSocio);
         
 		
-		JTable tablaUsuarios  = new JTable();
-	
 		
+		//Falta el modelo de la tabla y meter los valores
+		JTable tablaUsuarios  = new JTable();
+		ModeloJTable modeloTabla = new ModeloJTable();
 		
 		JPanel panelDer = new JPanel();
 		panelDer.setBackground(Color.YELLOW);
