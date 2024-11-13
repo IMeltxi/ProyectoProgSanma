@@ -29,6 +29,21 @@ public class Admin {
 					mapaUsuarios.put(user.getTiposocio(), new ArrayList<>());		
 				}
 				mapaUsuarios.get(user.getTiposocio()).add(user);
+			}else if(user.getTiposocio().equals(tipoSocio.SOCIO)) {
+				if(!mapaUsuarios.containsKey(user.getTiposocio())) {
+					mapaUsuarios.put(user.getTiposocio(), new ArrayList<>());		
+				}
+				mapaUsuarios.get(user.getTiposocio()).add(user);
+			}else if(user.getTiposocio().equals(tipoSocio.SOCIOMENSUAL)) {
+				if(!mapaUsuarios.containsKey(user.getTiposocio())) {
+					mapaUsuarios.put(user.getTiposocio(), new ArrayList<>());		
+				}
+				mapaUsuarios.get(user.getTiposocio()).add(user);
+			}else if(user.getTiposocio().equals(tipoSocio.VIP)) {
+				if(!mapaUsuarios.containsKey(user.getTiposocio())) {
+					mapaUsuarios.put(user.getTiposocio(), new ArrayList<>());		
+				}
+				mapaUsuarios.get(user.getTiposocio()).add(user);
 			}
 		}
 		
