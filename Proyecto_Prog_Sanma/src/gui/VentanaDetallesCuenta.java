@@ -1,43 +1,35 @@
 package gui;
-import java.awt.*;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import domain.Usuario;
 
-public class VentanaDetallesCuenta extends JFrame {
+public class VentanaDetallesCuenta extends JFrame{
+    private JLabel nombreLbl;
+    private JLabel emailLbl;
+    private JLabel telefonoLbl;
 
-    public VentanaDetallesCuenta() {
-    	
+    public VentanaDetallesCuenta(Usuario usuario) {
         setTitle("Detalles de la Cuenta");
-        setSize(400, 300);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLayout(new BorderLayout());
+        setSize(300, 200);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // Panel para mostrar los detalles de la cuenta
-        JPanel panelDetalles = new JPanel();
-        panelDetalles.setLayout(new GridLayout(5, 1, 10, 10)); 
+        nombreLbl = new JLabel("Nombre: " + usuario.getNombre());
+        emailLbl = new JLabel("Email: " + usuario.getEmail());
+        telefonoLbl = new JLabel("Teléfono: " + usuario.getTlf());
 
-        // detalles del usuario
-        JLabel lblNombre = new JLabel("Nombre: Usuario Ejemplo");
-        JLabel lblCorreo = new JLabel("Correo: usuario@ejemplo.com");
-        JLabel lblMembresia = new JLabel("Membresía: Premium");
-        JLabel lblFechaRegistro = new JLabel("Fecha de Registro: 01/01/2023");
-        JLabel lblUltimaActividad = new JLabel("Última Actividad: 10/11/2024");
+        JPanel panel = new JPanel();
+        panel.add(nombreLbl);
+        panel.add(emailLbl);
+        panel.add(telefonoLbl);
 
-        //labels
-        panelDetalles.add(lblNombre);
-        panelDetalles.add(lblCorreo);
-        panelDetalles.add(lblMembresia);
-        panelDetalles.add(lblFechaRegistro);
-        panelDetalles.add(lblUltimaActividad);
-
-        add(panelDetalles, BorderLayout.CENTER);
+        add(panel);
     }
+
 
     public static void main(String[] args) {
      
-        	 VentanaDetallesCuenta ventana = new VentanaDetallesCuenta();
+        	 VentanaDetallesCuenta ventana = new VentanaDetallesCuenta(null);
              ventana.setVisible(true);
     }
     }
