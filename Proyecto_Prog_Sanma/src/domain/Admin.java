@@ -9,7 +9,7 @@ import java.util.Map;
 import domain.Usuario.tipoSocio;
 
 public class Admin {
-
+		
 		private Map<tipoSocio,ArrayList<Usuario>>mapaUsuarios;
 		private List<Usuario>listaEsperaUsuarios;
 		private List<Partido>listaPartidos;
@@ -37,28 +37,41 @@ public class Admin {
 		
 		
 		
-		public void añadirUsuario(Usuario user) {
-			if(user.getTiposocio().equals(tipoSocio.GAZTEABONO)) {
-				if(!mapaUsuarios.containsKey(user.getTiposocio())) {
-					mapaUsuarios.put(user.getTiposocio(), new ArrayList<>());		
+	    public void añadirUsuarios(Usuario user) {
+			usuarios.add(user);
+		}
+		
+		public ArrayList<Usuario> visualizarUsuariosPorTipo(tipoSocio tipo) {
+			HashMap<tipoSocio, ArrayList<Usuario>> mapaPorTipo = new HashMap<>();
+			
+			
+			//Crear un papa con una lista de 
+			for(Usuario user:usuarios) {
+				if(user.getTiposocio().equals(tipoSocio.GAZTEABONO)) {
+					if(!mapaPorTipo.containsKey(user.getTiposocio())) {
+						mapaPorTipo.put(user.getTiposocio(), new ArrayList<>());		
+					}
+					mapaPorTipo.get(user.getTiposocio()).add(user);
+				}else if(user.getTiposocio().equals(tipoSocio.SOCIO)) {
+					if(!mapaPorTipo.containsKey(user.getTiposocio())) {
+						mapaPorTipo.put(user.getTiposocio(), new ArrayList<>());		
+					}
+					mapaPorTipo.get(user.getTiposocio()).add(user);
+				}else if(user.getTiposocio().equals(tipoSocio.SOCIOMENSUAL)) {
+					if(!mapaPorTipo.containsKey(user.getTiposocio())) {
+						mapaPorTipo.put(user.getTiposocio(), new ArrayList<>());		
+					}
+					mapaPorTipo.get(user.getTiposocio()).add(user);
+				}else if(user.getTiposocio().equals(tipoSocio.VIP)) {
+					if(!mapaPorTipo.containsKey(user.getTiposocio())) {
+						mapaPorTipo.put(user.getTiposocio(), new ArrayList<>());		
+					}
+					mapaPorTipo.get(user.getTiposocio()).add(user);
 				}
-				mapaUsuarios.get(user.getTiposocio()).add(user);
-			}else if(user.getTiposocio().equals(tipoSocio.SOCIO)) {
-				if(!mapaUsuarios.containsKey(user.getTiposocio())) {
-					mapaUsuarios.put(user.getTiposocio(), new ArrayList<>());		
-				}
-				mapaUsuarios.get(user.getTiposocio()).add(user);
-			}else if(user.getTiposocio().equals(tipoSocio.SOCIOMENSUAL)) {
-				if(!mapaUsuarios.containsKey(user.getTiposocio())) {
-					mapaUsuarios.put(user.getTiposocio(), new ArrayList<>());		
-				}
-				mapaUsuarios.get(user.getTiposocio()).add(user);
-			}else if(user.getTiposocio().equals(tipoSocio.VIP)) {
-				if(!mapaUsuarios.containsKey(user.getTiposocio())) {
-					mapaUsuarios.put(user.getTiposocio(), new ArrayList<>());		
-				}
-				mapaUsuarios.get(user.getTiposocio()).add(user);
 			}
+			
+			ArrayList<Usuario> listaUsers = mapaPorTipo.get(tipo);
+			return listaUsers;
 		}
 		
 	    public boolean eliminarUsuario(int numeroSocio, String contrasena) {

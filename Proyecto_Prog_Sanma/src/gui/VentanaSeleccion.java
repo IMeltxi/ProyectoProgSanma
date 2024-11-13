@@ -43,14 +43,15 @@ public class VentanaSeleccion extends JFrame {
         });
 
         // boton de "DetallesCuenta"
-        btnDetallesCuenta.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                VentanaDetallesCuenta ventanaDetalles = new VentanaDetallesCuenta();
-                ventanaDetalles.setVisible(true);
-                dispose(); 
-            }
-        });
+
+//        btnDetallesCuenta.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                VentanaDetallesCuenta ventanaDetalles = new VentanaDetallesCuenta(); --> Da error (comento pa que pueda compilar)
+//                ventanaDetalles.setVisible(true);
+//                dispose(); 
+//            }
+//        });
 
         panelBotones.add(btnEntradas);
         panelBotones.add(btnDetallesCuenta);
