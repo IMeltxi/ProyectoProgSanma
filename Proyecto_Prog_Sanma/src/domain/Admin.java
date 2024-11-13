@@ -13,8 +13,12 @@ public class Admin {
 		private Map<tipoSocio,ArrayList<Usuario>>mapaUsuarios;
 		private List<Usuario>listaEsperaUsuarios;
 		private List<Partido>listaPartidos;
+		private Map<Integer, Usuario> socios;
+		
 		
 		public Admin() {
+			
+			
 			super();
 			mapaUsuarios = new HashMap<tipoSocio,ArrayList<Usuario>>();
 			listaEsperaUsuarios = new LinkedList<Usuario>();
@@ -23,7 +27,8 @@ public class Admin {
 		}
 		
 		
-		private void añadirUsuario(Usuario user) {
+		
+		public void añadirUsuario(Usuario user) {
 			if(user.getTiposocio().equals(tipoSocio.GAZTEABONO)) {
 				if(!mapaUsuarios.containsKey(user.getTiposocio())) {
 					mapaUsuarios.put(user.getTiposocio(), new ArrayList<>());		
@@ -47,9 +52,16 @@ public class Admin {
 			}
 		}
 		
-		private void borrarUsuario(Usuario user) {
+		public boolean borrarUsuario(int numeroSocio) {
+			if(mapaUsuarios.containsKey(numeroSocio)) {
+				mapaUsuarios.remove(numeroSocio);
+		return true;
 		}
-		
+			return false;	
+		}
+		 public Map<Integer, Usuario> getSocios(){
+			 return socios;
+		 }
 		
 		
 }
