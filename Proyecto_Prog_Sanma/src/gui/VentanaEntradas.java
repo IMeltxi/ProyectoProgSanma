@@ -124,9 +124,9 @@ public class VentanaEntradas extends JFrame {
 
         JPanel pTipoSocio = new JPanel();
         pTipoSocio.setLayout(new FlowLayout());
-        pTipoSocio.setBorder(BorderFactory.createTitledBorder("Información del tipo de Socio"));
+        pTipoSocio.setBorder(BorderFactory.createTitledBorder("Información del tipo de Entrada"));
 
-        JLabel lTipoSocio = new JLabel("Selecciona el tipo de Socio:");
+        JLabel lTipoSocio = new JLabel("Selecciona el tipo de Entrada:");
         cbTipoSocio = new JComboBox<>();
         Entradas entradas = new Entradas();
         for (Entradas.TipoEntrada tipo : entradas.getTipoEntradas()) {
