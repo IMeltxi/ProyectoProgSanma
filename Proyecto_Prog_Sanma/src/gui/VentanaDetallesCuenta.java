@@ -29,6 +29,7 @@ public class VentanaDetallesCuenta extends JFrame{
 
     public static void main(String[] args) {
      
+    	
         	 VentanaDetallesCuenta ventana = new VentanaDetallesCuenta(null);
              ventana.setVisible(true);
     }
