@@ -1,6 +1,6 @@
 package domain;
 
-public interface descontable {
+public interface Descontable {
 
 	boolean esDescontable();
 }
