@@ -18,6 +18,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+
+import domain.Entradas;
+import domain.Usuario;
+
 import javax.swing.JList;
 import javax.swing.Icon;
 import javax.swing.BoxLayout;
@@ -97,7 +101,7 @@ public class VentanaEntradas extends JFrame {
                     redimensionarIcono("Imagenes/ImagenesEquipos/Osasuna.png")),
             new PartidoCombo("Athletic vs Rayo Vallecano", 
                     redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
-                    redimensionarIcono("Imagenes/ImagenesEquipos/RealSociedad.png")),
+                    redimensionarIcono("Imagenes/ImagenesEquipos/RayoVallecano.png")),
             new PartidoCombo("Athletic vs Sevilla", 
                     redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
                     redimensionarIcono("Imagenes/ImagenesEquipos/Sevilla.png")),
@@ -123,7 +127,11 @@ public class VentanaEntradas extends JFrame {
         pTipoSocio.setBorder(BorderFactory.createTitledBorder("Información del tipo de Socio"));
 
         JLabel lTipoSocio = new JLabel("Selecciona el tipo de Socio:");
-        cbTipoSocio = new JComboBox<>(new String[] { "Socio Normal", "Socio VIP", "Socio Jubilado", "Socio Gazte Abono" });
+        cbTipoSocio = new JComboBox<>();
+        Entradas entradas = new Entradas();
+        for (Entradas.TipoEntrada tipo : entradas.getTipoEntradas()) {
+        	cbTipoSocio.addItem(tipo.toString());
+        }
         pTipoSocio.add(lTipoSocio);
         pTipoSocio.add(cbTipoSocio);
 
@@ -157,14 +165,14 @@ public class VentanaEntradas extends JFrame {
         });
     }
 
-    // Método para redimensionar icono
+    // Método para poner el tamaño del icono
     private Icon redimensionarIcono(String rIcono) {
         ImageIcon iconoOriginal = new ImageIcon(rIcono);
         Image imagen = iconoOriginal.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
         return new ImageIcon(imagen);
     }
 
-    // Clase interna para representar cada opción con ambos equipos y sus iconos
+    // Clase para que aparezcan los iconos en la JComboBox
     class PartidoCombo {
         private String nombrePartido;
         private Icon iconoEquipo1;
@@ -198,8 +206,15 @@ public class VentanaEntradas extends JFrame {
     class ComboBoxRenderer extends DefaultListCellRenderer {
         @Override
         public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-            JPanel panel = new JPanel();
-            panel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        	JPanel panel = new JPanel();
+//        	JPanel panelIzq = new JPanel();
+//            JPanel panelCen = new JPanel();
+//            JPanel panelDer= new JPanel();
+            
+//            panelIzq.setLayout(new FlowLayout(FlowLayout.LEFT));
+//            panelCen.setLayout(new FlowLayout(FlowLayout.CENTER));
+//            panelDer.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        	panel.setLayout(new FlowLayout(FlowLayout.CENTER));
             if (value instanceof PartidoCombo) {
                 PartidoCombo partido = (PartidoCombo) value;
                 
@@ -210,16 +225,23 @@ public class VentanaEntradas extends JFrame {
                 panel.add(labelEquipo1); 
                 panel.add(labelTexto);   
                 panel.add(labelEquipo2); 
+               
             }
             
             if (isSelected) {
-                panel.setBackground(Color.RED);
+//                panelIzq.setBackground(Color.RED);
+//                panelCen.setBackground(Color.RED);
+//                panelDer.setBackground(Color.RED);
+            	panel.setBackground(Color.RED);
             } else {
-                panel.setBackground(getBackground());
+//            	panelIzq.getBackground();
+//                panelCen.getBackground();
+//                panelDer.getBackground();
+            	panel.getBackground();
             }
 
             return panel;
-        }
+        }	
     }
     
     

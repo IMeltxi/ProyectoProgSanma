@@ -3,7 +3,7 @@ package domain;
 public class Entradas implements descontable, sociable {
 	private String partido;
 	
-	private enum TipoEntrada {
+	public enum TipoEntrada {
 		GENERAL, SOCIOS, GAZTEABONO, VIP
 	}
 	private enum Localidad {
@@ -108,6 +108,9 @@ public class Entradas implements descontable, sociable {
 		 * Metodo para comprobar si son socios.
 		 * */
 		return false;
+	}
+	public TipoEntrada[] getTipoEntradas() {
+		return TipoEntrada.values();
 	}
 	
 	
