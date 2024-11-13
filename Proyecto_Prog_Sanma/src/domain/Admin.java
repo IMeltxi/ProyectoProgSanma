@@ -14,17 +14,26 @@ public class Admin {
 		private List<Usuario>listaEsperaUsuarios;
 		private List<Partido>listaPartidos;
 		private Map<Integer, Usuario> socios;
+		private List<Usuario> usuarios;
 		
 		
 		public Admin() {
-			
 			
 			super();
 			mapaUsuarios = new HashMap<tipoSocio,ArrayList<Usuario>>();
 			listaEsperaUsuarios = new LinkedList<Usuario>();
 			listaPartidos = new ArrayList<Partido>();
-			
+			usuarios = new ArrayList<>();
+
 		}
+		
+	    public List<Usuario> getUsuarios() {
+	        return usuarios;
+	    }
+
+	    public void setUsuarios(List<Usuario> usuarios) {
+	        this.usuarios = usuarios;
+	    }
 		
 		
 		
@@ -52,13 +61,17 @@ public class Admin {
 			}
 		}
 		
-		public boolean borrarUsuario(int numeroSocio) {
-			if(mapaUsuarios.containsKey(numeroSocio)) {
-				mapaUsuarios.remove(numeroSocio);
-		return true;
-		}
-			return false;	
-		}
+	    public boolean eliminarUsuario(int numeroSocio, String contrasena) {
+	        for (Usuario usuario : usuarios) {
+	            if (usuario.getNumeroSocio() == numeroSocio && usuario.getContrasena().equals(contrasena)) {
+	                usuarios.remove(usuario);
+	                return true;
+	            }
+	        }
+	        return false;
+	    }
+		
+		
 		 public Map<Integer, Usuario> getSocios(){
 			 return socios;
 		 }
