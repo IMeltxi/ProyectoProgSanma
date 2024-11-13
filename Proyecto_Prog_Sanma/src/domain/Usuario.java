@@ -24,8 +24,7 @@ public class Usuario implements Serializable {
         this.nombre = nombre;
         this.apellido = apellido;
         this.tlf = tlf;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        this.fechNac = LocalDate.parse(fechNacStr, formatter);
+        this.fechNac = LocalDate.parse(fechNacStr, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 
         this.email = email;
         this.contrasena = contrasena;
