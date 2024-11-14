@@ -50,6 +50,9 @@ public class VentanaAdmin extends JFrame {
 		//Falta el modelo de la tabla y meter los valores
 		JTable tablaUsuarios  = new JTable();
 		ModeloJTable modeloTabla = new ModeloJTable();
+		/**
+		 * Añadir a la tabla un JScrollPane (barra de desplazamiento) para poder visualizarla entera
+		 */
 		
 		JPanel panelDer = new JPanel();
 		panelDer.setBackground(Color.YELLOW);
