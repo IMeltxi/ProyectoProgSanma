@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 
+
 import java.awt.Color;
 import java.awt.Font;
 
@@ -12,6 +13,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import javax.swing.border.Border;
@@ -48,12 +50,15 @@ public class VentanaAdmin extends JFrame {
 		
 		
 		//Falta el modelo de la tabla y meter los valores
-		JTable tablaUsuarios  = new JTable();
+		
 		ModeloJTable modeloTabla = new ModeloJTable();
+		JTable tablaUsuarios  = new JTable(modeloTabla);
+		tablaUsuarios.setDefaultRenderer(Object.class,  new RenderJTable());
+		panelIzqInf.add(new JScrollPane(tablaUsuarios),BorderLayout.CENTER);
 		/**
 		 * Añadir a la tabla un JScrollPane (barra de desplazamiento) para poder visualizarla entera
 		 */
-		
+		panelIzqInf.add(tablaUsuarios);
 		JPanel panelDer = new JPanel();
 		panelDer.setBackground(Color.YELLOW);
 		
