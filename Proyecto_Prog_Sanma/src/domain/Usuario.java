@@ -19,8 +19,9 @@ public class Usuario implements Serializable {
     private String contrasena;
     private int numeroSocio;
 
-    public Usuario(String nombre, String apellido, String tlf, String fechNacStr, 
+    public Usuario(tipoSocio tiposocio,String nombre, String apellido, String tlf, String fechNacStr, 
                    String email, String contrasena, int numeroSocio) {
+    	this.tiposocio=tiposocio;
         this.nombre = nombre;
         this.apellido = apellido;
         this.tlf = tlf;
@@ -124,10 +125,10 @@ public class Usuario implements Serializable {
     }
     
     public static void main(String[] args) {
-    	 new Usuario("Juan", "Perez", "123456789", "15-04-1985", "juan.perez@example.com", "password123", 1);
-         new Usuario("Maria", "Lopez", "987654321", "23-11-1990", "maria.lopez@example.com", "passMaria", 2);
-         new Usuario("Carlos", "Garcia", "555555555", "10-06-1978", "carlos.garcia@example.com", "carlosPass", 3);
-         new Usuario("Lucia", "Fernandez", "111222333", "30-09-2000", "lucia.fernandez@example.com", "luciaPass", 4);
-         new Usuario("Miguel", "Martinez", "444333222", "25-12-1995", "miguel.martinez@example.com", "miguelPass", 5);
+    	 new Usuario(tipoSocio.SOCIO,"Juan", "Perez", "123456789", "15-04-1985", "juan.perez@example.com", "password123", 1);
+         new Usuario(tipoSocio.SOCIO,"Maria", "Lopez", "987654321", "23-11-1990", "maria.lopez@example.com", "passMaria", 2);
+         new Usuario(tipoSocio.SOCIO,"Carlos", "Garcia", "555555555", "10-06-1978", "carlos.garcia@example.com", "carlosPass", 3);
+         new Usuario(tipoSocio.SOCIO,"Lucia", "Fernandez", "111222333", "30-09-2000", "lucia.fernandez@example.com", "luciaPass", 4);
+         new Usuario(tipoSocio.SOCIO,"Miguel", "Martinez", "444333222", "25-12-1995", "miguel.martinez@example.com", "miguelPass", 5);
     }
 }

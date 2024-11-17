@@ -25,6 +25,7 @@ import javax.swing.border.TitledBorder;
 
 import domain.Admin;
 import domain.Usuario;
+import domain.Usuario.tipoSocio;
 
 public class VentanaRegistrarse extends JFrame {
     
@@ -152,7 +153,9 @@ public class VentanaRegistrarse extends JFrame {
                 String confirmarContraseña = contrasenia2Field.getText();
                 
                 if(contraseña.equals(confirmarContraseña)) {
-                	Usuario u = new Usuario(nombre, apellido, telefono, fechanac, gmail, contraseña, 1 );
+                	//El tipoSocio.Socio es para que no de error, 
+                	//a la hora de registrarse habria que poner tmb como que tipo de socio se registra
+                	Usuario u = new Usuario(tipoSocio.SOCIO,nombre, apellido, telefono, fechanac, gmail, contraseña, 1 );
                 	System.out.println(u);
                 }else {
 					JOptionPane.showMessageDialog(null, "contraseña no coincide");
