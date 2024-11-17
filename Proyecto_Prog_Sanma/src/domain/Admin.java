@@ -93,7 +93,9 @@ public class Admin {
 	        }
 	        return false;
 	    }
-		
+		public void cargarUsuarios() {
+			
+		}
 		
 		 public Map<Integer, Usuario> getSocios(){
 			 return socios;
