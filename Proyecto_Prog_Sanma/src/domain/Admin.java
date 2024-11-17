@@ -10,7 +10,6 @@ import domain.Usuario.tipoSocio;
 
 public class Admin {
 		
-		private Map<tipoSocio,ArrayList<Usuario>>mapaUsuarios;
 		private List<Usuario>listaEsperaUsuarios;
 		private List<Partido>listaPartidos;
 		private Map<Integer, Usuario> socios;
@@ -20,7 +19,6 @@ public class Admin {
 		public Admin() {
 			
 			super();
-			mapaUsuarios = new HashMap<tipoSocio,ArrayList<Usuario>>();
 			listaEsperaUsuarios = new LinkedList<Usuario>();
 			listaPartidos = new ArrayList<Partido>();
 			usuarios = new ArrayList<>();
@@ -37,9 +35,16 @@ public class Admin {
 		
 		
 		
-	    public void añadirUsuarios(Usuario user) {
-			usuarios.add(user);
+	    public void añadirUsuarios(Usuario user) {	    	
+	    	//Añadir a usuarios siempre y cuando no cumplan el limite maximo
+	    	if(usuarios.size()<500000) {
+	    		usuarios.add(user);
+	    	}else {
+	    		listaEsperaUsuarios.addLast(user);//añadirlos al final para no alterar la lista de espera
+	    	}
+			
 		}
+	   
 		
 		public ArrayList<Usuario> visualizarUsuariosPorTipo(tipoSocio tipo) {
 			HashMap<tipoSocio, ArrayList<Usuario>> mapaPorTipo = new HashMap<>();
@@ -80,6 +85,11 @@ public class Admin {
 	                usuarios.remove(usuario);
 	                return true;
 	            }
+	        }
+	        //Añadir usuario de la lista de espera
+	        if(!(listaEsperaUsuarios.size()==0)) {
+	        	usuarios.add(listaEsperaUsuarios.getFirst());
+	        	listaEsperaUsuarios.removeFirst();
 	        }
 	        return false;
 	    }
