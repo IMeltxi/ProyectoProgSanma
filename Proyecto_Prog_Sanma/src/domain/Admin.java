@@ -1,10 +1,16 @@
 package domain;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.net.SecureCacheResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
+
+import javax.naming.directory.SearchControls;
 
 import domain.Usuario.tipoSocio;
 
@@ -94,7 +100,22 @@ public class Admin {
 	        return false;
 	    }
 		public void cargarUsuarios() {
-			
+			File f = new File("ficheros/socios.txt");
+			if(f.exists()) {
+				try {
+					Scanner sc = new Scanner(f);
+					while(sc.hasNext()) {
+						String linea = sc.nextLine();
+						String[] datos = linea.split(";");
+						//tipoSocio tipoSocio = (tipoSocio) datos[0];
+						Usuario u= new Usuario(tipoSocio.valueOf(datos[0]), datos[1], datos[2], datos[3], datos[4], datos[5], datos[6], Integer.parseInt(datos[7]));
+						añadirUsuarios(u);
+					}
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
 		
 		 public Map<Integer, Usuario> getSocios(){
