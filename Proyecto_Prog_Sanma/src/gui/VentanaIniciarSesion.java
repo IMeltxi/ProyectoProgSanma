@@ -19,14 +19,21 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
+import domain.Admin;
+import domain.Usuario;
+
 public class VentanaIniciarSesion extends JFrame {
-	
-	public VentanaIniciarSesion() {
+	private Admin admin;
+	private JTextField correoField;
+	private JPasswordField contraseñaField;
+	public VentanaIniciarSesion(Admin admin) {
+		this.admin = admin;
 		// Configuracion Ventana
 		
 		setTitle("Iniciar Sesion");
@@ -67,7 +74,7 @@ public class VentanaIniciarSesion extends JFrame {
         panelBotones.add(contraseñaLabel);
 		
         //Contraseña Texto
-		JTextField contraseñaField = new JTextField(20);
+		JPasswordField contraseñaField = new JPasswordField(20);
 		contraseñaField.setMaximumSize(new Dimension(400,30));
 		contraseñaField.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panelBotones.add(contraseñaField);
@@ -85,29 +92,6 @@ public class VentanaIniciarSesion extends JFrame {
 		//registro boton
 		JButton botonregistrate = new JButton("registrate");
 		botonregistrate.setAlignmentX(Component.CENTER_ALIGNMENT);
-		//Action listener
-		
-		botonInicioSesion.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String gmail = correoField.getText();
-				String contraseña = contraseñaField.getText();
-				
-				//condicion para iniciar sesion
-				
-				if(gmail.equals("ejemplo") && contraseña.equals("ejemplo")) {
-					/** codigo a poner:
-					 * 		if gmail in ListaSocios and contraseña = contraseña del mapa con clave gmail
-					 * */
-					
-					JOptionPane.showMessageDialog(null, "inicio valido");
-				}else {
-					JOptionPane.showMessageDialog(null, "inicio no valido");
-				}
-				
-			}
-		});
 		
 		//Agregar boton de inicio de sesion al panel
 		panelBotones.add(botonInicioSesion);
@@ -120,9 +104,48 @@ public class VentanaIniciarSesion extends JFrame {
 		add(panelprincipal);
 		
 		setVisible(true);
+		
+		botonInicioSesion.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				verificarUsuario();
+			}
+		});
 	}
+		
+		private void verificarUsuario() {
+			String email = correoField.getText();
+	        String contrasena = new String (contraseñaField.getPassword());
+	        
+	        Usuario usuarioEncontrado = null;
+	        for(Usuario usuario : admin.getUsuarios()) {
+	        	if(usuario.getEmail().equals(email)) {
+	        		usuarioEncontrado = usuario;
+	        		break;
+	        	}
+	        }
+	        if (usuarioEncontrado == null) {
+	            JOptionPane.showMessageDialog(this, "Usuario no encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
+	            return;
+	        }else {
+	        	if(usuarioEncontrado.getContrasena().equals(contrasena)) {
+	        		JOptionPane.showMessageDialog(this, "Inicio de sesion valido","Ongi Etorri", JOptionPane.INFORMATION_MESSAGE);
+	        	}else {
+	        		JOptionPane.showMessageDialog(this, "Contraseña incorrecta.", "Vuelve a intentarlo", JOptionPane.ERROR_MESSAGE);
+	        	}
+	        }	
+	
+		
+		
+		
+		
+	}
+	
 	public static void main(String[] args) {
-		new VentanaIniciarSesion();
+		Admin admin = new Admin();
+		new VentanaIniciarSesion(admin);
 		}
 
 }

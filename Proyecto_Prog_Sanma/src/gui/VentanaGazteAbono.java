@@ -98,7 +98,7 @@ public class VentanaGazteAbono extends JFrame {
         panelFecha.add(añoValor, gbc);
         
         // Botón de envío 
-        JButton botonEnviar = new JButton("Darse de Alta");
+        JButton botonEnviar = new JButton("Participar en el sorteo:");
         botonEnviar.setFont(new Font("Arial", Font.BOLD, 14));
         gbc.gridx = 0;
         gbc.gridy = 3;

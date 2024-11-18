@@ -122,5 +122,16 @@ public class Admin {
 			 return socios;
 		 }
 		
-		
+	public void visualizarSocios(){
+		if (usuarios.isEmpty()) {
+			System.out.println("No hay ningun socio, nos vamos a la ruina");
+		}else {
+			System.out.println("Lista de socios:");
+			for (Usuario usuario : usuarios) {
+				System.out.println(usuario);
+			}
+		}
 }
+	
+}
+	
