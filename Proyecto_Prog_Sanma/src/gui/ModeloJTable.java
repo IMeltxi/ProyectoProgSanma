@@ -1,11 +1,14 @@
 package gui;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
 import domain.Usuario;
+import domain.Usuario.tipoSocio;
+
 
 public class ModeloJTable extends AbstractTableModel{
 
@@ -13,9 +16,12 @@ public class ModeloJTable extends AbstractTableModel{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	String[] header = { "","TipoSocio","Nombre", "Apellido", "Telefono", "Fecha de Nacimiento", "Correo", "Numero de Socio"};
-	List<Usuario> listaUsuarios = new ArrayList<>();
+	private String[] header = { "","TipoSocio","Nombre", "Apellido", "Telefono", "Fecha de Nacimiento", "Correo", "Numero de Socio"};
+	private List<Usuario> listaUsuarios = new ArrayList<>();
 	
+	public ModeloJTable (List<Usuario> listaUsuarios) {
+		this.listaUsuarios=listaUsuarios;
+	}	
 	
 	@Override
 	public String getColumnName(int column) {
