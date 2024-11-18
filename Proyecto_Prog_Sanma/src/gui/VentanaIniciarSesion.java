@@ -113,6 +113,16 @@ public class VentanaIniciarSesion extends JFrame {
 				verificarUsuario();
 			}
 		});
+		botonregistrate.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				VentanaRegistrarse ventanaRegistrarse = new VentanaRegistrarse();
+				ventanaRegistrarse.setVisible(true);
+				dispose(); 
+			}
+		});
 	}
 		
 		private void verificarUsuario() {
