@@ -107,7 +107,7 @@ public class Admin {
 					while(sc.hasNext()) {
 						String linea = sc.nextLine();
 						String[] datos = linea.split(";");
-						//tipoSocio tipoSocio = (tipoSocio) datos[0];
+						
 						Usuario u= new Usuario(tipoSocio.valueOf(datos[0]), datos[1], datos[2], datos[3], datos[4], datos[5], datos[6], Integer.parseInt(datos[7]));
 						añadirUsuarios(u);
 					}
