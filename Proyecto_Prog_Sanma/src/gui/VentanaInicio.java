@@ -45,6 +45,8 @@ public class VentanaInicio extends JFrame {
         JButton botonComprar = new JButton("Comprar entradas");
         panelcomprar.add(botonComprar);
         
+        
+        
         //añado los paneles al panel principal
         panelPrincipal.add(panelIR, BorderLayout.NORTH);
         panelPrincipal.add(panelDardeBaja ,BorderLayout.SOUTH);

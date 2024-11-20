@@ -145,13 +145,10 @@ public class VentanaIniciarSesion extends JFrame {
 	        	}else {
 	        		JOptionPane.showMessageDialog(this, "Contraseña incorrecta.", "Vuelve a intentarlo", JOptionPane.ERROR_MESSAGE);
 	        	}
-	        }	
-	
-		
-		
-		
-		
+	        }		
 	}
+		
+	
 	
 	public static void main(String[] args) {
 		Admin admin = new Admin();
