@@ -86,6 +86,23 @@ public class Entradas{
 		};
 	}
 	
+
+	public boolean reservarAsiento(String bloque, String asiento) {
+	    if (this.bloque.equals(bloque) && this.asiento.equals(asiento)) {
+	        if (this.asiento == null || this.asiento.isEmpty()) {
+	            this.asiento = asiento; 
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+
+	public void liberarAsiento() {
+	    this.asiento = null; // Liberar asiento
+	}
+	
+
+	
 	@Override
 	public String toString() {
 		return "Entradas [tipoEntrada=" + tipoEntrada + ", localidad=" + localidad + ", bloque=" + bloque + ", asiento="
