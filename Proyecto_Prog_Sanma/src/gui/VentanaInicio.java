@@ -17,6 +17,8 @@ public class VentanaInicio extends JFrame {
 
 
 	public VentanaInicio() {
+		
+		
         // Configuración de la ventana
         setTitle("Inicio");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -35,10 +37,6 @@ public class VentanaInicio extends JFrame {
         panelIR.add(botonI);
         panelIR.add(botonR);
         
-        //Panel dar de baja
-        JPanel panelDardeBaja = new JPanel(new FlowLayout());
-        JButton botonDB = new JButton("Darse de baja");
-        panelDardeBaja.add(botonDB);
         
         //Panel para comprar entradas
         JPanel panelcomprar = new JPanel(new FlowLayout());
@@ -49,7 +47,6 @@ public class VentanaInicio extends JFrame {
         
         //añado los paneles al panel principal
         panelPrincipal.add(panelIR, BorderLayout.NORTH);
-        panelPrincipal.add(panelDardeBaja ,BorderLayout.SOUTH);
         panelPrincipal.add(panelcomprar,BorderLayout.CENTER);
         
         add(panelPrincipal);
@@ -78,16 +75,6 @@ public class VentanaInicio extends JFrame {
 			}
 		});
         
-        botonDB.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				VentanaDarDeBaja ventanadardebaja = new VentanaDarDeBaja(admin);
-				ventanadardebaja.setVisible(true);
-				dispose(); 
-			}
-		});
         
         botonComprar.addActionListener(new ActionListener() {
 			

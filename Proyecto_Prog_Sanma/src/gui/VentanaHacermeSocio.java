@@ -13,8 +13,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
-
-import domain.VentanaSocioBasico;
 public class VentanaHacermeSocio extends JFrame {
     public VentanaHacermeSocio() {
         // Configuración de la ventana

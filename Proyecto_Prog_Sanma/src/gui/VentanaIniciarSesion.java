@@ -142,6 +142,9 @@ public class VentanaIniciarSesion extends JFrame {
 	        }else {
 	        	if(usuarioEncontrado.getContrasena().equals(contrasena)) {
 	        		JOptionPane.showMessageDialog(this, "Inicio de sesion valido","Ongi Etorri", JOptionPane.INFORMATION_MESSAGE);
+	        		VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();
+					ventanaPrincipal.setVisible(true);
+					dispose(); 
 	        	}else {
 	        		JOptionPane.showMessageDialog(this, "Contraseña incorrecta.", "Vuelve a intentarlo", JOptionPane.ERROR_MESSAGE);
 	        	}
