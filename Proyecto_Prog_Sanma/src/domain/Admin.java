@@ -107,15 +107,16 @@ public class Admin {
 					while(sc.hasNext()) {
 						String linea = sc.nextLine();
 						String[] datos = linea.split(";");
-						
 						Usuario u= new Usuario(tipoSocio.valueOf(datos[0]), datos[1], datos[2], datos[3], datos[4], datos[5], datos[6], Integer.parseInt(datos[7]));
 						añadirUsuarios(u);
+						System.out.println(u);
 					}
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
+			
 		}
 		
 		 public Map<Integer, Usuario> getSocios(){
