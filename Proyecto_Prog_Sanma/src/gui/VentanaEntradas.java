@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
@@ -25,6 +27,7 @@ import domain.Usuario;
 import javax.swing.JList;
 import javax.swing.Icon;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 
 public class VentanaEntradas extends JFrame {
     private JTextField cNombre;
@@ -48,7 +51,8 @@ public class VentanaEntradas extends JFrame {
         cNombre = new JTextField(15);
         panelInfo.add(lNombre);
         panelInfo.add(cNombre);
-
+        
+     
         JPanel pPartido = new JPanel();
         pPartido.setLayout(new FlowLayout());
         pPartido.setBorder(BorderFactory.createTitledBorder("Información del Partido"));
@@ -57,7 +61,7 @@ public class VentanaEntradas extends JFrame {
         
         
         PartidoCombo[] partidos = {
-            new PartidoCombo("Athletic vs Real Madrid", 
+            new PartidoCombo("Athletic vs Real Madrid",
                     redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
                     redimensionarIcono("Imagenes/ImagenesEquipos/RealMadrid.png")),
             new PartidoCombo("Athletic vs Barcelona", 
@@ -143,9 +147,102 @@ public class VentanaEntradas extends JFrame {
         bCancelar = new JButton("Cancelar");
         pBotones.add(bComprar);
         pBotones.add(bCancelar);
-
+             
         add(panelInfo, BorderLayout.NORTH);
         add(pPartido, BorderLayout.CENTER);
+        add(pTipoSocio, BorderLayout.WEST);
+        add(pBotones, BorderLayout.SOUTH);
+        
+        
+        
+        JPanel pZonaEstadio = new JPanel();
+        pZonaEstadio.setLayout(new BorderLayout());
+        pZonaEstadio.setBorder(BorderFactory.createTitledBorder("Zona del Estadio"));
+
+        // Panel para imágenes
+        JPanel pImagenesGradas = new JPanel();
+        pImagenesGradas.setLayout(new GridLayout(3,3));
+        JLabel imagenNorte = new JLabel(redimensionarIcono2("Imagenes/ImagenesGradas/GradaNorte.png"));
+        JLabel imagenSur = new JLabel(redimensionarIcono2("Imagenes/ImagenesGradas/GradaSur.png"));
+        JLabel imagenCentro = new JLabel(redimensionarIcono2("Imagenes/ImagenesGradas/AthleticLuz.png"));
+        JLabel imagenEste = new JLabel(redimensionarIcono2("Imagenes/ImagenesGradas/GradaEste.png"));
+        JLabel imagenOeste = new JLabel(redimensionarIcono2("Imagenes/ImagenesGradas/GradaOeste.png"));
+        
+        
+        pImagenesGradas.add(new JLabel()); 
+        pImagenesGradas.add(imagenNorte);
+        pImagenesGradas.add(new JLabel());
+        pImagenesGradas.add(imagenOeste); 
+        pImagenesGradas.add(imagenCentro); 
+        pImagenesGradas.add(imagenEste); 
+        pImagenesGradas.add(new JLabel()); 
+        pImagenesGradas.add(imagenSur); 
+        pImagenesGradas.add(new JLabel()); 
+
+        // Panel para botones de selección
+        JPanel pOpciones = new JPanel();
+        pOpciones.setLayout(new FlowLayout());
+
+        ButtonGroup grupoOpciones = new ButtonGroup();
+        JRadioButton opcionNorte = new JRadioButton("Grada Norte");
+        JRadioButton opcionSur = new JRadioButton("Grada Sur");
+        JRadioButton opcionEste = new JRadioButton("Grada Este");
+        JRadioButton opcionOeste = new JRadioButton("Grada Oeste");
+
+        grupoOpciones.add(opcionNorte);
+        grupoOpciones.add(opcionSur);
+        grupoOpciones.add(opcionEste);
+        grupoOpciones.add(opcionOeste);
+
+        pOpciones.add(opcionNorte);
+        pOpciones.add(opcionSur);
+        pOpciones.add(opcionEste);
+        pOpciones.add(opcionOeste);
+
+        // Añadir las imágenes y los botones al panel de zona de estadio
+        pZonaEstadio.add(pImagenesGradas, BorderLayout.CENTER);
+        pZonaEstadio.add(pOpciones, BorderLayout.SOUTH);
+        
+     // Añadir funcionalidad a los botones
+        opcionNorte.addActionListener(e -> {
+            imagenNorte.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaNorte.png"));
+            imagenSur.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaSurBN.png"));
+            imagenEste.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaEsteBN.png"));
+            imagenOeste.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaOesteBN.png"));
+        });
+
+        opcionSur.addActionListener(e -> {
+        	imagenNorte.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaNorteBN.png"));
+            imagenSur.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaSur.png"));
+            imagenEste.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaEsteBN.png"));
+            imagenOeste.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaOesteBN.png"));
+        });
+
+        opcionEste.addActionListener(e -> {
+        	imagenNorte.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaNorteBN.png"));
+            imagenSur.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaSurBN.png"));
+            imagenEste.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaEste.png"));
+            imagenOeste.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaOesteBN.png"));
+        });
+
+        opcionOeste.addActionListener(e -> {
+        	imagenNorte.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaNorteBN.png"));
+            imagenSur.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaSurBN.png"));
+            imagenEste.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaEsteBN.png"));
+            imagenOeste.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaOeste.png"));
+        });
+        
+        
+        JPanel pCentral = new JPanel();
+        pCentral.setLayout(new BoxLayout(pCentral, BoxLayout.Y_AXIS));
+        pCentral.add(pPartido);      
+        pCentral.add(pZonaEstadio);  
+
+        // Añadir el contenedor central al centro de la ventana
+        add(pCentral, BorderLayout.CENTER);
+
+        // Mantener los demás paneles
+        add(panelInfo, BorderLayout.NORTH);
         add(pTipoSocio, BorderLayout.WEST);
         add(pBotones, BorderLayout.SOUTH);
 
@@ -159,16 +256,21 @@ public class VentanaEntradas extends JFrame {
                 if (nombre.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Error! Nombre Necesario.");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Compra Exitosa para " + partido.getNombrePartido() + "!");
+                    JOptionPane.showMessageDialog(null, "Compra Exitosa" + "para " + partido.getNombrePartido() + "!");
                 }
             }
         });
     }
 
-    // Método para poner el tamaño del icono
     private Icon redimensionarIcono(String rIcono) {
         ImageIcon iconoOriginal = new ImageIcon(rIcono);
         Image imagen = iconoOriginal.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+        return new ImageIcon(imagen);
+    }
+    
+    private Icon redimensionarIcono2(String rIcono) {
+        ImageIcon iconoOriginal = new ImageIcon(rIcono);
+        Image imagen = iconoOriginal.getImage().getScaledInstance(400, 200, Image.SCALE_SMOOTH);
         return new ImageIcon(imagen);
     }
 
@@ -207,20 +309,20 @@ public class VentanaEntradas extends JFrame {
         @Override
         public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         	JPanel panel = new JPanel();
-//        	JPanel panelIzq = new JPanel();
-//            JPanel panelCen = new JPanel();
-//            JPanel panelDer= new JPanel();
-            
-//            panelIzq.setLayout(new FlowLayout(FlowLayout.LEFT));
-//            panelCen.setLayout(new FlowLayout(FlowLayout.CENTER));
-//            panelDer.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        	panel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        	
+        	
+        	setLayout(new BorderLayout());
             if (value instanceof PartidoCombo) {
                 PartidoCombo partido = (PartidoCombo) value;
-                
+                 
                 JLabel labelEquipo1 = new JLabel(partido.getIconoEquipo1());
                 JLabel labelTexto = new JLabel(partido.getNombrePartido());
                 JLabel labelEquipo2 = new JLabel(partido.getIconoEquipo2());
+
+            	add(labelEquipo1, BorderLayout.EAST);
+            	add(labelTexto, BorderLayout.CENTER);
+            	add(labelEquipo2, BorderLayout.SOUTH);
+            	
 
                 panel.add(labelEquipo1); 
                 panel.add(labelTexto);   
@@ -229,20 +331,20 @@ public class VentanaEntradas extends JFrame {
             }
             
             if (isSelected) {
-//                panelIzq.setBackground(Color.RED);
-//                panelCen.setBackground(Color.RED);
-//                panelDer.setBackground(Color.RED);
+
             	panel.setBackground(Color.RED);
             } else {
-//            	panelIzq.getBackground();
-//                panelCen.getBackground();
-//                panelDer.getBackground();
-            	panel.getBackground();
+
+            	panel.setBackground(Color.WHITE);
             }
 
             return panel;
         }	
     }
+    
+   // JPanel pZonaAsientos = new JPanel();
+    
+    
     
     
 

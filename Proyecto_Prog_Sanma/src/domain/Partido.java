@@ -6,6 +6,7 @@ public class Partido {
 	private String hora;
 	private String competicion;
 	private String descripcion;
+	private Integer Jornada;
 	
 	
 	public Partido(String nombrePart, String fecha, String hora, String competicion, String descripcion) {
@@ -72,6 +73,16 @@ public class Partido {
 	public String toString() {
 		return "Partido [nombrePart=" + nombrePart + ", fecha=" + fecha + ", hora=" + hora + ", competicion="
 				+ competicion + ", descripcion=" + descripcion + "]";
+	}
+
+
+	public Integer getJornada() {
+		return Jornada;
+	}
+
+
+	public void setJornada(Integer jornada) {
+		Jornada = jornada;
 	}
 	
 	
