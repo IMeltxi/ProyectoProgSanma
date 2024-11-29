@@ -6,7 +6,7 @@ public class Entradas{
 	public enum TipoEntrada {
 		GENERAL, SOCIOS, GAZTEABONO, VIP
 	}
-	private enum Localidad {
+	public enum Localidad {
 		NORTE, SUR, ESTE, PRINCIPAL
 	}
 	private TipoEntrada tipoEntrada;
