@@ -80,36 +80,36 @@ public class VentanaAsientos extends JFrame {
     private void mostrarAsientos() {
         panel.removeAll();
         for (Asiento asiento : asientos) {
-            JLabel asientoLabel;
+            JLabel lAsiento;
 
             if (asiento.getEstado().equals("Escalera")) {
-                asientoLabel = new JLabel("Escalera", (int) CENTER_ALIGNMENT);
-                asientoLabel.setBackground(Color.LIGHT_GRAY);
-                asientoLabel.setOpaque(true);
+                lAsiento = new JLabel("Escalera", (int) CENTER_ALIGNMENT);
+                lAsiento.setBackground(Color.LIGHT_GRAY);
+                lAsiento.setOpaque(true);
             } else if (asiento.getEstado().equals("Pasillo")) {
-            	asientoLabel = new JLabel("Pasillo", (int) CENTER_ALIGNMENT);
-            	asientoLabel.setBackground(Color.LIGHT_GRAY);
-            	asientoLabel.setOpaque(true);            	
+            	lAsiento = new JLabel("Pasillo", (int) CENTER_ALIGNMENT);
+            	lAsiento.setBackground(Color.LIGHT_GRAY);
+            	lAsiento.setOpaque(true);            	
             }else {
-                asientoLabel = new JLabel(asiento.getEstado().equals("Libre") ? asientoLibreIcon : asientoOcupadoIcon);
-                asientoLabel.setHorizontalAlignment(JLabel.CENTER);
-                asientoLabel.setVerticalAlignment(JLabel.CENTER);
+                lAsiento = new JLabel(asiento.getEstado().equals("Libre") ? asientoLibreIcon : asientoOcupadoIcon);
+                lAsiento.setHorizontalAlignment(JLabel.CENTER);
+                lAsiento.setVerticalAlignment(JLabel.CENTER);
 
-                asientoLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+                lAsiento.addMouseListener(new java.awt.event.MouseAdapter() {
                     @Override
                     public void mouseClicked(java.awt.event.MouseEvent e) {
                         if (asiento.getEstado().equals("Libre")) {
                             asiento.setEstado("Ocupado");
-                            asientoLabel.setIcon(asientoOcupadoIcon);
+                            lAsiento.setIcon(asientoOcupadoIcon);
                         } else if (asiento.getEstado().equals("Ocupado")) {
                             asiento.setEstado("Libre");
-                            asientoLabel.setIcon(asientoLibreIcon);
+                            lAsiento.setIcon(asientoLibreIcon);
                         }
                     }
                 });
             }
 
-            panel.add(asientoLabel);
+            panel.add(lAsiento);
         }
         panel.revalidate();
         panel.repaint();
