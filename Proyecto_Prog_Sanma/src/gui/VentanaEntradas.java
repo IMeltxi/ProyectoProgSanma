@@ -61,6 +61,8 @@ public class VentanaEntradas extends JFrame {
         
         
         PartidoCombo[] partidos = {
+        	new PartidoCombo("--",
+        			null, null),
             new PartidoCombo("Athletic vs Real Madrid",
                     redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
                     redimensionarIcono("Imagenes/ImagenesEquipos/RealMadrid.png")),
