@@ -13,6 +13,7 @@ public class VentanaAsientos extends JFrame {
 
     private final ImageIcon asientoLibreIcon = redimensionarImagen(new ImageIcon("Imagenes/ImagenesAsientos/AsientoLibre.png"), 100, 100);
     private final ImageIcon asientoOcupadoIcon = redimensionarImagen(new ImageIcon("Imagenes/ImagenesAsientos/AsientoOcupado.png"), 100, 100);
+    
 
     public VentanaAsientos() throws IOException {
         setTitle("Selección de Asientos");
