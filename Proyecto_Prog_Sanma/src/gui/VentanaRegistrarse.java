@@ -18,13 +18,15 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+
+import domain.Admin;
 import domain.Usuario;
 import domain.Usuario.tipoSocio;
 
 public class VentanaRegistrarse extends JFrame {
     
 	private static final long serialVersionUID = 1L;
-
+	private Admin admin;
 	public VentanaRegistrarse() {
         // Configuración de la ventana
         setTitle("Registrarse");
@@ -140,13 +142,18 @@ public class VentanaRegistrarse extends JFrame {
                 String telefono = tlfField.getText();
                 String fechanac = fechaNacimientoField.getText();
                 String gmail = correoField.getText();
-                String contraseña = contraseniaField.getText();
-                String confirmarContraseña = contrasenia2Field.getText();
+                // Obtener contraseñas desde JPasswordField
+                char[] contraseñaArray = contraseniaField.getPassword();
+                String contraseña = new String(contraseñaArray); // Convertir el arreglo de char a String
+                char[] confirmarContraseñaArray = contrasenia2Field.getPassword();
+                String confirmarContraseña = new String(confirmarContraseñaArray); // Convertir el arreglo de char a String
+
                 
                 if(contraseña.equals(confirmarContraseña)) {
                 	//El tipoSocio.Socio es para que no de error, 
                 	//a la hora de registrarse habria que poner tmb como que tipo de socio se registra
                 	Usuario u = new Usuario(tipoSocio.SOCIO,nombre, apellido, telefono, fechanac, gmail, contraseña, 1 );
+                	admin.añadirUsuarios(u);
                 	System.out.println(u);
                 }else {
 					JOptionPane.showMessageDialog(null, "contraseña no coincide");
