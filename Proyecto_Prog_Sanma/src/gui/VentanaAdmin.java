@@ -35,7 +35,8 @@ import domain.Usuario.tipoSocio;
 public class VentanaAdmin extends JFrame {
 	private Admin admin;
 	private JTable tabla;
-	public VentanaAdmin() {
+	
+	public VentanaAdmin(Admin admin) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -199,9 +200,11 @@ public class VentanaAdmin extends JFrame {
 	    }
 	}
 
-	
 	public static void main(String[] args) {
-		new VentanaAdmin();
+		Admin admin = new Admin();
+		new VentanaAdmin(admin);
 	}
+	
+
 	}
 
