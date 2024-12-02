@@ -91,7 +91,7 @@ public class VentanaRegistrarse extends JFrame {
         panel2.add(Box.createRigidArea(new Dimension(0,10)));
         
         // Etiqueta y campo de texto de Fecha de nacimiento
-        JLabel fechaNacimientoLabel = new JLabel("Fecha de nacimiento:(dd-MM-AAAA)");
+        JLabel fechaNacimientoLabel = new JLabel("Fecha de nacimiento:(yyyy-MM-aa)");
         fechaNacimientoLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel2.add(fechaNacimientoLabel);
         

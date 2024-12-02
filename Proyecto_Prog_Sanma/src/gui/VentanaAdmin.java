@@ -131,7 +131,7 @@ public class VentanaAdmin extends JFrame {
         ModeloTabla nuevoModelo = new ModeloTabla(usuariosFiltrados);
         tabla.setModel(nuevoModelo);
     }
-}
+
 	
 	
 //METODOS PARA LA TABLA
@@ -197,8 +197,11 @@ public class VentanaAdmin extends JFrame {
 	        
 	        return cellComponent;
 	    }
-}
+	}
+
 	
 	public static void main(String[] args) {
 		new VentanaAdmin();
 	}
+	}
+
