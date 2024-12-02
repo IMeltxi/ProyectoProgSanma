@@ -261,16 +261,17 @@ public class VentanaEntradas extends JFrame {
                     JOptionPane.showMessageDialog(null, "Error! Nombre Necesario.");
                 } else {
                     JOptionPane.showMessageDialog(null, "Compra Exitosa " + "para " + partido.getNombrePartido() + "! Selecciona el asiento deseado.");
+                    VentanaAsientos ventanaAsientos = null;
+    				try {
+    					ventanaAsientos = new VentanaAsientos();
+    				} catch (IOException e1) {
+    					// TODO Auto-generated catch block
+    					e1.printStackTrace();
+    				}
+                    ventanaAsientos.setVisible(true);
+                    dispose();
                 }
-                VentanaAsientos ventanaAsientos = null;
-				try {
-					ventanaAsientos = new VentanaAsientos();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-                ventanaAsientos.setVisible(true);
-                dispose();
+                
             }
         });
     }
