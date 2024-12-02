@@ -51,9 +51,8 @@ public class VentanaPrincipal extends JFrame{
         //Action listener de cada boton
         botonCE.addActionListener(new ActionListener() {
 			
-			@Override
+
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				VentanaEntradas ventanaentradas = new VentanaEntradas();
 				ventanaentradas.setVisible(true);
 				dispose();
@@ -62,9 +61,8 @@ public class VentanaPrincipal extends JFrame{
         
         botonSo.addActionListener(new ActionListener() {
 			
-			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				
 				VentanaHacermeSocio ventanasocio = new VentanaHacermeSocio();
 				ventanasocio.setVisible(true);
 				dispose();
@@ -73,9 +71,7 @@ public class VentanaPrincipal extends JFrame{
         
         botonBaja.addActionListener(new ActionListener() {
 			
-			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				VentanaDarDeBaja ventanabaja = new VentanaDarDeBaja(admin);
 				ventanabaja.setVisible(true);
 				dispose();
