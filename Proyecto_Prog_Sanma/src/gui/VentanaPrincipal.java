@@ -51,7 +51,7 @@ public class VentanaPrincipal extends JFrame{
         //Action listener de cada boton
         botonCE.addActionListener(new ActionListener() {
 			
-
+        	@Override
 			public void actionPerformed(ActionEvent e) {
 				VentanaEntradas ventanaentradas = new VentanaEntradas();
 				ventanaentradas.setVisible(true);
@@ -60,7 +60,7 @@ public class VentanaPrincipal extends JFrame{
 		});
         
         botonSo.addActionListener(new ActionListener() {
-			
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				
 				VentanaHacermeSocio ventanasocio = new VentanaHacermeSocio();
