@@ -121,6 +121,33 @@ public class BD {
 
         }
     }
+    
+    public static void borrarTablas() {
+    	String sql = "DROP TABLE IF EXISTS Usuarios";
+    	Statement stmt;
+		try {
+			stmt = con.createStatement();
+			stmt.executeUpdate(sql);
+		    sql = "DROP TABLE IF EXISTS CategoriasEntradas";
+		    stmt.executeUpdate(sql);
+		    
+		    sql = "DROP TABLE IF EXISTS Localizaciones";
+		    stmt.executeUpdate(sql);
+		    
+		    sql = "DROP TABLE IF EXISTS Entradas";
+		    stmt.executeUpdate(sql);
+		    
+		    sql = "DROP TABLE IF EXISTS Partidos";
+		    stmt.executeUpdate(sql);
+		    
+		    stmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+       
+        
+    }
 
     public static void insertarEntradas(TipoEntrada tipoEntrada, float precio) {
         String sql = "INSERT OR IGNORE INTO CategoriasEntradas (nombre_categoria, precio) VALUES (?, ?)";
@@ -189,10 +216,6 @@ public class BD {
         }
         return false;
     }
-
-
-
-
 
 
 
