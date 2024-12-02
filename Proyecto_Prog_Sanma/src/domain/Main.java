@@ -10,7 +10,6 @@ public class Main {
 		Admin a = new Admin();
 		a.cargarUsuarios();
 		a.visualizarSocios();
-		List<Usuario> usuarios = a.getUsuarios(); 
 		BD.initBD("resources/db/sanMames.db");
 		BD.crearTablas();
 		pruebas();
