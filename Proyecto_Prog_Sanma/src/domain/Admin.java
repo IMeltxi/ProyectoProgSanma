@@ -45,6 +45,8 @@ public class Admin {
 	    	//Añadir a usuarios siempre y cuando no cumplan el limite maximo
 	    	if(usuarios.size()<500000) {
 	    		usuarios.add(user);
+	    		//cargar el fichero y guardar el nuevo usuario en el fichero
+	    		
 	    	}else {
 	    		listaEsperaUsuarios.addLast(user);//añadirlos al final para no alterar la lista de espera
 	    	}
@@ -98,6 +100,13 @@ public class Admin {
 	        	listaEsperaUsuarios.removeFirst();
 	        }
 	        return false;
+	    }
+	    public boolean eliminarUsuarioAdmin(int numeroSocio) {
+	    	for(Usuario usuario : usuarios) {
+	    		if(usuario.getNumeroSocio()== numeroSocio) usuarios.remove(usuario);
+	    		return true; //usuario eliminado correctamente
+	    	}
+	    	return false;//el usuario no se a eliminado
 	    }
 		public void cargarUsuarios() {
 			File f = new File("ficheros/socios.txt");

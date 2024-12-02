@@ -1,4 +1,6 @@
 package domain;
+import java.util.List;
+
 import db.BD;
 import db.BD.tipoSocio;
 import domain.Entradas.Localidad;
@@ -8,7 +10,7 @@ public class Main {
 		Admin a = new Admin();
 		a.cargarUsuarios();
 		a.visualizarSocios();
-		//List<Usuario> usuarios = a.cargarUsuarios(); Da error ya que el metodo no devuelve nada
+		List<Usuario> usuarios = a.getUsuarios(); 
 		BD.initBD("resources/db/sanMames.db");
 		BD.crearTablas();
 		pruebas();
