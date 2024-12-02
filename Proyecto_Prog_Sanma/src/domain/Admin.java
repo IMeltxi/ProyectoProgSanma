@@ -1,16 +1,14 @@
 package domain;
 
 import java.io.File;
+
 import java.io.FileNotFoundException;
-import java.net.SecureCacheResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-
-import javax.naming.directory.SearchControls;
 
 import domain.Usuario.tipoSocio;
 
@@ -111,8 +109,7 @@ public class Admin {
 		public void cargarUsuarios() {
 			File f = new File("ficheros/socios.txt");
 			if(f.exists()) {
-				try {
-					Scanner sc = new Scanner(f);
+				try (Scanner sc = new Scanner(f)) {
 					while(sc.hasNext()) {
 						String linea = sc.nextLine();
 						String[] datos = linea.split(";");
@@ -121,6 +118,9 @@ public class Admin {
 						System.out.println(u);
 					}
 				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (NumberFormatException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}

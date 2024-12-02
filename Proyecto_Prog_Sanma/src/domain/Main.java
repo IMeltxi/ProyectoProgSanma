@@ -1,6 +1,4 @@
 package domain;
-import java.util.List;
-
 import db.BD;
 import db.BD.tipoSocio;
 import domain.Entradas.Localidad;
