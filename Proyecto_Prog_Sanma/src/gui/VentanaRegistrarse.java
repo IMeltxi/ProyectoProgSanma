@@ -18,6 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
@@ -119,7 +120,7 @@ public class VentanaRegistrarse extends JFrame {
         contraseñaLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel2.add(contraseñaLabel);
         
-        JTextField contraseniaField = new JTextField(20);
+        JPasswordField contraseniaField = new JPasswordField(20);
         contraseniaField.setMaximumSize(new Dimension(400,30));
         contraseniaField.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel2.add(contraseniaField);
@@ -131,7 +132,7 @@ public class VentanaRegistrarse extends JFrame {
         contrasenia2Label.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel2.add(contrasenia2Label);
         
-        JTextField contrasenia2Field = new JTextField(20);
+        JPasswordField contrasenia2Field = new JPasswordField(20);
         contrasenia2Field.setMaximumSize(new Dimension(400,30));
         contrasenia2Field.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel2.add(contrasenia2Field);
