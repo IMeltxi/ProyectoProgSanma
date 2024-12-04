@@ -8,6 +8,8 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -258,11 +260,22 @@ public class VentanaEntradas extends JFrame {
                 if (nombre.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Error! Nombre Necesario.");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Compra Exitosa" + "para " + partido.getNombrePartido() + "!");
+                    JOptionPane.showMessageDialog(null, "Compra Exitosa " + "para " + partido.getNombrePartido() + "! Selecciona el asiento deseado.");
+                    VentanaAsientos ventanaAsientos = null;
+    				try {
+    					ventanaAsientos = new VentanaAsientos();
+    				} catch (IOException e1) {
+    					// TODO Auto-generated catch block
+    					e1.printStackTrace();
+    				}
+                    ventanaAsientos.setVisible(true);
+                    dispose();
                 }
+                
             }
         });
     }
+    
 
     private Icon redimensionarIcono(String rIcono) {
         ImageIcon iconoOriginal = new ImageIcon(rIcono);

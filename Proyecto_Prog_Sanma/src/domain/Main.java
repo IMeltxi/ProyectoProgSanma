@@ -8,7 +8,6 @@ public class Main {
 		Admin a = new Admin();
 		a.cargarUsuarios();
 		a.visualizarSocios();
-		//List<Usuario> usuarios = a.cargarUsuarios(); Da error ya que el metodo no devuelve nada
 		BD.initBD("resources/db/sanMames.db");
 		BD.crearTablas();
 		pruebas();

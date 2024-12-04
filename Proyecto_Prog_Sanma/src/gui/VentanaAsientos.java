@@ -2,6 +2,8 @@ package gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,7 @@ public class VentanaAsientos extends JFrame {
 
     private final ImageIcon asientoLibreIcon = redimensionarImagen(new ImageIcon("Imagenes/ImagenesAsientos/AsientoLibre.png"), 100, 100);
     private final ImageIcon asientoOcupadoIcon = redimensionarImagen(new ImageIcon("Imagenes/ImagenesAsientos/AsientoOcupado.png"), 100, 100);
+    
 
     public VentanaAsientos() throws IOException {
         setTitle("Selección de Asientos");
@@ -30,22 +33,45 @@ public class VentanaAsientos extends JFrame {
         
         
         mostrarAsientos();
+        
+        JPanel pBotones = new JPanel();
+        pBotones.setLayout(new FlowLayout());
+        pBotones.setBorder(null);
 
         JButton guardarBtn = new JButton("Comprar entradas");
-        guardarBtn.addActionListener(e -> {
-            try {
-                guardarAsientosEnCSV(AsientosSanMames);
-                JOptionPane.showMessageDialog(this, "Entradas Compradas!");
-            } catch (IOException ex) {
-                ex.printStackTrace();
-                JOptionPane.showMessageDialog(this, "Error al comprar entradas.", "Error", JOptionPane.ERROR_MESSAGE);
+        guardarBtn.addActionListener(new ActionListener() {
+			
+        	@Override
+			public void actionPerformed(ActionEvent e) {
+        		try {
+					guardarAsientosEnCSV(AsientosSanMames);
+					JOptionPane.showMessageDialog(null, "Entradas Compradas!");
+				} catch (IOException e1) {
+					JOptionPane.showMessageDialog(null, "Error al comprar las estradas");
+				}
+								
+			}
+		});
+        
+        JButton atrasBtn = new JButton("Atrás");
+        atrasBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VentanaEntradas ventanaEntradas = null;
+				ventanaEntradas= new VentanaEntradas();
+                ventanaEntradas.setVisible(true);
+                dispose();
             }
-        });
+		});
+        
         
         
 
         add(panel, BorderLayout.CENTER);
-        add(guardarBtn, BorderLayout.SOUTH);
+        pBotones.add(guardarBtn);
+        pBotones.add(atrasBtn);
+        add(pBotones,BorderLayout.SOUTH);
         setVisible(true);
     }
     
@@ -63,7 +89,7 @@ public class VentanaAsientos extends JFrame {
                 }
             } else {
                 for (int col = 0; col < totalColumnas; col++) {
-                    if (col % 9 == 8) { 
+                    if (col == 8 ) { 
 
                         asientos.add(new Asiento(fila, col, "Escalera"));	
                     } else {

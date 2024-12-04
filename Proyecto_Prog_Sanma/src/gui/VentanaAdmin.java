@@ -8,21 +8,19 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.BorderFactory;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -61,10 +59,29 @@ public class VentanaAdmin extends JFrame {
 		String[] tipoSocios = {"Cualquiera", "SocioMensual", "Socio", "VIP", "GAZTEABONO"};
 		ComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>(tipoSocios);
 		JComboBox<String> cBTipoSocio = new JComboBox<>(comboBoxModel);
-		cBTipoSocio.addActionListener(e -> {
-		    String tipoSeleccionado = (String) cBTipoSocio.getSelectedItem();
-		    actualizarTablaPorTipo(tipoSeleccionado);
+		
+		// Añadir un ActionListener para filtrar los usuarios al cambiar la selección
+		cBTipoSocio.addActionListener(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        String seleccion = (String) cBTipoSocio.getSelectedItem();
+		        seleccion = seleccion.toUpperCase();
+		        List<Usuario> usuariosFiltrados;
+
+		        if ("CUALQUIERA".equals(seleccion)) {
+		            // Mostrar todos los usuarios
+		            usuariosFiltrados = admin.getUsuarios();
+		        } else {
+		            // Filtrar usuarios por tipo de socio
+		            usuariosFiltrados = admin.visualizarUsuariosPorTipo(tipoSocio.valueOf(seleccion));
+		        }
+
+		        // Actualizar el modelo de la tabla con los usuarios filtrados
+		        ((ModeloTabla) tabla.getModel()).setUsuarios(usuariosFiltrados);
+		        ((ModeloTabla) tabla.getModel()).fireTableDataChanged(); // Notificar cambios al modelo
+		    }
 		});
+		
 		panelSup.add(cBTipoSocio);
 		panelCont.add(panelSup, BorderLayout.NORTH); // Colocar en la parte superior
 
@@ -81,9 +98,63 @@ public class VentanaAdmin extends JFrame {
 		botonEliminar.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
-		        System.out.println("botonEliminar pulsado");
+		        // Obtener la fila seleccionada
+		        int filaSeleccionada = tabla.getSelectedRow();
+		        
+		        if (filaSeleccionada == -1) {
+		            // No se seleccionó ninguna fila
+		            JOptionPane.showMessageDialog(VentanaAdmin.this, 
+		                                          "Por favor, selecciona un usuario para eliminar.", 
+		                                          "Error", 
+		                                          JOptionPane.ERROR_MESSAGE);
+		            return;
+		        }
+		        // Obtener el modelo de la tabla
+		        ModeloTabla modelo = (ModeloTabla) tabla.getModel();
+		        //Obtener nombre y apellido
+		        String nombreApellido = (String) modelo.getValueAt(filaSeleccionada, 1)+ " " + modelo.getValueAt(filaSeleccionada, 2);
+		        // Confirmación antes de eliminar
+		        int confirmacion = JOptionPane.showConfirmDialog(
+		                VentanaAdmin.this,
+		                "¿Estás seguro de que quieres eliminar a "+nombreApellido+ " ?",
+		                "Confirmar eliminación",
+		                JOptionPane.YES_NO_OPTION);
+
+		        if (confirmacion != JOptionPane.YES_OPTION) {
+		            JOptionPane.showMessageDialog(
+		                    VentanaAdmin.this, 
+		                    "Operación cancelada.", 
+		                    "Información", 
+		                    JOptionPane.INFORMATION_MESSAGE);
+		            return; // Salir si el usuario no confirma
+		        }
+		        
+		        
+
+		        // Obtener el número de socio del usuario seleccionado
+		        int numeroSocio = (int) modelo.getValueAt(filaSeleccionada, 6);
+		        
+		        // Eliminar el usuario del administrador
+		        boolean eliminado = admin.eliminarUsuarioAdmin(numeroSocio);
+
+		        if (eliminado) {
+		            // Actualizar la lista de usuarios en el modelo de la tabla
+		            modelo.setUsuarios(admin.getUsuarios());
+		            modelo.fireTableDataChanged(); // Notificar cambios en los datos
+
+		            JOptionPane.showMessageDialog(VentanaAdmin.this, 
+		                                          nombreApellido+" eliminado correctamente.", 
+		                                          "Éxito", 
+		                                          JOptionPane.INFORMATION_MESSAGE);
+		        } else {
+		            JOptionPane.showMessageDialog(VentanaAdmin.this, 
+		                                          "No se pudo eliminar el usuario. Inténtalo de nuevo.", 
+		                                          "Error", 
+		                                          JOptionPane.ERROR_MESSAGE);
+		        }
 		    }
 		});
+
 		panelInf.add(botonAñadir);
 		panelInf.add(botonEliminar);
 		panelCont.add(panelInf, BorderLayout.SOUTH); // Colocar en la parte inferior
@@ -106,32 +177,9 @@ public class VentanaAdmin extends JFrame {
 		panelCent.add(scrollPane, BorderLayout.CENTER);
 		panelCont.add(panelCent, BorderLayout.CENTER); // Colocar en el centro
 
-        // Listener para filtrar la tabla según el tipo de socio seleccionado
-        cBTipoSocio.addActionListener(e -> {
-            String tipoSeleccionado = (String) cBTipoSocio.getSelectedItem();
-            actualizarTablaPorTipo(tipoSeleccionado);
-        });
-
         setVisible(true);
     }
 
-    private void actualizarTablaPorTipo(String tipoSeleccionado) {
-        List<Usuario> usuariosFiltrados;
-
-        if ("Cualquiera".equals(tipoSeleccionado)) {
-            usuariosFiltrados = admin.getUsuarios();
-        } else {
-            try {
-                tipoSocio tipo = tipoSocio.valueOf(tipoSeleccionado.toUpperCase());
-                usuariosFiltrados = admin.visualizarUsuariosPorTipo(tipo);
-            } catch (IllegalArgumentException e) {
-                usuariosFiltrados = new ArrayList<>();
-            }
-        }
-
-        ModeloTabla nuevoModelo = new ModeloTabla(usuariosFiltrados);
-        tabla.setModel(nuevoModelo);
-    }
 
 	
 	
@@ -144,13 +192,18 @@ public class VentanaAdmin extends JFrame {
 	private static final long serialVersionUID = 1L;
 		private final String[] header = { "TipoSocio", "Nombre", "Apellido", "Telefono", 
 	                                           "Fecha de Nacimiento", "Correo", "Numero de Socio" };
-	    private final List<Usuario> usuarios;
+	    private List<Usuario> usuarios;
 
 	    public ModeloTabla(List<Usuario> usuarios) {
 	        this.usuarios = usuarios;
 	    }
 
-	    @Override
+	    public void setUsuarios(List<Usuario> usuarios) {
+			// TODO Auto-generated method stub
+	    	this.usuarios=usuarios;
+		}
+
+		@Override
 	    public int getRowCount() {
 	        return usuarios.size();
 	    }
@@ -204,7 +257,8 @@ public class VentanaAdmin extends JFrame {
 		Admin admin = new Admin();
 		new VentanaAdmin(admin);
 	}
+}
+
 	
 
-	}
 

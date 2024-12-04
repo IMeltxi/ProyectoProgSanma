@@ -1,15 +1,11 @@
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDate;
-
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -18,8 +14,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
@@ -29,11 +25,8 @@ import domain.Usuario.tipoSocio;
 
 public class VentanaRegistrarse extends JFrame {
     
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-
+	private Admin admin;
 	public VentanaRegistrarse() {
         // Configuración de la ventana
         setTitle("Registrarse");
@@ -119,7 +112,7 @@ public class VentanaRegistrarse extends JFrame {
         contraseñaLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel2.add(contraseñaLabel);
         
-        JTextField contraseniaField = new JTextField(20);
+        JPasswordField contraseniaField = new JPasswordField(20);
         contraseniaField.setMaximumSize(new Dimension(400,30));
         contraseniaField.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel2.add(contraseniaField);
@@ -131,7 +124,7 @@ public class VentanaRegistrarse extends JFrame {
         contrasenia2Label.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel2.add(contrasenia2Label);
         
-        JTextField contrasenia2Field = new JTextField(20);
+        JPasswordField contrasenia2Field = new JPasswordField(20);
         contrasenia2Field.setMaximumSize(new Dimension(400,30));
         contrasenia2Field.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel2.add(contrasenia2Field);
@@ -149,13 +142,18 @@ public class VentanaRegistrarse extends JFrame {
                 String telefono = tlfField.getText();
                 String fechanac = fechaNacimientoField.getText();
                 String gmail = correoField.getText();
-                String contraseña = contraseniaField.getText();
-                String confirmarContraseña = contrasenia2Field.getText();
+                // Obtener contraseñas desde JPasswordField
+                char[] contraseñaArray = contraseniaField.getPassword();
+                String contraseña = new String(contraseñaArray); // Convertir el arreglo de char a String
+                char[] confirmarContraseñaArray = contrasenia2Field.getPassword();
+                String confirmarContraseña = new String(confirmarContraseñaArray); // Convertir el arreglo de char a String
+
                 
                 if(contraseña.equals(confirmarContraseña)) {
                 	//El tipoSocio.Socio es para que no de error, 
                 	//a la hora de registrarse habria que poner tmb como que tipo de socio se registra
                 	Usuario u = new Usuario(tipoSocio.SOCIO,nombre, apellido, telefono, fechanac, gmail, contraseña, 1 );
+                	admin.añadirUsuarios(u);
                 	System.out.println(u);
                 }else {
 					JOptionPane.showMessageDialog(null, "contraseña no coincide");
