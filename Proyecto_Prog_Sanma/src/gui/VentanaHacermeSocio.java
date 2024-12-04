@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Component;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,8 +14,15 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
+
+import domain.Usuario;
+import domain.Admin;
 public class VentanaHacermeSocio extends JFrame {
+	private Admin admin; // Referencia al administrador para actualizar los usuarios
+    private Usuario usuario; // Usuario actual que está iniciando la sesión
     public VentanaHacermeSocio() {
+        this.admin = admin;
+        this.usuario = usuario;
         // Configuración de la ventana
         setTitle("Hacerme Socio");
         setSize(800, 600); // Tamaño de la ventana más grande
@@ -138,7 +146,7 @@ public class VentanaHacermeSocio extends JFrame {
 
         // Métodos para abrir las ventanas
         private void abrirVentanaVIP() {
-            VentanaVIP ventanavip = new VentanaVIP();
+            VentanaVIP ventanavip = new VentanaVIP(admin, usuario);
             ventanavip.setVisible(true);
         }
 
@@ -155,6 +163,17 @@ public class VentanaHacermeSocio extends JFrame {
 
     // Método principal para probar la ventana
     public static void main(String[] args) {
+    	 Admin admin = new Admin();
+         Usuario usuario = new Usuario(
+                 Usuario.tipoSocio.SOCIO, 
+                 "Juan", 
+                 "Perez", 
+                 "123456789", 
+                 "1985-04-15", 
+                 "juan.perez@example.com", 
+                 "password123", 
+                 1
+         );
         new VentanaHacermeSocio();
     }
 }

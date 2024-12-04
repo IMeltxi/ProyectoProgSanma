@@ -9,11 +9,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import domain.Admin;
+import domain.Usuario;
+import domain.Admin;
 
 public class VentanaPrincipal extends JFrame{
 	
 	private Admin admin;
-	
+	private Usuario usuario;
 	public static void main(String[] args) {
         new VentanaPrincipal();
     }
