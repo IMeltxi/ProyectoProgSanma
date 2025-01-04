@@ -3,7 +3,7 @@ import db.BD;
 import db.BD.tipoSocio;
 import domain.Entradas.Localidad;
 import domain.Entradas.TipoEntrada;
-public class Main {
+public class Main  {
 	public static void main(String[] args) {
 		Admin a = new Admin();
 		a.cargarUsuarios();
@@ -11,6 +11,31 @@ public class Main {
 		BD.initBD("resources/db/sanMames.db");
 		BD.crearTablas();
 		pruebas();
+		//Funcion recursiva
+		Partido[] partidos = {
+			    new Partido("Athletic vs Real Madrid", "2023-08-12", "21:30", "LaLiga", "Jornada 1 - Inicio de temporada en San Mamés"),
+			    new Partido("Athletic vs Betis", "2023-08-27", "21:30", "LaLiga", "Jornada 3 - Partido importante contra Betis"),
+			    new Partido("Athletic vs Cádiz", "2023-09-16", "18:30", "LaLiga", "Jornada 5 - Partido accesible"),
+			    new Partido("Athletic vs Getafe", "2023-09-27", "19:00", "LaLiga", "Jornada 7 - Rival incómodo"),
+			    new Partido("Athletic vs Almería", "2023-10-08", "16:15", "LaLiga", "Jornada 9 - Partido clave por puntos"),
+			    new Partido("Athletic vs Valencia", "2023-10-29", "16:15", "LaLiga", "Jornada 11 - Duelo histórico"),
+			    new Partido("Athletic vs Celta", "2023-11-05", "18:30", "LaLiga", "Jornada 12 - Importante para consolidarse en casa"),
+			    new Partido("Athletic vs Rayo Vallecano", "2023-12-03", "21:00", "LaLiga", "Jornada 15 - Partido exigente"),
+			    new Partido("Athletic vs Real Sociedad", "2023-12-17", "16:15", "LaLiga", "Jornada 17 - Derbi vasco"),
+			    new Partido("Athletic vs Mallorca", "2024-01-07", "16:15", "LaLiga", "Jornada 19 - Inicio del año en San Mamés"),
+			    new Partido("Athletic vs Villarreal", "2024-01-28", "18:30", "LaLiga", "Jornada 21 - Rival europeo"),
+			    new Partido("Athletic vs Las Palmas", "2024-02-11", "16:15", "LaLiga", "Jornada 23 - Partido asequible en casa"),
+			    new Partido("Athletic vs Girona", "2024-02-25", "18:30", "LaLiga", "Jornada 25 - Rival en buena forma"),
+			    new Partido("Athletic vs Sevilla", "2024-03-10", "16:15", "LaLiga", "Jornada 27 - Duelo histórico"),
+			    new Partido("Athletic vs Granada", "2024-03-31", "18:30", "LaLiga", "Jornada 29 - Partido para sumar puntos importantes"),
+			    new Partido("Athletic vs Osasuna", "2024-04-14", "16:15", "LaLiga", "Jornada 31 - Rival directo"),
+			    new Partido("Athletic vs Atlético de Madrid", "2024-04-28", "18:30", "LaLiga", "Jornada 33 - Partido de alto nivel"),
+			    new Partido("Athletic vs Barcelona", "2024-05-19", "18:30", "LaLiga", "Jornada 36 - Uno de los partidos más esperados"),
+			    new Partido("Athletic vs Espanyol", "2024-05-26", "18:30", "LaLiga", "Jornada 38 - Cierre de temporada en San Mamés")
+			};
+
+		Partido masCercano = Admin.buscarPartidoMasCercanoRecursividad(partidos, 0, "2024-03-05");
+		System.out.println("Partido más cercano: " + masCercano);
 	}
 	
 	public static void pruebas() {

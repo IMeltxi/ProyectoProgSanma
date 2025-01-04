@@ -143,6 +143,27 @@ public class Admin {
 		}
 }
 	
+	public static Partido buscarPartidoMasCercanoRecursividad(Partido[] partidos, int i, String fechaReferencia) {
+	    // Caso base: Si no hay más partidos, devolver null
+	    if (i == partidos.length) {
+	        return null;
+	    }
+
+	    // Caso recursivo: Comparar fechas y decidir cuál es el más cercano
+	    Partido siguiente = buscarPartidoMasCercanoRecursividad(partidos, i + 1, fechaReferencia);
+
+	    if (siguiente == null) {
+	        return partidos[i];
+	    }
+
+	    // Comparar fechas
+	    int diferenciaActual = Math.abs(partidos[i].getFecha().compareTo(fechaReferencia));
+	    int diferenciaSiguiente = Math.abs(siguiente.getFecha().compareTo(fechaReferencia));
+
+	    return diferenciaActual < diferenciaSiguiente ? partidos[i] : siguiente;
+	    // condición ? valor_si_verdadero : valor_si_falso;
+	}
+
 
 	
 }
