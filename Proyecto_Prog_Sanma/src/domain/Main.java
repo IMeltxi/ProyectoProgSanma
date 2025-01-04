@@ -34,7 +34,7 @@ public class Main  {
 			    new Partido("Athletic vs Espanyol", "2024-05-26", "18:30", "LaLiga", "Jornada 38 - Cierre de temporada en San Mamés")
 			};
 
-		Partido masCercano = Admin.buscarPartidoMasCercanoRecursividad(partidos, 0, "2024-03-05");
+		Partido masCercano = Admin.buscarPartidoMasCercanoRecursividad(partidos, 0, "2024-03-30");
 		System.out.println("Partido más cercano: " + masCercano);
 	}
 	

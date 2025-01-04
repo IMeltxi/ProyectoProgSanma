@@ -3,6 +3,9 @@ package domain;
 import java.io.File;
 
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -149,19 +152,27 @@ public class Admin {
 	        return null;
 	    }
 
-	    // Caso recursivo: Comparar fechas y decidir cuál es el más cercano
+	    // Parsear la fecha de referencia a LocalDate
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	    LocalDate fechaRef = LocalDate.parse(fechaReferencia, formatter);
+
+	    // Caso recursivo: Comparar fechas con el siguiente partido
 	    Partido siguiente = buscarPartidoMasCercanoRecursividad(partidos, i + 1, fechaReferencia);
 
 	    if (siguiente == null) {
 	        return partidos[i];
 	    }
 
-	    // Comparar fechas
-	    int diferenciaActual = Math.abs(partidos[i].getFecha().compareTo(fechaReferencia));
-	    int diferenciaSiguiente = Math.abs(siguiente.getFecha().compareTo(fechaReferencia));
+	    // Convertir las fechas del partido actual y del siguiente a LocalDate
+	    LocalDate fechaActual = LocalDate.parse(partidos[i].getFecha(), formatter);
+	    LocalDate fechaSiguiente = LocalDate.parse(siguiente.getFecha(), formatter);
 
+	    // Calcular la diferencia en días entre las fechas
+	    long diferenciaActual = Math.abs(ChronoUnit.DAYS.between(fechaRef, fechaActual));
+	    long diferenciaSiguiente = Math.abs(ChronoUnit.DAYS.between(fechaRef, fechaSiguiente));
+
+	    // Retornar el partido con la menor diferencia
 	    return diferenciaActual < diferenciaSiguiente ? partidos[i] : siguiente;
-	    // condición ? valor_si_verdadero : valor_si_falso;
 	}
 
 
