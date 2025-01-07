@@ -1,11 +1,11 @@
 package gui;
 
 import java.awt.BorderLayout;
-
-
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-
+import javax.swing.JTextField;
 import javax.swing.border.MatteBorder;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -29,158 +29,226 @@ import domain.Admin;
 import domain.Usuario;
 import domain.Usuario.tipoSocio;
 
-
 public class VentanaAdmin extends JFrame {
-	private Admin admin;
-	private JTable tabla;
-	
-	public VentanaAdmin(Admin admin) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLocationRelativeTo(null);
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		setTitle("Ventana Administrador");
+    private Admin admin;
+    private JTable tabla;
+    private JPanel panelLateral; // Panel para añadir socios
+    private JTextField txtNombre, txtApellido, txtTelefono, txtFechaNacimiento, txtCorreo, txtNumeroSocio;
+    private JComboBox<String> cbTipoSocio;
+
+    public VentanaAdmin(Admin admin) {
+        this.admin = admin;
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setTitle("Ventana Administrador");
         admin.cargarUsuarios(); // Cargar usuarios desde el fichero
-		setLayout(new BorderLayout());
-		
-		//Panel con el texto "APARTADO ADMINISTRADOR"
-		JPanel panelSuperior = new JPanel();
-		JLabel texto = new JLabel("APARTADO ADMINISTRADOR");
-		texto.setFont(new Font("Arial", Font.BOLD, 16));
-		panelSuperior.setBorder(new MatteBorder(0, 0, 6, 0, Color.BLACK)); //Borde en la parte inferior de grosor 6
-		panelSuperior.add(texto);
-		add(panelSuperior,BorderLayout.NORTH);
-		
-		// Panel contenido
-		JPanel panelCont = new JPanel(new BorderLayout()); // Usar BorderLayout para organizar los subpaneles
-		add(panelCont, BorderLayout.CENTER);
+        setLayout(new BorderLayout());
 
-		// Panel superior del contenido (para el ComboBox)
-		JPanel panelSup = new JPanel();
-		String[] tipoSocios = {"Cualquiera", "SocioMensual", "Socio", "VIP", "GAZTEABONO"};
-		ComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>(tipoSocios);
-		JComboBox<String> cBTipoSocio = new JComboBox<>(comboBoxModel);
-		
-		// Añadir un ActionListener para filtrar los usuarios al cambiar la selección
-		cBTipoSocio.addActionListener(new ActionListener() {
-		    @Override
-		    public void actionPerformed(ActionEvent e) {
-		        String seleccion = (String) cBTipoSocio.getSelectedItem();
-		        seleccion = seleccion.toUpperCase();
-		        List<Usuario> usuariosFiltrados;
+        // Panel con el texto "APARTADO ADMINISTRADOR"
+        JPanel panelSuperior = new JPanel();
+        JLabel texto = new JLabel("APARTADO ADMINISTRADOR");
+        texto.setFont(new Font("Arial", Font.BOLD, 16));
+        panelSuperior.setBorder(new MatteBorder(0, 0, 6, 0, Color.BLACK)); // Borde en la parte inferior de grosor 6
+        panelSuperior.add(texto);
+        add(panelSuperior, BorderLayout.NORTH);
 
-		        if ("CUALQUIERA".equals(seleccion)) {
-		            // Mostrar todos los usuarios
-		            usuariosFiltrados = admin.getUsuarios();
-		        } else {
-		            // Filtrar usuarios por tipo de socio
-		            usuariosFiltrados = admin.visualizarUsuariosPorTipo(tipoSocio.valueOf(seleccion));
-		        }
+        // Panel contenido central
+        JPanel panelCont = new JPanel(new BorderLayout());
+        add(panelCont, BorderLayout.CENTER);
 
-		        // Actualizar el modelo de la tabla con los usuarios filtrados
-		        ((ModeloTabla) tabla.getModel()).setUsuarios(usuariosFiltrados);
-		        ((ModeloTabla) tabla.getModel()).fireTableDataChanged(); // Notificar cambios al modelo
-		    }
-		});
-		
-		panelSup.add(cBTipoSocio);
-		panelCont.add(panelSup, BorderLayout.NORTH); // Colocar en la parte superior
+        // Panel superior del contenido (para el ComboBox)
+        JPanel panelSup = new JPanel();
+        String[] tipoSocios = {"Cualquiera", "SocioMensual", "Socio", "VIP", "GAZTEABONO"};
+        ComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>(tipoSocios);
+        JComboBox<String> cBTipoSocio = new JComboBox<>(comboBoxModel);
 
-		// Panel inferior del contenido (para los botones)
-		JPanel panelInf = new JPanel();
-		JButton botonAñadir = new JButton("Añadir socios");
-		JButton botonEliminar = new JButton("Eliminar socios");
-		botonAñadir.addActionListener(new ActionListener() {
-		    @Override
-		    public void actionPerformed(ActionEvent e) {
-		        System.out.println("botonAñadir pulsado");
-		    }
-		});
-		botonEliminar.addActionListener(new ActionListener() {
-		    @Override
-		    public void actionPerformed(ActionEvent e) {
-		        // Obtener la fila seleccionada
-		        int filaSeleccionada = tabla.getSelectedRow();
-		        
-		        if (filaSeleccionada == -1) {
-		            // No se seleccionó ninguna fila
-		            JOptionPane.showMessageDialog(VentanaAdmin.this, 
-		                                          "Por favor, selecciona un usuario para eliminar.", 
-		                                          "Error", 
-		                                          JOptionPane.ERROR_MESSAGE);
-		            return;
-		        }
-		        // Obtener el modelo de la tabla
-		        ModeloTabla modelo = (ModeloTabla) tabla.getModel();
-		        //Obtener nombre y apellido
-		        String nombreApellido = (String) modelo.getValueAt(filaSeleccionada, 1)+ " " + modelo.getValueAt(filaSeleccionada, 2);
-		        // Confirmación antes de eliminar
-		        int confirmacion = JOptionPane.showConfirmDialog(
-		                VentanaAdmin.this,
-		                "¿Estás seguro de que quieres eliminar a "+nombreApellido+ " ?",
-		                "Confirmar eliminación",
-		                JOptionPane.YES_NO_OPTION);
+        // Añadir un ActionListener para filtrar los usuarios al cambiar la selección
+        cBTipoSocio.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String seleccion = (String) cBTipoSocio.getSelectedItem();
+                seleccion = seleccion.toUpperCase();
+                List<Usuario> usuariosFiltrados;
 
-		        if (confirmacion != JOptionPane.YES_OPTION) {
-		            JOptionPane.showMessageDialog(
-		                    VentanaAdmin.this, 
-		                    "Operación cancelada.", 
-		                    "Información", 
-		                    JOptionPane.INFORMATION_MESSAGE);
-		            return; // Salir si el usuario no confirma
-		        }
-		        
-		        
+                if ("CUALQUIERA".equals(seleccion)) {
+                    usuariosFiltrados = admin.getUsuarios();
+                } else {
+                    usuariosFiltrados = admin.visualizarUsuariosPorTipo(tipoSocio.valueOf(seleccion));
+                }
 
-		        // Obtener el número de socio del usuario seleccionado
-		        int numeroSocio = (int) modelo.getValueAt(filaSeleccionada, 6);
-		        
-		        // Eliminar el usuario del administrador
-		        boolean eliminado = admin.eliminarUsuarioAdmin(numeroSocio);
+                ((ModeloTabla) tabla.getModel()).setUsuarios(usuariosFiltrados);
+                ((ModeloTabla) tabla.getModel()).fireTableDataChanged();
+            }
+        });
 
-		        if (eliminado) {
-		            // Actualizar la lista de usuarios en el modelo de la tabla
-		            modelo.setUsuarios(admin.getUsuarios());
-		            modelo.fireTableDataChanged(); // Notificar cambios en los datos
+        panelSup.add(cBTipoSocio);
+        panelCont.add(panelSup, BorderLayout.NORTH);
 
-		            JOptionPane.showMessageDialog(VentanaAdmin.this, 
-		                                          nombreApellido+" eliminado correctamente.", 
-		                                          "Éxito", 
-		                                          JOptionPane.INFORMATION_MESSAGE);
-		        } else {
-		            JOptionPane.showMessageDialog(VentanaAdmin.this, 
-		                                          "No se pudo eliminar el usuario. Inténtalo de nuevo.", 
-		                                          "Error", 
-		                                          JOptionPane.ERROR_MESSAGE);
-		        }
-		    }
-		});
+        // Panel inferior del contenido (para los botones)
+        JPanel panelInf = new JPanel();
+        JButton botonAñadir = new JButton("Añadir socios");
+        JButton botonEliminar = new JButton("Eliminar socios");
 
-		panelInf.add(botonAñadir);
-		panelInf.add(botonEliminar);
-		panelCont.add(panelInf, BorderLayout.SOUTH); // Colocar en la parte inferior
+        botonAñadir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarPanelLateral();
+            }
+        });
 
-		// Panel central del contenido (para la tabla)
-		JPanel panelCent = new JPanel(new BorderLayout());
-		
-		
-		List<Usuario> usuarios = admin.getUsuarios();
-//		usuarios.add(new Usuario(Usuario.tipoSocio.GAZTEABONO, "Juan", "Pérez", "123456789", "1990-01-01", "juan@gmail.com", "1234", 1));
-//		usuarios.add(new Usuario(Usuario.tipoSocio.SOCIO, "Ana", "Gómez", "987654321", "1985-02-02", "ana@gmail.com", "abcd", 2));
-//		usuarios.add(new Usuario(Usuario.tipoSocio.VIP, "Luis", "Martínez", "456123789", "1975-03-03", "luis@gmail.com", "5678", 3));
+        botonEliminar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                eliminarSocioSeleccionado();
+            }
+        });
 
-		ModeloTabla modelo = new ModeloTabla(usuarios);
-		tabla = new JTable(modelo);
+        panelInf.add(botonAñadir);
+        panelInf.add(botonEliminar);
+        panelCont.add(panelInf, BorderLayout.SOUTH);
 
-		// Aplicar el render personalizado
-		tabla.setDefaultRenderer(Object.class, new RenderJTable());
-		JScrollPane scrollPane = new JScrollPane(tabla);
-		panelCent.add(scrollPane, BorderLayout.CENTER);
-		panelCont.add(panelCent, BorderLayout.CENTER); // Colocar en el centro
+        // Panel central del contenido (para la tabla)
+        JPanel panelCent = new JPanel(new BorderLayout());
+        List<Usuario> usuarios = admin.getUsuarios();
+        ModeloTabla modelo = new ModeloTabla(usuarios);
+        tabla = new JTable(modelo);
+
+        tabla.setDefaultRenderer(Object.class, new RenderJTable());
+        JScrollPane scrollPane = new JScrollPane(tabla);
+        panelCent.add(scrollPane, BorderLayout.CENTER);
+        panelCont.add(panelCent, BorderLayout.CENTER);
+
+        // Configurar el panel lateral
+        configurarPanelLateral();
+        add(panelLateral, BorderLayout.EAST);
 
         setVisible(true);
     }
 
+    private void configurarPanelLateral() {
+        panelLateral = new JPanel();
+        panelLateral.setLayout(new GridLayout(8, 2, 10, 10));
+        panelLateral.setPreferredSize(new Dimension(300, 0));
+        panelLateral.setVisible(false);
 
+        panelLateral.add(new JLabel("Tipo de Socio:"));
+        cbTipoSocio = new JComboBox<>(new String[]{"SocioMensual", "Socio", "VIP", "GAZTEABONO"});
+        panelLateral.add(cbTipoSocio);
+
+        panelLateral.add(new JLabel("Nombre:"));
+        txtNombre = new JTextField();
+        panelLateral.add(txtNombre);
+
+        panelLateral.add(new JLabel("Apellido:"));
+        txtApellido = new JTextField();
+        panelLateral.add(txtApellido);
+
+        panelLateral.add(new JLabel("Teléfono:"));
+        txtTelefono = new JTextField();
+        panelLateral.add(txtTelefono);
+
+        panelLateral.add(new JLabel("Fecha de Nacimiento (YYYY-MM-DD):"));
+        txtFechaNacimiento = new JTextField();
+        panelLateral.add(txtFechaNacimiento);
+
+        panelLateral.add(new JLabel("Correo:"));
+        txtCorreo = new JTextField();
+        panelLateral.add(txtCorreo);
+
+        panelLateral.add(new JLabel("Número de Socio:"));
+        txtNumeroSocio = new JTextField();
+        panelLateral.add(txtNumeroSocio);
+
+        JButton btnGuardar = new JButton("Guardar");
+        btnGuardar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                añadirSocio();
+            }
+        });
+        panelLateral.add(btnGuardar);
+
+        JButton btnCancelar = new JButton("Cancelar");
+        btnCancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ocultarPanelLateral();
+            }
+        });
+        panelLateral.add(btnCancelar);
+    }
+
+    private void mostrarPanelLateral() {
+        panelLateral.setVisible(true);
+        revalidate();
+        repaint();
+    }
+
+    private void ocultarPanelLateral() {
+        panelLateral.setVisible(false);
+        revalidate();
+        repaint();
+    }
+
+    private void añadirSocio() {
+        try {
+            String tipoSocioStr = (String) cbTipoSocio.getSelectedItem();
+            Usuario.tipoSocio tipoSocio = Usuario.tipoSocio.valueOf(tipoSocioStr.toUpperCase());
+            String nombre = txtNombre.getText().trim();
+            String apellido = txtApellido.getText().trim();
+            String telefono = txtTelefono.getText().trim();
+            String fechaNacimiento = txtFechaNacimiento.getText().trim();
+            String correo = txtCorreo.getText().trim();
+            int numeroSocio = Integer.parseInt(txtNumeroSocio.getText().trim());
+
+            if (nombre.isEmpty() || apellido.isEmpty() || telefono.isEmpty() || fechaNacimiento.isEmpty() || correo.isEmpty()) {
+                throw new IllegalArgumentException("Todos los campos deben estar llenos.");
+            }
+
+            Usuario nuevoSocio = new Usuario(tipoSocio, nombre, apellido, telefono, fechaNacimiento, correo, "", numeroSocio);
+            admin.añadirUsuarios(nuevoSocio);
+
+            ((ModeloTabla) tabla.getModel()).setUsuarios(admin.getUsuarios());
+            ((ModeloTabla) tabla.getModel()).fireTableDataChanged();
+
+            JOptionPane.showMessageDialog(this, "Socio añadido correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            ocultarPanelLateral();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error al añadir socio: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void eliminarSocioSeleccionado() {
+        int filaSeleccionada = tabla.getSelectedRow();
+
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(this, "Por favor, selecciona un usuario para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        ModeloTabla modelo = (ModeloTabla) tabla.getModel();
+        Usuario usuarioSeleccionado = modelo.usuarios.get(filaSeleccionada);
+
+        String nombreApellido = usuarioSeleccionado.getNombre() + " " + usuarioSeleccionado.getApellido();
+        int confirmacion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que quieres eliminar a " + nombreApellido + "?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+
+        if (confirmacion != JOptionPane.YES_OPTION) {
+            JOptionPane.showMessageDialog(this, "Operación cancelada.", "Información", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        boolean eliminado = admin.eliminarUsuarioAdmin(usuarioSeleccionado.getNumeroSocio());
+
+        if (eliminado) {
+            modelo.usuarios.remove(filaSeleccionada);
+            modelo.fireTableDataChanged();
+
+            JOptionPane.showMessageDialog(this, nombreApellido + " eliminado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo eliminar el usuario. Inténtalo de nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 	
 	
 //METODOS PARA LA TABLA
@@ -258,7 +326,3 @@ public class VentanaAdmin extends JFrame {
 		new VentanaAdmin(admin);
 	}
 }
-
-	
-
-
