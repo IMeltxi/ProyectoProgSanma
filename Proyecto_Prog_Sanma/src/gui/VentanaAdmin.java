@@ -28,12 +28,15 @@ import javax.swing.table.DefaultTableCellRenderer;
 import domain.Admin;
 import domain.Usuario;
 import domain.Usuario.tipoSocio;
-
+/**
+ * El codigo necesitado para realizar el panel desplegable al añadir un usuario ha sido 
+ * realizado con ChatGPT-4
+ */
 public class VentanaAdmin extends JFrame {
     private Admin admin;
     private JTable tabla;
     private JPanel panelLateral; // Panel para añadir socios
-    private JTextField txtNombre, txtApellido, txtTelefono, txtFechaNacimiento, txtCorreo, txtNumeroSocio;
+    private JTextField txtNombre, txtApellido, txtTelefono, txtFechaNacimiento, txtCorreo,txtContrasenia, txtNumeroSocio;
     private JComboBox<String> cbTipoSocio;
 
     public VentanaAdmin(Admin admin) {
@@ -128,7 +131,7 @@ public class VentanaAdmin extends JFrame {
 
     private void configurarPanelLateral() {
         panelLateral = new JPanel();
-        panelLateral.setLayout(new GridLayout(8, 2, 10, 10));
+        panelLateral.setLayout(new GridLayout(9, 2, 10, 10));
         panelLateral.setPreferredSize(new Dimension(300, 0));
         panelLateral.setVisible(false);
 
@@ -155,7 +158,11 @@ public class VentanaAdmin extends JFrame {
         panelLateral.add(new JLabel("Correo:"));
         txtCorreo = new JTextField();
         panelLateral.add(txtCorreo);
-
+        
+        panelLateral.add(new JLabel("Contraseña:"));
+        txtContrasenia = new JTextField();
+        panelLateral.add(txtContrasenia);
+        
         panelLateral.add(new JLabel("Número de Socio:"));
         txtNumeroSocio = new JTextField();
         panelLateral.add(txtNumeroSocio);
@@ -215,7 +222,7 @@ public class VentanaAdmin extends JFrame {
             JOptionPane.showMessageDialog(this, "Socio añadido correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             ocultarPanelLateral();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Error al añadir socio: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error al añadir socio", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

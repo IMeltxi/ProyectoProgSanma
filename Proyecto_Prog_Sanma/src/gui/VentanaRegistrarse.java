@@ -6,6 +6,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -28,6 +30,8 @@ public class VentanaRegistrarse extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private Admin admin;
 	public VentanaRegistrarse() {
+		Admin admin = new Admin();
+		admin.cargarUsuarios();
         // Configuración de la ventana
         setTitle("Registrarse");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -147,19 +151,30 @@ public class VentanaRegistrarse extends JFrame {
                 String contraseña = new String(contraseñaArray); // Convertir el arreglo de char a String
                 char[] confirmarContraseñaArray = contrasenia2Field.getPassword();
                 String confirmarContraseña = new String(confirmarContraseñaArray); // Convertir el arreglo de char a String
-
+                //Confirmar si es un nuevo usuario
+                boolean verificador = false;
+                for(Usuario lista:admin.getUsuarios()) {
+                	if(gmail.equals(lista.getEmail())) {
+                		verificador = true;
+                	}
+                }
                 
-                if(contraseña.equals(confirmarContraseña)) {
+                
+                if(verificador) {
+                	//Usuario ya registrado
+                	JOptionPane.showMessageDialog(null, "Este usuario ya esta registrado ", "Error", JOptionPane.ERROR_MESSAGE);
+                }else if(contraseña.equals(confirmarContraseña)) {
+                	//Requisitos para el nuevo usuario
                 	//El tipoSocio.Socio es para que no de error, 
                 	//a la hora de registrarse habria que poner tmb como que tipo de socio se registra
                 	Usuario u = new Usuario(tipoSocio.SOCIO,nombre, apellido, telefono, fechanac, gmail, contraseña, 1 );
                 	admin.añadirUsuarios(u);
                 	System.out.println(u);
+                	JOptionPane.showMessageDialog(null, "Registrado");
                 }else {
 					JOptionPane.showMessageDialog(null, "contraseña no coincide");
 
                 }
-                
                
         }
             });
