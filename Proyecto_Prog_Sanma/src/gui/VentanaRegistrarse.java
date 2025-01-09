@@ -12,6 +12,7 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -50,6 +51,13 @@ public class VentanaRegistrarse extends JFrame {
         TitledBorder titledBorder = BorderFactory.createTitledBorder("Registrarse");
         panel2.setBorder(BorderFactory.createCompoundBorder(titledBorder,new EmptyBorder(20, 20, 20, 20)));
         panel2.setLayout(new BoxLayout(panel2, BoxLayout.Y_AXIS));
+        
+        
+        JLabel panelLateral=new JLabel("Tipo de Socio:");
+        JComboBox<String> cbTipoSocio = new JComboBox<>(new String[]{"SocioMensual", "Socio", "VIP", "GAZTEABONO"});
+        panel2.add(cbTipoSocio);
+        
+        
         
         // Etiqueta y campo de texto de Nombre
         JLabel nombreLabel = new JLabel("Nombre:");
@@ -141,6 +149,8 @@ public class VentanaRegistrarse extends JFrame {
         botonInicioSesion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+            	String tipoSocioStr = (String) cbTipoSocio.getSelectedItem();
+                Usuario.tipoSocio tipoSocio = Usuario.tipoSocio.valueOf(tipoSocioStr.toUpperCase());
                 String nombre = nombreField.getText();
                 String apellido = apellidoField.getText();                
                 String telefono = tlfField.getText();
@@ -167,7 +177,7 @@ public class VentanaRegistrarse extends JFrame {
                 	//Requisitos para el nuevo usuario
                 	//El tipoSocio.Socio es para que no de error, 
                 	//a la hora de registrarse habria que poner tmb como que tipo de socio se registra
-                	Usuario u = new Usuario(tipoSocio.SOCIO,nombre, apellido, telefono, fechanac, gmail, contraseña, 1 );
+                	Usuario u = new Usuario(tipoSocio,nombre, apellido, telefono, fechanac, gmail, contraseña, 1 );
                 	admin.añadirUsuarios(u);
                 	System.out.println(u);
                 	JOptionPane.showMessageDialog(null, "Registrado");
