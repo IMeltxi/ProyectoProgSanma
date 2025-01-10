@@ -50,15 +50,18 @@ public class Admin {
 	    		user.setNumeroSocio(usuarios.size());
 	    		usuarios.add(user);
 	    		//cargar el fichero y guardar el nuevo usuario en el fichero
-	    		File f = new File("ficheros/socios.txt");
-	    		f.delete();
-	    		escribirUsuariosEnTXT(usuarios);
+	    		reescribirSociosTXT();
 	    		System.out.println(user+ " ha sido añadido correctamente.");
 	    		
 	    	}else {
 	    		listaEsperaUsuarios.addLast(user);//añadirlos al final para no alterar la lista de espera
 	    	}
 	    	
+	    }
+	    public void reescribirSociosTXT() {
+	    	File f = new File("ficheros/socios.txt");
+    		f.delete();
+    		escribirUsuariosEnTXT(usuarios);
 	    }
 	    public void escribirUsuariosEnTXT(List<Usuario> usuarios) {
 	    	File f = new File("ficheros/socios.txt");
@@ -113,6 +116,7 @@ public class Admin {
 	        for (Usuario usuario : usuarios) {
 	            if (usuario.getNumeroSocio() == numeroSocio && usuario.getContrasena().equals(contrasena)) {
 	                usuarios.remove(usuario);
+	                reescribirSociosTXT();
 	                return true;
 	            }
 	        }
@@ -120,12 +124,15 @@ public class Admin {
 	        if(!(listaEsperaUsuarios.size()==0)) {
 	        	usuarios.add(listaEsperaUsuarios.getFirst());
 	        	listaEsperaUsuarios.removeFirst();
+	        	reescribirSociosTXT();
 	        }
+	        
 	        return false;
 	    }
 	    public boolean eliminarUsuarioAdmin(int numeroSocio) {
 	    	for(Usuario usuario : usuarios) {
 	    		if(usuario.getNumeroSocio()== numeroSocio) usuarios.remove(usuario);
+	    		
 	    		return true; //usuario eliminado correctamente
 	    	}
 	    	return false;//el usuario no se a eliminado
@@ -141,7 +148,6 @@ public class Admin {
 						Usuario u= new Usuario(tipoSocio.valueOf(datos[0]), datos[1], datos[2], datos[3], datos[4], datos[5], datos[6]);
 						u.setNumeroSocio(Integer.parseInt(datos[7]));
 						añadirUsuarios(u);
-						System.out.println(u);
 					}
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
