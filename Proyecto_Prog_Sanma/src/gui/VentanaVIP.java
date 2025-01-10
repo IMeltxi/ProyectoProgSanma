@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import domain.Usuario;
+import gui.VentanaEntradas.PartidoCombo;
 import domain.Admin;
 
 public class VentanaVIP extends JFrame {
@@ -88,4 +89,100 @@ public class VentanaVIP extends JFrame {
         admin.añadirUsuarios(usuario);
         new VentanaVIP(admin, usuario);
     }
+    
+    /**
+     * 
+     * 
+     * 
+     *   PartidoCombo[] partidos = {
+     *   
+     *   for (Partidos p:listaPartidos){
+     * 		new PartidoCombo(p.getNombrePartido); Como se llame lo de que salga Ath vs ..
+     * 		partido[] = p.getNombrePartido.split("_"); Separar el Ath_vs_RM por ejemplo en Ath|vs|RM
+     * 				redimensionarIcono("Imagenes/ImagenesEquipos/"+partido[0]+".png"), 
+                    redimensionarIcono("Imagenes/ImagenesEquipos/"+partido[2]+".png"),
+          }
+          
+          Y esto borrarlo:
+          
+        	new PartidoCombo("Seleccione un partido", null, null),
+            new PartidoCombo("Athletic vs Real Madrid",
+                    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
+                    redimensionarIcono("Imagenes/ImagenesEquipos/RealMadrid.png")),
+            new PartidoCombo("Athletic vs Barcelona", 
+                    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
+                    redimensionarIcono("Imagenes/ImagenesEquipos/Barça.png")),
+            new PartidoCombo("Athletic vs Real Sociedad", 
+            		redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
+                    redimensionarIcono("Imagenes/ImagenesEquipos/RealSociedad.png")),
+            new PartidoCombo("Athletic vs Alaves", 
+                    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
+                    redimensionarIcono("Imagenes/ImagenesEquipos/Alaves.png")),
+            new PartidoCombo("Athletic vs Atletico de Madrid", 
+                    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
+                    redimensionarIcono("Imagenes/ImagenesEquipos/AtleticoMadrid.png")),
+            new PartidoCombo("Athletic vs Betis", 
+                    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
+                    redimensionarIcono("Imagenes/ImagenesEquipos/Betis.png")),
+            new PartidoCombo("Athletic vs Celta", 
+                    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
+                    redimensionarIcono("Imagenes/ImagenesEquipos/Celta.png")),
+            new PartidoCombo("Athletic vs RCD Espanyol", 
+                    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
+                    redimensionarIcono("Imagenes/ImagenesEquipos/Espanyol.png")),
+            new PartidoCombo("Athletic vs Getafe", 
+                    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
+                    redimensionarIcono("Imagenes/ImagenesEquipos/Getafe.png")),
+            new PartidoCombo("Athletic vs Girona", 
+                    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
+                    redimensionarIcono("Imagenes/ImagenesEquipos/Girona.png")),
+            new PartidoCombo("Athletic vs UD Las Palmas", 
+                    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
+                    redimensionarIcono("Imagenes/ImagenesEquipos/LasPalmas.png")),
+            new PartidoCombo("Athletic vs Leganes", 
+                    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
+                    redimensionarIcono("Imagenes/ImagenesEquipos/Leganes.png")),
+            new PartidoCombo("Athletic vs RCD Mallorca", 
+                    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
+                    redimensionarIcono("Imagenes/ImagenesEquipos/Mallorca.png")),
+            new PartidoCombo("Athletic vs Osasuna", 
+                    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
+                    redimensionarIcono("Imagenes/ImagenesEquipos/Osasuna.png")),
+            new PartidoCombo("Athletic vs Rayo Vallecano", 
+                    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
+                    redimensionarIcono("Imagenes/ImagenesEquipos/RayoVallecano.png")),
+            new PartidoCombo("Athletic vs Sevilla", 
+                    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
+                    redimensionarIcono("Imagenes/ImagenesEquipos/Sevilla.png")),
+            new PartidoCombo("Athletic vs Valencia CF", 
+                    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
+                    redimensionarIcono("Imagenes/ImagenesEquipos/Valencia.png")),
+            new PartidoCombo("Athletic vs Valladolid", 
+                    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
+                    redimensionarIcono("Imagenes/ImagenesEquipos/Valladolid.png")),
+            new PartidoCombo("Athletic vs Villareal", 
+                    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
+                    redimensionarIcono("Imagenes/ImagenesEquipos/Villareal.png")),
+        };
+     * 
+     * 
+     * 
+     * */
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
