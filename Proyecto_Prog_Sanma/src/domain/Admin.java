@@ -67,7 +67,7 @@ public class Admin {
 	    		//la lista de misiones
 	    			
 	    		for(Usuario u: usuarios) {
-	    			pw.println(u.getTiposocio()+";"+ u.getNombre()+";"+u.getApellido()+";"+u.getTlf()+";"+u.getFechNacStr()+";"+u.getContrasena()+";"+u.getNumeroSocio());
+	    			pw.println(u.getTiposocio()+";"+ u.getNombre()+";"+u.getApellido()+";"+u.getTlf()+";"+u.getFechNacStr()+";"+u.getEmail()+";"+ u.getContrasena()+";"+u.getNumeroSocio());
 	    		}
 	    			pw.flush();
 	    			pw.close();
