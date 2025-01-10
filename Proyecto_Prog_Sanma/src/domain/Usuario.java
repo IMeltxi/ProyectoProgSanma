@@ -67,7 +67,7 @@ public class Usuario implements Serializable {
     }
 
     public String getFechNacStr() {
-        return fechNac.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        return fechNac.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
     public void setFechNac(LocalDate fechNac) {
