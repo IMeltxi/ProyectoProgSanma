@@ -45,7 +45,6 @@ public class Main  {
 		try {
 		    // Inicializar base de datos y crear tablas
 		    BD.initBD("resources/db/sanMames.db");
-		    BD.borrarTablas();
 		    BD.crearTablas();
 
 		    // Pruebas para insertar datos y verificar métodos
