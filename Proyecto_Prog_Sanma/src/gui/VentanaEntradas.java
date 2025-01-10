@@ -9,7 +9,9 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.Collections;
 
+import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,20 +23,19 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-
 import domain.Entradas;
-import domain.Usuario;
-
 import javax.swing.JList;
 import javax.swing.Icon;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 
 public class VentanaEntradas extends JFrame {
-    private JTextField cNombre;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JTextField cNombre;
     private JButton bComprar, bCancelar;
-
     private JComboBox<PartidoCombo> cbPartido;
     private JComboBox<String> cbTipoSocio;
 
@@ -63,8 +64,7 @@ public class VentanaEntradas extends JFrame {
         
         
         PartidoCombo[] partidos = {
-        	new PartidoCombo("--",
-        			null, null),
+        	new PartidoCombo("Seleccione un partido", null, null),
             new PartidoCombo("Athletic vs Real Madrid",
                     redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
                     redimensionarIcono("Imagenes/ImagenesEquipos/RealMadrid.png")),
@@ -236,6 +236,8 @@ public class VentanaEntradas extends JFrame {
             imagenOeste.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaOeste.png"));
         });
         
+    
+        
         
         JPanel pCentral = new JPanel();
         pCentral.setLayout(new BoxLayout(pCentral, BoxLayout.Y_AXIS));
@@ -255,23 +257,37 @@ public class VentanaEntradas extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String nombre = cNombre.getText();
                 PartidoCombo partido = (PartidoCombo) cbPartido.getSelectedItem();
-                String socio = (String) cbTipoSocio.getSelectedItem();
-
                 if (nombre.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Error! Nombre Necesario.");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Compra Exitosa " + "para " + partido.getNombrePartido() + "! Selecciona el asiento deseado.");
-                    VentanaAsientos ventanaAsientos = null;
-    				try {
-    					ventanaAsientos = new VentanaAsientos();
-    				} catch (IOException e1) {
-    					// TODO Auto-generated catch block
-    					e1.printStackTrace();
-    				}
+                    return;
+                }
+                if ("Seleccione un partido".equals(partido.getNombrePartido())) {
+                    JOptionPane.showMessageDialog(null, "Error! Seleccione un partido válido.");
+                    return;
+                }
+                if (grupoOpciones.getSelection() == null) {
+                	JOptionPane.showMessageDialog(null, "Error! seleccione una zona del estadio.");
+                	return;
+                }
+                
+                String lado = "";
+                for (AbstractButton button : Collections.list(grupoOpciones.getElements())) {
+                    if (button.isSelected()) {
+                        lado = button.getText();
+                        break;
+                    }
+                }
+                JOptionPane.showMessageDialog(null, "Compra Exitosa para " + partido.getNombrePartido() + "! Selecciona el asiento deseado.");
+                VentanaAsientos ventanaAsientos = null;
+                try {
+                    ventanaAsientos = new VentanaAsientos(partido.getNombrePartido(),lado);
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                if (ventanaAsientos != null) {
                     ventanaAsientos.setVisible(true);
                     dispose();
                 }
-                
             }
         });
     }
@@ -321,7 +337,10 @@ public class VentanaEntradas extends JFrame {
 
 
     class ComboBoxRenderer extends DefaultListCellRenderer {
-        @Override
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
         public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         	JPanel panel = new JPanel();
         	
@@ -357,7 +376,7 @@ public class VentanaEntradas extends JFrame {
         }	
     }
     
-   // JPanel pZonaAsientos = new JPanel();
+   
     
     
     
