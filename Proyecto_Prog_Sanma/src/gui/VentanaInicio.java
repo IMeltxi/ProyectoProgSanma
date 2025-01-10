@@ -18,46 +18,48 @@ public class VentanaInicio extends JFrame {
 
 	public VentanaInicio() {
 		
-		
-        // Configuración de la ventana
+		// Configuración inicial de la ventana
+        // Establece el título de la ventana, maximiza su tamaño, define la operación de cierre
+        // y centra la ventana en la pantalla.
         setTitle("Inicio");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         
-        //Panel principal
-        
+        // Configuración del panel principal
+        // Este panel principal utiliza un diseño BorderLayout para organizar los componentes.
         JPanel panelPrincipal = new JPanel(new BorderLayout());
         //Panel Incio/Registro
         JPanel panelIR = new JPanel(new FlowLayout());
-        //creo klos botones
         JButton botonI = new JButton("IniciarSesion");
         JButton botonR = new JButton("Registrarse");
-        //añado los botones al panel
         panelIR.add(botonI);
         panelIR.add(botonR);
         
-        
-        //Panel para comprar entradas
+        // Configuración del panel para comprar entradas
+        // Este panel contiene un botón que permite al usuario acceder a la ventana de compra de entradas.
         JPanel panelcomprar = new JPanel(new FlowLayout());
         JButton botonComprar = new JButton("Comprar entradas");
         panelcomprar.add(botonComprar);
-        
-        
-        
-        //añado los paneles al panel principal
+         
+        // Agregar los paneles al panel principal
         panelPrincipal.add(panelIR, BorderLayout.NORTH);
         panelPrincipal.add(panelcomprar,BorderLayout.CENTER);
         
+        // Configuración de los manejadores de eventos
+        // Define las acciones que ocurren cuando los usuarios interactúan con los botones.
         add(panelPrincipal);
         setVisible(true);
         
-        //añado los action listener
+     // Configuración de los manejadores de eventos
+        // Define las acciones que ocurren cuando los usuarios interactúan con los botones.
         botonI.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				// Cuando el usuario hace clic en el botón "IniciarSesion",
+				// se abre la ventana de inicio de sesión (VentanaIniciarSesion),
+				// se pasa el objeto Admin como referencia y se cierra la ventana actual.
 				VentanaIniciarSesion ventanaIniciarSesion = new VentanaIniciarSesion(admin);
 				ventanaIniciarSesion.setVisible(true);
 				dispose(); 
@@ -68,7 +70,9 @@ public class VentanaInicio extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				// Cuando el usuario hace clic en el botón de "Registrarse",
+				// se abre una nueva ventana de registro (VentanaRegistrarse)
+				// y se cierra la ventana actual.
 				VentanaRegistrarse ventanaRegistrarse = new VentanaRegistrarse();
 				ventanaRegistrarse.setVisible(true);
 				dispose(); 
@@ -80,7 +84,9 @@ public class VentanaInicio extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				// Cuando el usuario hace clic en el botón "Comprar entradas",
+				// se abre una nueva ventana para gestionar la compra de entradas (VentanaEntradas).
+				// La ventana actual se cierra automáticamente para dar paso a la nueva.
 				VentanaEntradas ventanaentradas = new VentanaEntradas();
 				ventanaentradas.setVisible(true);
 				dispose();

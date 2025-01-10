@@ -24,10 +24,10 @@ public class Entradas{
 		
 	}
 	
-	
+	// Constructor completo para inicializar todos los atributos
 	public Entradas(String partido, TipoEntrada tipoEntrada, Localidad localidad, String bloque, String asiento,
 			float precio, String nombre, String apellido, String email, String contraseña) {
-		super();
+		super(); // Llama al constructor de la clase base (en este caso, Object)
 		this.partido = partido;
 		this.tipoEntrada = tipoEntrada;
 		this.localidad = localidad;
@@ -40,7 +40,7 @@ public class Entradas{
 		this.contraseña = contraseña;
 	}
 
-
+	// Métodos getter y setter para acceder y modificar los atributos
 	public String getPartido() {
 		return partido;
 	}

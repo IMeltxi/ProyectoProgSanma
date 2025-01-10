@@ -8,7 +8,7 @@ public class Partido {
 	private String descripcion;
 	private Integer Jornada;
 	
-	
+	// Constructor completo para inicializar todos los atributos del partido
 	public Partido(String nombrePart, String fecha, String hora, String competicion, String descripcion) {
 		super();
 		this.nombrePart = nombrePart;
@@ -18,7 +18,7 @@ public class Partido {
 		this.descripcion = descripcion;
 	}
 
-
+	 // Métodos getter y setter para acceder y modificar los atributos
 	public String getNombrePart() {
 		return nombrePart;
 	}

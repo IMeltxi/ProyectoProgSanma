@@ -18,7 +18,7 @@ public class Usuario implements Serializable {
     private String email;
     private String contrasena;
     private int numeroSocio;
-
+    // Constructor completo para inicializar todos los atributos del usuario
     public Usuario(tipoSocio tiposocio,String nombre, String apellido, String tlf, String fechNacStr, 
                    String email, String contrasena, int numeroSocio) {
     	this.tiposocio=tiposocio;
@@ -26,12 +26,11 @@ public class Usuario implements Serializable {
         this.apellido = apellido;
         this.tlf = tlf;
         this.fechNac = LocalDate.parse(fechNacStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
         this.email = email;
         this.contrasena = contrasena;
         this.numeroSocio = numeroSocio;
     }
-
+    // Métodos getter y setter para acceder y modificar los atributos
     public tipoSocio getTiposocio() {
         return tiposocio;
     }
@@ -99,7 +98,7 @@ public class Usuario implements Serializable {
     public void setNumeroSocio(int numeroSocio) {
         this.numeroSocio = numeroSocio;
     }
-
+    // Sobrescribe el método toString para representar al usuario como texto
     @Override
     public String toString() {
         return "Usuario [nombre=" + nombre + ", apellido=" + apellido + ", tlf=" + tlf + 

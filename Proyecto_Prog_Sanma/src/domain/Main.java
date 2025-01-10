@@ -5,11 +5,14 @@ import domain.Entradas.Localidad;
 import domain.Entradas.TipoEntrada;
 public class Main  {
 	public static void main(String[] args) {
+		// Creamos una instancia de la clase Admin para gestionar usuarios y socios
 		Admin a = new Admin();
 		a.cargarUsuarios();
 		a.visualizarSocios();
 		BD.initBD("resources/db/sanMames.db");
+		 // Creamos las tablas necesarias en la base de datos
 		BD.crearTablas();
+		
 		pruebas();
 		//Funcion recursiva
 		Partido[] partidos = {

@@ -22,26 +22,26 @@ public class Admin {
 		private Map<Integer, Usuario> socios;
 		private List<Usuario> usuarios;
 		
-		
+		// Constructor de la clase Admin
 		public Admin() {
 			
-			super();
+			super(); // Llama al constructor de la clase base
 			listaEsperaUsuarios = new LinkedList<Usuario>();
 			listaPartidos = new ArrayList<Partido>();
 			usuarios = new ArrayList<>();
 
 		}
-		
+		// Método para obtener la lista de usuarios
 	    public List<Usuario> getUsuarios() {
 	        return usuarios;
 	    }
-
+	 // Método para establecer la lista de usuarios
 	    public void setUsuarios(List<Usuario> usuarios) {
 	        this.usuarios = usuarios;
 	    }
 		
 		
-		
+	    // Método para añadir usuarios al sistema
 	    public void añadirUsuarios(Usuario user) {	    	
 	    	//Añadir a usuarios siempre y cuando no cumplan el limite maximo
 	    	if(usuarios.size()<500000) {
@@ -59,7 +59,6 @@ public class Admin {
 			HashMap<tipoSocio, ArrayList<Usuario>> mapaPorTipo = new HashMap<>();
 			
 			
-			//Crear un papa con una lista de 
 			for(Usuario user:usuarios) {
 				if(user.getTiposocio().equals(tipoSocio.GAZTEABONO)) {
 					if(!mapaPorTipo.containsKey(user.getTiposocio())) {
@@ -109,6 +108,7 @@ public class Admin {
 	    	}
 	    	return false;//el usuario no se a eliminado
 	    }
+	    // Metodo para cargar los usuarios
 		public void cargarUsuarios() {
 			File f = new File("ficheros/socios.txt");
 			if(f.exists()) {
