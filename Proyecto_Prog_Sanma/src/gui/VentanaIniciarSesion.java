@@ -61,7 +61,7 @@ public class VentanaIniciarSesion extends JFrame {
 		panelBotones.add(correoLabel);
 		
 		//Correo Texto
-		JTextField correoField = new JTextField(20);
+		this.correoField = new JTextField(20);
 		correoField.setMaximumSize(new Dimension(400,30));//Tamaño maximo para campos
 		correoField.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panelBotones.add(correoField);
@@ -74,7 +74,7 @@ public class VentanaIniciarSesion extends JFrame {
         panelBotones.add(contraseñaLabel);
 		
         //Contraseña Texto
-		JPasswordField contraseñaField = new JPasswordField(20);
+        this.contraseñaField = new JPasswordField(20);
 		contraseñaField.setMaximumSize(new Dimension(400,30));
 		contraseñaField.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panelBotones.add(contraseñaField);
@@ -125,31 +125,39 @@ public class VentanaIniciarSesion extends JFrame {
 		});
 	}
 		
-		private void verificarUsuario() {
-			String email = correoField.getText();
-	        String contrasena = new String (contraseñaField.getPassword());
-	        
-	        Usuario usuarioEncontrado = null;
-	        for(Usuario usuario : admin.getUsuarios()) {
-	        	if(usuario.getEmail().equals(email)) {
-	        		usuarioEncontrado = usuario;
-	        		break;
-	        	}
-	        }
-	        if (usuarioEncontrado == null) {
-	            JOptionPane.showMessageDialog(this, "Usuario no encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
-	            return;
-	        }else {
-	        	if(usuarioEncontrado.getContrasena().equals(contrasena)) {
-	        		JOptionPane.showMessageDialog(this, "Inicio de sesion valido","Ongi Etorri", JOptionPane.INFORMATION_MESSAGE);
-	        		VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();
-					ventanaPrincipal.setVisible(true);
-					dispose(); 
-	        	}else {
-	        		JOptionPane.showMessageDialog(this, "Contraseña incorrecta.", "Vuelve a intentarlo", JOptionPane.ERROR_MESSAGE);
-	        	}
-	        }		
-	}
+			private void verificarUsuario() {
+			    // Validar campos vacíos antes de continuar
+			    if (correoField.getText().trim().isEmpty() || contraseñaField.getPassword().length == 0) {
+			        JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+			        return;
+			    }
+
+			    // Obtener el correo y la contraseña ingresados
+			    String email = correoField.getText().trim();
+			    char[] contrasena = contraseñaField.getPassword();
+
+			    // Buscar usuario en la lista de usuarios del administrador
+			    Usuario usuarioEncontrado = admin.buscarUsuarioPorEmail(email);
+
+			    // Validar si el usuario existe y la contraseña es correcta
+			    if (usuarioEncontrado == null || !usuarioEncontrado.verificarContrasena(contrasena)) {
+			        JOptionPane.showMessageDialog(this, "Correo o contraseña incorrectos.", "Error", JOptionPane.ERROR_MESSAGE);
+			    } else {
+			        // Inicio de sesión exitoso
+			        JOptionPane.showMessageDialog(this, "Inicio de sesión válido", "Ongi Etorri", JOptionPane.INFORMATION_MESSAGE);
+
+			        // Abrir la ventana principal
+			        VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();
+			        ventanaPrincipal.setVisible(true);
+
+			        // Cerrar la ventana actual
+			        dispose();
+			    }
+
+			    // Borrar el contenido de la contraseña para mayor seguridad
+			    java.util.Arrays.fill(contrasena, '\0');
+			}
+
 		
 	
 	

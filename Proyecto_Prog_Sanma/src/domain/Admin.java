@@ -195,6 +195,15 @@ public class Admin {
 	    // Retornar el partido con la menor diferencia
 	    return diferenciaActual < diferenciaSiguiente ? partidos[i] : siguiente;
 	}
+	
+	public Usuario buscarUsuarioPorEmail(String email) {
+	    for (Usuario usuario : usuarios) { // Suponiendo que "usuarios" es la lista de usuarios
+	        if (usuario.getEmail().equals(email)) {
+	            return usuario;
+	        }
+	    }
+	    return null;
+	}
 
 
 	

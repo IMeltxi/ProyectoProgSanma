@@ -122,6 +122,10 @@ public class Usuario implements Serializable {
         return Objects.equals(apellido, other.apellido) && Objects.equals(email, other.email)
                 && Objects.equals(tlf, other.tlf);
     }
+    public boolean verificarContrasena(char[] contrasenaIngresada) {
+        return new String(contrasenaIngresada).equals(this.contrasena);
+    }
+
     
     public static void main(String[] args) {
     	 new Usuario(tipoSocio.SOCIO,"Juan", "Perez", "123456789", "15-04-1985", "juan.perez@example.com", "password123", 1);
