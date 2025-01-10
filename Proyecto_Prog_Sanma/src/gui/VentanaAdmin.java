@@ -208,10 +208,16 @@ public class VentanaAdmin extends JFrame {
             if (nombre.isEmpty() || apellido.isEmpty() || telefono.isEmpty() || fechaNacimiento.isEmpty() || correo.isEmpty()) {
                 throw new IllegalArgumentException("Todos los campos deben estar llenos.");
             }
-
-            Usuario nuevoSocio = new Usuario(tipoSocio, nombre, apellido, telefono, fechaNacimiento, correo, "");
-            nuevoSocio.setNumeroSocio(admin.getUsuarios().size());
-            admin.añadirUsuarios(nuevoSocio);
+            for(Usuario u:admin.getUsuarios()) {
+            	if(!(u.getEmail().equals(correo))) {
+            		Usuario nuevoSocio = new Usuario(tipoSocio, nombre, apellido, telefono, fechaNacimiento, correo, "");
+                    nuevoSocio.setNumeroSocio(admin.getUsuarios().size());
+                    admin.añadirUsuarios(nuevoSocio);
+            	}else
+            		JOptionPane.showMessageDialog(this, "Este email ya esta asociado a un socio", "Error", JOptionPane.ERROR_MESSAGE);;
+            	
+            }
+            
 
             ((ModeloTabla) tabla.getModel()).setUsuarios(admin.getUsuarios());
             ((ModeloTabla) tabla.getModel()).fireTableDataChanged();
