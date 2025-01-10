@@ -13,7 +13,8 @@ public class Main  {
 		 // Creamos las tablas necesarias en la base de datos
 		BD.crearTablas();
 		
-		pruebas();
+		//pruebas();//
+		
 		//Funcion recursiva
 		Partido[] partidos = {
 			    new Partido("Athletic vs Real Madrid", "2023-08-12", "21:30", "LaLiga", "Jornada 1 - Inicio de temporada en San Mamés"),
@@ -41,7 +42,7 @@ public class Main  {
 		System.out.println("Partido más cercano: " + masCercano);
 	}
 	
-	public static void pruebas() {
+	/*public static void pruebas() {
 		try {
 		    // Inicializar base de datos y crear tablas
 		    BD.initBD("resources/db/sanMames.db");
@@ -89,5 +90,5 @@ public class Main  {
 		    System.err.println("Error: " + e.getMessage());
 		    e.printStackTrace();
 		}
-	}
+	} */
 }
