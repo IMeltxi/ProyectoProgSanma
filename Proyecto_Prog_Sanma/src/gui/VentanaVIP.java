@@ -75,19 +75,8 @@ public class VentanaVIP extends JFrame {
 
     // Método principal para ejecutar la ventana (de ejemplo)
     public static void main(String[] args) {
-        Admin admin = new Admin();
-        Usuario usuario = new Usuario(
-                Usuario.tipoSocio.SOCIO, 
-                "Juan", 
-                "Perez", 
-                "123456789", 
-                "1985-04-15", 
-                "juan.perez@example.com", 
-                "password123", 
-                1
-        );
-        admin.añadirUsuarios(usuario);
-        new VentanaVIP(admin, usuario);
+  
+       // new VentanaVIP(admin, usuario);
     }
     
     /**

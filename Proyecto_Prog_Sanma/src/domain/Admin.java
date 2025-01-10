@@ -47,6 +47,7 @@ public class Admin {
 	    public void añadirUsuarios(Usuario user) {	    	
 	    	//Añadir a usuarios siempre y cuando no cumplan el limite maximo
 	    	if(usuarios.size()<500000) {
+	    		user.setNumeroSocio(usuarios.size());
 	    		usuarios.add(user);
 	    		//cargar el fichero y guardar el nuevo usuario en el fichero
 	    		File f = new File("ficheros/socios.txt");
@@ -137,7 +138,8 @@ public class Admin {
 					while(sc.hasNext()) {
 						String linea = sc.nextLine();
 						String[] datos = linea.split(";");
-						Usuario u= new Usuario(tipoSocio.valueOf(datos[0]), datos[1], datos[2], datos[3], datos[4], datos[5], datos[6], Integer.parseInt(datos[7]));
+						Usuario u= new Usuario(tipoSocio.valueOf(datos[0]), datos[1], datos[2], datos[3], datos[4], datos[5], datos[6]);
+						u.setNumeroSocio(Integer.parseInt(datos[7]));
 						añadirUsuarios(u);
 						System.out.println(u);
 					}

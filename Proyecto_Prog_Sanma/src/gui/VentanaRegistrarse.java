@@ -177,7 +177,8 @@ public class VentanaRegistrarse extends JFrame {
                 	//Requisitos para el nuevo usuario
                 	//El tipoSocio.Socio es para que no de error, 
                 	//a la hora de registrarse habria que poner tmb como que tipo de socio se registra
-                	Usuario u = new Usuario(tipoSocio,nombre, apellido, telefono, fechanac, gmail, contraseña, 1 );
+                	Usuario u = new Usuario(tipoSocio,nombre, apellido, telefono, fechanac, gmail, contraseña);
+                	u.setNumeroSocio(admin.getUsuarios().size());
                 	admin.añadirUsuarios(u);
                 	System.out.println(u);
                 	JOptionPane.showMessageDialog(null, "Registrado");

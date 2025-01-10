@@ -20,7 +20,7 @@ public class Usuario implements Serializable {
     private int numeroSocio;
     // Constructor completo para inicializar todos los atributos del usuario
     public Usuario(tipoSocio tiposocio,String nombre, String apellido, String tlf, String fechNacStr, 
-                   String email, String contrasena, int numeroSocio) {
+                   String email, String contrasena) {
     	this.tiposocio=tiposocio;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -28,7 +28,6 @@ public class Usuario implements Serializable {
         this.fechNac = LocalDate.parse(fechNacStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         this.email = email;
         this.contrasena = contrasena;
-        this.numeroSocio = numeroSocio;
     }
     // Métodos getter y setter para acceder y modificar los atributos
     public tipoSocio getTiposocio() {
@@ -127,11 +126,4 @@ public class Usuario implements Serializable {
     }
 
     
-    public static void main(String[] args) {
-    	 new Usuario(tipoSocio.SOCIO,"Juan", "Perez", "123456789", "15-04-1985", "juan.perez@example.com", "password123", 1);
-         new Usuario(tipoSocio.SOCIO,"Maria", "Lopez", "987654321", "23-11-1990", "maria.lopez@example.com", "passMaria", 2);
-         new Usuario(tipoSocio.SOCIO,"Carlos", "Garcia", "555555555", "10-06-1978", "carlos.garcia@example.com", "carlosPass", 3);
-         new Usuario(tipoSocio.SOCIO,"Lucia", "Fernandez", "111222333", "30-09-2000", "lucia.fernandez@example.com", "luciaPass", 4);
-         new Usuario(tipoSocio.SOCIO,"Miguel", "Martinez", "444333222", "25-12-1995", "miguel.martinez@example.com", "miguelPass", 5);
-    }
 }

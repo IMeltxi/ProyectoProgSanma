@@ -131,7 +131,7 @@ public class VentanaAdmin extends JFrame {
 
     private void configurarPanelLateral() {
         panelLateral = new JPanel();
-        panelLateral.setLayout(new GridLayout(9, 2, 10, 10));
+        panelLateral.setLayout(new GridLayout(8, 2, 10, 10));
         panelLateral.setPreferredSize(new Dimension(300, 0));
         panelLateral.setVisible(false);
 
@@ -163,9 +163,6 @@ public class VentanaAdmin extends JFrame {
         txtContrasenia = new JTextField();
         panelLateral.add(txtContrasenia);
         
-        panelLateral.add(new JLabel("Número de Socio:"));
-        txtNumeroSocio = new JTextField();
-        panelLateral.add(txtNumeroSocio);
 
         JButton btnGuardar = new JButton("Guardar");
         btnGuardar.addActionListener(new ActionListener() {
@@ -207,13 +204,13 @@ public class VentanaAdmin extends JFrame {
             String telefono = txtTelefono.getText().trim();
             String fechaNacimiento = txtFechaNacimiento.getText().trim();
             String correo = txtCorreo.getText().trim();
-            int numeroSocio = Integer.parseInt(txtNumeroSocio.getText().trim());
 
             if (nombre.isEmpty() || apellido.isEmpty() || telefono.isEmpty() || fechaNacimiento.isEmpty() || correo.isEmpty()) {
                 throw new IllegalArgumentException("Todos los campos deben estar llenos.");
             }
 
-            Usuario nuevoSocio = new Usuario(tipoSocio, nombre, apellido, telefono, fechaNacimiento, correo, "", numeroSocio);
+            Usuario nuevoSocio = new Usuario(tipoSocio, nombre, apellido, telefono, fechaNacimiento, correo, "");
+            nuevoSocio.setNumeroSocio(admin.getUsuarios().size());
             admin.añadirUsuarios(nuevoSocio);
 
             ((ModeloTabla) tabla.getModel()).setUsuarios(admin.getUsuarios());
