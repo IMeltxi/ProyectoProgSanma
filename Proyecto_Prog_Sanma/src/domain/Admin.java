@@ -52,6 +52,7 @@ public class Admin {
 	    		File f = new File("ficheros/socios.txt");
 	    		f.delete();
 	    		escribirUsuariosEnTXT(usuarios);
+	    		System.out.println(user+ " ha sido añadido correctamente.");
 	    		
 	    	}else {
 	    		listaEsperaUsuarios.addLast(user);//añadirlos al final para no alterar la lista de espera
