@@ -2,7 +2,9 @@ package domain;
 
 import java.io.File;
 
+
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -47,14 +49,32 @@ public class Admin {
 	    	if(usuarios.size()<500000) {
 	    		usuarios.add(user);
 	    		//cargar el fichero y guardar el nuevo usuario en el fichero
+	    		File f = new File("ficheros/socios.txt");
+	    		f.delete();
+	    		escribirUsuariosEnTXT(usuarios);
 	    		
 	    	}else {
 	    		listaEsperaUsuarios.addLast(user);//añadirlos al final para no alterar la lista de espera
 	    	}
-			
-		}
-	   
-		
+	    	
+	    }
+	    public void escribirUsuariosEnTXT(List<Usuario> usuarios) {
+	    	File f = new File("ficheros/socios.txt");
+	    	try {
+	    		PrintWriter pw = new PrintWriter(f);
+	    		//Como lo que tenemos que escribir en el fichero son misisiones, recorremos
+	    		//la lista de misiones
+	    			
+	    		for(Usuario u: usuarios) {
+	    			pw.println(u.getTiposocio()+";"+ u.getNombre()+";"+u.getApellido()+";"+u.getTlf()+";"+u.getFechNacStr()+";"+u.getContrasena()+";"+u.getNumeroSocio());
+	    		}
+	    			pw.flush();
+	    			pw.close();
+	    		} catch (FileNotFoundException e) {
+	    			
+	    			e.printStackTrace();
+	    		}
+	    }
 		public ArrayList<Usuario> visualizarUsuariosPorTipo(tipoSocio tipo) {
 			HashMap<tipoSocio, ArrayList<Usuario>> mapaPorTipo = new HashMap<>();
 			
