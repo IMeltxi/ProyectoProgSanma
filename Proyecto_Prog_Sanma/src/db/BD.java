@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import domain.Usuario;
@@ -56,7 +58,7 @@ public class BD {
                     + "Telefono TEXT,"
                     + "FechaNacimiento DATE NOT NULL,"
                     + "Email TEXT UNIQUE NOT NULL,"
-                    + "Contrasena TEXT NOT NULL,"
+                    + "Contrasena TEXT NOT NULL"
                     + ")";
             Statement stmt = con.createStatement();
             stmt.executeUpdate(sql);
@@ -190,7 +192,7 @@ public class BD {
                     tipoSocio tiposocio = tipoSocio.valueOf(rs.getString("Tiposocio").toUpperCase());;
                     String nombre = rs.getString("Nombre");
                     String apellido = rs.getString("Apellido");
-                    String fNac = rs.getString("FechaNacimiento"); // Asegúrate de que este formato sea válido
+                    String fNac = rs.getString("FechaNacimiento"); 
                     String tlf = rs.getString("Telefono");
                     String email = rs.getString("Email");
                     String contrasena = rs.getString("Contrasena");
@@ -232,5 +234,33 @@ public class BD {
             }
         }
     }
+    
+    public static List<Usuario> obtenerListaUsario(Connection con){
+		String sql = "SELECT * FROM Usuario";
+		List<Usuario> l = new ArrayList<>();
+		try {
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+                // Obtenemos los valores de la base de datos
+                tipoSocio tiposocio = tipoSocio.valueOf(rs.getString("Tiposocio").toUpperCase());;
+                String nombre = rs.getString("Nombre");
+                String apellido = rs.getString("Apellido");
+                String fNac = rs.getString("FechaNacimiento"); // Asegúrate de que este formato sea válido
+                String tlf = rs.getString("Telefono");
+                String email = rs.getString("Email");
+                String contrasena = rs.getString("Contrasena");
+
+                // Construimos el objeto Usuario
+                Usuario usuario = new Usuario(tiposocio, nombre, apellido, tlf, fNac, email, contrasena);
+               	l.add(usuario);
+			}
+			rs.close();
+			st.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return l;
+	}
 
 }
