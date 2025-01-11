@@ -1,8 +1,6 @@
 package domain;
 import db.BD;
-import db.BD.tipoSocio;
-import domain.Entradas.Localidad;
-import domain.Entradas.TipoEntrada;
+
 public class Main  {
 	public static void main(String[] args) {
 		// Creamos una instancia de la clase Admin para gestionar usuarios y socios

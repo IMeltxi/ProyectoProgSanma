@@ -1,5 +1,6 @@
 package db;
 import java.sql.Connection;
+
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,13 +8,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Logger;
 
+import domain.Usuario;
 import domain.Entradas.Localidad;
 import domain.Entradas.TipoEntrada;
+import domain.Usuario.tipoSocio;
 
 public class BD {
-	public enum tipoSocio {
-        SOCIOMENSUAL, SOCIO, VIP, GAZTEABONO
-    }
+
     //Añadimos un logger para que nos muestre los errores
     private static final Logger logger = Logger.getLogger(BD.class.getName());
     private static Connection con;
@@ -47,32 +48,20 @@ public class BD {
     public static void crearTablas() {
         try {
             // Tabla Usuarios
-            String sql = "CREATE TABLE IF NOT EXISTS Usuarios ("
-                    + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + "nombre TEXT NOT NULL,"
-                    + "apellido TEXT NOT NULL,"
-                    + "tlf TEXT,"
-                    + "email TEXT UNIQUE NOT NULL,"
-                    + "contrasena TEXT NOT NULL,"
-                    + "numero_socio INTEGER NOT NULL,"
-                    + "fechNac DATE NOT NULL,"
-                    + "tiposocio TEXT NOT NULL"
+        	String sql = "CREATE TABLE IF NOT EXISTS Usuarios ("
+                    + "Numero_socio INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + "Tiposocio TEXT NOT NULL"
+                    + "Nombre TEXT NOT NULL,"
+                    + "Apellido TEXT NOT NULL,"
+                    + "Telefono TEXT,"
+                    + "FechaNacimiento DATE NOT NULL,"
+                    + "Email TEXT UNIQUE NOT NULL,"
+                    + "Contrasena TEXT NOT NULL,"
                     + ")";
             Statement stmt = con.createStatement();
             stmt.executeUpdate(sql);
             stmt.close();
             logger.info("Tabla Usuarios creada correctamente");
-
-            // Tabla CategoriasEntradas
-            sql = "CREATE TABLE IF NOT EXISTS TipoDeEntradas ("
-                    + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + "nombre_categoria TEXT NOT NULL,"
-                    + "precio REAL NOT NULL"
-                    + ")";
-            stmt = con.createStatement();
-            stmt.executeUpdate(sql);
-            stmt.close();
-            logger.info("Tabla TipoDeEntradas creada correctamente");
 
             // Tabla Localizaciones
             sql = "CREATE TABLE IF NOT EXISTS Localizaciones ("
@@ -153,20 +142,18 @@ public class BD {
     }
 
 
-    public static void insertarUsuario(String nombre, String apellido, String tlf, String email,
-                                       String contrasena, int numeroSocio, String fechNac, tipoSocio tiposocio) {
-        String sql = "INSERT INTO Usuarios (nombre, apellido, tlf, email, contrasena, numero_socio, fechNac, tiposocio) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    public static void insertarUsuario(tipoSocio tiposocio,String nombre, String apellido, String tlf, String fechNacStr, String email, String contrasena) {
+        String sql = "INSERT INTO Usuarios (TipoSocio,Nombre, Apellido, Tlf,FechNac, Email, Contrasena) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, nombre);
-            ps.setString(2, apellido);
-            ps.setString(3, tlf);
-            ps.setString(4, email);
-            ps.setString(5, contrasena);
-            ps.setInt(6, numeroSocio);
-            ps.setString(7, fechNac); // Fecha en formato 'YYYY-MM-DD'
-            ps.setString(8, tiposocio.name()); // Mapeamos el enum a su nombre en texto
+            ps.setString(1, tiposocio.name());
+            ps.setString(2, nombre);
+            ps.setString(3, apellido);
+            ps.setString(4, tlf);
+            ps.setString(5, fechNacStr);
+            ps.setString(6, email);
+            ps.setString(7, contrasena); // Fecha en formato 'YYYY-MM-DD'
             ps.execute();
             ps.close();
             logger.info("Usuario insertado correctamente");
@@ -177,7 +164,7 @@ public class BD {
 
 
     public static boolean existeID(int idU) {
-        String sql = "SELECT 1 FROM Usuarios WHERE id = ?";
+        String sql = "SELECT 1 FROM Usuarios WHERE Numero_Socio = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, idU);
@@ -191,5 +178,30 @@ public class BD {
         }
         return false;
     }
+    public static Usuario buscarUsario(Connection con, String CorreoElectronico) {
+		String sql = String.format("SELECT * FROM Usuario WHERE email = '%s'", CorreoElectronico);
+		Usuario usuario= null;
+		try {
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql); 
+			if(rs.next()) {
+				tipoSocio tiposocio = tipoSocio.valueOf(rs.getString("Tiposocio").toUpperCase());
+				String nombre = rs.getString("Nombre");
+				String apellido = rs.getString("Apellido");
+				String fNac = rs.getString("FechaNacimiento");
+				String tlf = rs.getString("Telefono");
+				String CorreoEle = rs.getString("Email");
+				String contrasenia = rs.getString("Contrasena");
+
+				usuario = new Usuario(tiposocio, nombre, apellido, tlf, fNac, CorreoEle, contrasenia);
+			}
+			rs.close();
+			st.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return usuario;
+	}
+	
 
 }
