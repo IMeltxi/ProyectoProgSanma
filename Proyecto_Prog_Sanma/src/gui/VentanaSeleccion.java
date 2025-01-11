@@ -36,7 +36,7 @@ public class VentanaSeleccion extends JFrame {
         btnEntradas.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                VentanaEntradas ventanaEntradas = new VentanaEntradas();
+                VentanaEntradas ventanaEntradas = new VentanaEntradas(null);
                 ventanaEntradas.setVisible(true);
                 dispose(); 
             }

@@ -113,8 +113,8 @@ public class VentanaIniciarSesion extends JFrame {
 				// TODO Auto-generated method stub
 				Usuario user = verificarUsuario();
 				if(!(user==null)) {
-					VentanaInicio ventanaInicio = new VentanaInicio(user);
-					ventanaInicio.setVisible(true);
+					VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(user);
+					ventanaPrincipal.setVisible(true);
 				}
 				
 			}
@@ -152,10 +152,6 @@ public class VentanaIniciarSesion extends JFrame {
 			    } else {
 			        // Inicio de sesión exitoso
 			        JOptionPane.showMessageDialog(this, "Inicio de sesión válido", "Ongi Etorri", JOptionPane.INFORMATION_MESSAGE);
-
-			        // Abrir la ventana principal
-			        VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();
-			        ventanaPrincipal.setVisible(true);
 			        
 			        // Cerrar la ventana actual
 			        dispose();

@@ -17,9 +17,9 @@ public class VentanaPrincipal extends JFrame{
 	private Admin admin;
 	private Usuario usuario;
 	public static void main(String[] args) {
-        new VentanaPrincipal();
+        new VentanaPrincipal(null);
     }
-	public VentanaPrincipal() {
+	public VentanaPrincipal(Usuario user) {
 		
 		 // Configuración de la ventana
         setTitle("Principal");
@@ -55,7 +55,7 @@ public class VentanaPrincipal extends JFrame{
 			
         	@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaEntradas ventanaentradas = new VentanaEntradas();
+				VentanaEntradas ventanaentradas = new VentanaEntradas(null);
 				ventanaentradas.setVisible(true);
 				dispose();
 			}
