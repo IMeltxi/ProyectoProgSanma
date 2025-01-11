@@ -50,7 +50,7 @@ public class BD {
             // Tabla Usuarios
         	String sql = "CREATE TABLE IF NOT EXISTS Usuarios ("
                     + "Numero_socio INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + "Tiposocio TEXT NOT NULL"
+                    + "Tiposocio TEXT NOT NULL,"
                     + "Nombre TEXT NOT NULL,"
                     + "Apellido TEXT NOT NULL,"
                     + "Telefono TEXT,"
@@ -178,30 +178,59 @@ public class BD {
         }
         return false;
     }
-    public static Usuario buscarUsario(Connection con, String CorreoElectronico) {
-		String sql = String.format("SELECT * FROM Usuario WHERE email = '%s'", CorreoElectronico);
-		Usuario usuario= null;
-		try {
-			Statement st = con.createStatement();
-			ResultSet rs = st.executeQuery(sql); 
-			if(rs.next()) {
-				tipoSocio tiposocio = tipoSocio.valueOf(rs.getString("Tiposocio").toUpperCase());
-				String nombre = rs.getString("Nombre");
-				String apellido = rs.getString("Apellido");
-				String fNac = rs.getString("FechaNacimiento");
-				String tlf = rs.getString("Telefono");
-				String CorreoEle = rs.getString("Email");
-				String contrasenia = rs.getString("Contrasena");
+    public static Usuario buscarUsuario(Connection con, String correoElectronico) {
+        String sql = "SELECT * FROM Usuarios WHERE Email = ?";
+        Usuario usuario = null;
 
-				usuario = new Usuario(tiposocio, nombre, apellido, tlf, fNac, CorreoEle, contrasenia);
-			}
-			rs.close();
-			st.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return usuario;
-	}
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, correoElectronico);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    // Obtenemos los valores de la base de datos
+                    tipoSocio tiposocio = tipoSocio.valueOf(rs.getString("Tiposocio").toUpperCase());;
+                    String nombre = rs.getString("Nombre");
+                    String apellido = rs.getString("Apellido");
+                    String fNac = rs.getString("FechaNacimiento"); // Asegúrate de que este formato sea válido
+                    String tlf = rs.getString("Telefono");
+                    String email = rs.getString("Email");
+                    String contrasena = rs.getString("Contrasena");
+
+                    // Construimos el objeto Usuario
+                    usuario = new Usuario(tiposocio, nombre, apellido, tlf, fNac, email, contrasena);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return usuario;
+    }
+
 	
+    /**
+	 * Inserta usuario en la base de datos
+	 * @param con Conexion de la base de datos
+	 * @param usuario Usuario que queremos insertar en la base de datos
+	 */
+    
+   
+    public static void insertarUsuario(Connection con, Usuario usuario) {
+        if (buscarUsuario(con, usuario.getEmail()) == null) {
+            String sql = "INSERT INTO Usuarios (Tiposocio, Nombre, Apellido, Telefono, FechaNacimiento, Email, Contrasena) " +
+                         "VALUES (?, ?, ?, ?, ?, ?, ?)";
+            try (PreparedStatement ps = con.prepareStatement(sql)) {
+                ps.setString(1, usuario.getTiposocio().name());
+                ps.setString(2, usuario.getNombre());
+                ps.setString(3, usuario.getApellido());
+                ps.setString(4, usuario.getTlf());
+                ps.setString(5, usuario.getFechNacStr()); // Asegúrate de que el formato sea compatible con DATE en tu BD.
+                ps.setString(6, usuario.getEmail());
+                ps.setString(7, usuario.getContrasena());
+                ps.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 }
