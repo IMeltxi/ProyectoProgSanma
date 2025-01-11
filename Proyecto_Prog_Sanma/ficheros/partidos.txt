@@ -1,0 +1,19 @@
+Athletic vs Getafe CF,2024-08-12,21:30,1
+Athletic vs Valencia,2024-08-27,21:30,3
+Athletic vs Atletico de Madrid,2024-09-16,18:30,5
+Athletic vs RC Celta de Vigo,2024-09-27,19:00,7
+Athletic vs Sevilla FC,2024-10-08,16:15,9
+Athletic vs RCD Espanyol,2024-10-29,16:15,11
+Athletic vs Betis,2024-11-05,18:30,12
+Athletic vs Real Sociedad,2024-12-03,21:00,15
+Athletic vs Real Madrid,2024-12-17,16:15,17
+Athletic vs Villareal,2025-01-07,16:15,19
+Athletic vs Leganés,2025-01-28,18:30,21
+Athletic vs Girona FC,2025-02-11,16:15,23
+Athletic vs Real Valladolid CF,2025-02-25,18:30,25
+Athletic vs RCD Mallorca,2025-03-10,16:15,27
+Athletic vs CA Osasuna,2025-03-31,18:30,29
+Athletic vs Rayo Vallecano,2025-04-14,16:15,31
+Athletic vs UD Las Palmas,2025-04-28,18:30,33
+Athletic vs Deportivo Alavés,2025-05-19,18:30,36
+Athletic vs FC Barcelona,2025-05-26,18:30,38

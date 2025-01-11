@@ -4,21 +4,18 @@ public class Partido {
 	private String nombrePart;
 	private String fecha;
 	private String hora;
-	private String competicion;
-	private String descripcion;
-	private Integer Jornada;
+	private Integer jornada;
 	
-	// Constructor completo para inicializar todos los atributos del partido
-	public Partido(String nombrePart, String fecha, String hora, String competicion, String descripcion) {
+	
+	public Partido(String nombrePart, String fecha, String hora, Integer jornada) {
 		super();
 		this.nombrePart = nombrePart;
 		this.fecha = fecha;
 		this.hora = hora;
-		this.competicion = competicion;
-		this.descripcion = descripcion;
+		this.jornada = jornada;
 	}
 
-	 // Métodos getter y setter para acceder y modificar los atributos
+
 	public String getNombrePart() {
 		return nombrePart;
 	}
@@ -49,41 +46,25 @@ public class Partido {
 	}
 
 
-	public String getCompeticion() {
-		return competicion;
-	}
-
-
-	public void setCompeticion(String competicion) {
-		this.competicion = competicion;
-	}
-
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
 
 	@Override
 	public String toString() {
 		return "Partido [nombrePart=" + nombrePart + ", fecha=" + fecha + ", hora=" + hora + ", competicion="
-				+ competicion + ", descripcion=" + descripcion + "]";
+			 + ", descripcion=" + "]";
 	}
 
 
 	public Integer getJornada() {
-		return Jornada;
+		return jornada;
 	}
 
 
 	public void setJornada(Integer jornada) {
-		Jornada = jornada;
+		this.jornada = jornada;
 	}
+
+
+
 	
 	
 }

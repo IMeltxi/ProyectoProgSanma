@@ -28,6 +28,7 @@ import javax.swing.JList;
 import javax.swing.Icon;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import domain.Admin;
 
 public class VentanaEntradas extends JFrame {
     /**
@@ -65,63 +66,63 @@ public class VentanaEntradas extends JFrame {
         
         PartidoCombo[] partidos = {
         	new PartidoCombo("Seleccione un partido", null, null),
-            new PartidoCombo("Athletic vs Real Madrid",
-                    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
-                    redimensionarIcono("Imagenes/ImagenesEquipos/RealMadrid.png")),
-            new PartidoCombo("Athletic vs Barcelona", 
-                    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
-                    redimensionarIcono("Imagenes/ImagenesEquipos/Barça.png")),
-            new PartidoCombo("Athletic vs Real Sociedad", 
-            		redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
-                    redimensionarIcono("Imagenes/ImagenesEquipos/RealSociedad.png")),
-            new PartidoCombo("Athletic vs Alaves", 
-                    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
-                    redimensionarIcono("Imagenes/ImagenesEquipos/Alaves.png")),
-            new PartidoCombo("Athletic vs Atletico de Madrid", 
-                    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
-                    redimensionarIcono("Imagenes/ImagenesEquipos/AtleticoMadrid.png")),
-            new PartidoCombo("Athletic vs Betis", 
-                    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
-                    redimensionarIcono("Imagenes/ImagenesEquipos/Betis.png")),
-            new PartidoCombo("Athletic vs Celta", 
-                    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
-                    redimensionarIcono("Imagenes/ImagenesEquipos/Celta.png")),
-            new PartidoCombo("Athletic vs RCD Espanyol", 
-                    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
-                    redimensionarIcono("Imagenes/ImagenesEquipos/Espanyol.png")),
-            new PartidoCombo("Athletic vs Getafe", 
-                    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
-                    redimensionarIcono("Imagenes/ImagenesEquipos/Getafe.png")),
-            new PartidoCombo("Athletic vs Girona", 
-                    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
-                    redimensionarIcono("Imagenes/ImagenesEquipos/Girona.png")),
-            new PartidoCombo("Athletic vs UD Las Palmas", 
-                    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
-                    redimensionarIcono("Imagenes/ImagenesEquipos/LasPalmas.png")),
-            new PartidoCombo("Athletic vs Leganes", 
-                    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
-                    redimensionarIcono("Imagenes/ImagenesEquipos/Leganes.png")),
-            new PartidoCombo("Athletic vs RCD Mallorca", 
-                    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
-                    redimensionarIcono("Imagenes/ImagenesEquipos/Mallorca.png")),
-            new PartidoCombo("Athletic vs Osasuna", 
-                    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
-                    redimensionarIcono("Imagenes/ImagenesEquipos/Osasuna.png")),
-            new PartidoCombo("Athletic vs Rayo Vallecano", 
-                    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
-                    redimensionarIcono("Imagenes/ImagenesEquipos/RayoVallecano.png")),
-            new PartidoCombo("Athletic vs Sevilla", 
-                    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
-                    redimensionarIcono("Imagenes/ImagenesEquipos/Sevilla.png")),
-            new PartidoCombo("Athletic vs Valencia CF", 
-                    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
-                    redimensionarIcono("Imagenes/ImagenesEquipos/Valencia.png")),
-            new PartidoCombo("Athletic vs Valladolid", 
-                    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
-                    redimensionarIcono("Imagenes/ImagenesEquipos/Valladolid.png")),
-            new PartidoCombo("Athletic vs Villareal", 
-                    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
-                    redimensionarIcono("Imagenes/ImagenesEquipos/Villareal.png")),
+        	new PartidoCombo("Athletic vs Getafe CF", 
+        		redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
+        		redimensionarIcono("Imagenes/ImagenesEquipos/Getafe.png")),
+        	new PartidoCombo("Athletic vs Valencia", 
+        	    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
+        	    redimensionarIcono("Imagenes/ImagenesEquipos/Valencia.png")),
+        	new PartidoCombo("Athletic vs Atletico de Madrid", 
+                redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
+                redimensionarIcono("Imagenes/ImagenesEquipos/AtleticoMadrid.png")),
+        	new PartidoCombo("Athletic vs RC Celta de Vigo", 
+        	    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
+        	    redimensionarIcono("Imagenes/ImagenesEquipos/Celta.png")),
+        	new PartidoCombo("Athletic vs Sevilla FC", 
+        	    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
+        	    redimensionarIcono("Imagenes/ImagenesEquipos/Sevilla.png")),
+        	new PartidoCombo("Athletic vs RCD Espanyol", 
+        	    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
+        	    redimensionarIcono("Imagenes/ImagenesEquipos/Espanyol.png")),
+        	new PartidoCombo("Athletic vs Betis", 
+                redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
+                redimensionarIcono("Imagenes/ImagenesEquipos/Betis.png")),
+        	new PartidoCombo("Athletic vs Real Sociedad", 
+        	    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
+        	    redimensionarIcono("Imagenes/ImagenesEquipos/RealSociedad.png")),
+        	new PartidoCombo("Athletic vs Real Madrid", 
+        	    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
+        	    redimensionarIcono("Imagenes/ImagenesEquipos/RealMadrid.png")),
+        	new PartidoCombo("Athletic vs Villareal", 
+                redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
+                redimensionarIcono("Imagenes/ImagenesEquipos/Villareal.png")),
+        	new PartidoCombo("Athletic vs CD Leganés", 
+        	    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
+        	    redimensionarIcono("Imagenes/ImagenesEquipos/Leganes.png")),
+        	new PartidoCombo("Athletic vs Girona FC", 
+        	    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
+        	    redimensionarIcono("Imagenes/ImagenesEquipos/Girona.png")),
+        	new PartidoCombo("Athletic vs Real Valladolid CF", 
+        	    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
+        	    redimensionarIcono("Imagenes/ImagenesEquipos/Valladolid.png")),
+        	new PartidoCombo("Athletic vs RCD Mallorca", 
+        	    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
+        	    redimensionarIcono("Imagenes/ImagenesEquipos/Mallorca.png")),
+        	new PartidoCombo("Athletic vs CA Osasuna", 
+        	    redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
+        	    redimensionarIcono("Imagenes/ImagenesEquipos/Osasuna.png")),
+        	new PartidoCombo("Athletic vs Rayo Vallecano", 
+        		redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
+        		redimensionarIcono("Imagenes/ImagenesEquipos/RayoVallecano.png")),
+        	new PartidoCombo("Athletic vs UD Las Palmas", 
+        		redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
+        		redimensionarIcono("Imagenes/ImagenesEquipos/LasPalmas.png")),
+        	new PartidoCombo("Athletic vs Deportivo Alavés", 
+        		redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
+        		redimensionarIcono("Imagenes/ImagenesEquipos/Alaves.png")),
+        	new PartidoCombo("Athletic vs FC Barcelona", 
+        		redimensionarIcono("Imagenes/ImagenesEquipos/AthleticClub.png"), 
+        		redimensionarIcono("Imagenes/ImagenesEquipos/Barça.png")),
         };
 
         cbPartido = new JComboBox<>(partidos);
@@ -244,10 +245,8 @@ public class VentanaEntradas extends JFrame {
         pCentral.add(pPartido);      
         pCentral.add(pZonaEstadio);  
 
-        // Añadir el contenedor central al centro de la ventana
         add(pCentral, BorderLayout.CENTER);
 
-        // Mantener los demás paneles
         add(panelInfo, BorderLayout.NORTH);
         add(pTipoSocio, BorderLayout.WEST);
         add(pBotones, BorderLayout.SOUTH);
@@ -258,15 +257,15 @@ public class VentanaEntradas extends JFrame {
                 String nombre = cNombre.getText();
                 PartidoCombo partido = (PartidoCombo) cbPartido.getSelectedItem();
                 if (nombre.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Error! Nombre Necesario.");
+                    JOptionPane.showMessageDialog(null, "Error! Nombre Necesario.","Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 if ("Seleccione un partido".equals(partido.getNombrePartido())) {
-                    JOptionPane.showMessageDialog(null, "Error! Seleccione un partido válido.");
+                    JOptionPane.showMessageDialog(null, "Error! Seleccione un partido válido.","Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 if (grupoOpciones.getSelection() == null) {
-                	JOptionPane.showMessageDialog(null, "Error! seleccione una zona del estadio.");
+                	JOptionPane.showMessageDialog(null, "Error! seleccione una zona del estadio.","Error", JOptionPane.ERROR_MESSAGE);
                 	return;
                 }
                 

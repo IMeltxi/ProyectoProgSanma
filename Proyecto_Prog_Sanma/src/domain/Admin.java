@@ -212,6 +212,26 @@ public class Admin {
 	    }
 	    return null;
 	}
+	
+	public void cargarPartidos() {
+		File f = new File("ficheros/partidos.txt");
+		if(f.exists()) {
+			try (Scanner sc = new Scanner(f)) {
+				while(sc.hasNext()) {
+					String linea = sc.nextLine();
+					String[] datos = linea.split(";");
+					Partido p= new Partido((datos[0]),datos[1],datos[2], Integer.parseInt(datos[3]));
+					listaPartidos.add(p);
+					System.out.println(p);
+				}
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
 
 
 	

@@ -43,14 +43,14 @@ public class VentanaAsientos extends JFrame {
             boolean hayAsientosSeleccionados = asientos.stream().anyMatch(asiento -> asiento.getEstado().equals("Ocupado"));
 
             if (!hayAsientosSeleccionados) {
-                JOptionPane.showMessageDialog(null, "Debe seleccionar al menos un asiento.");
+                JOptionPane.showMessageDialog(null, "Debe seleccionar al menos un asiento.","Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 try {
                     guardarAsientosEnCSV(partido, lado);
                     JOptionPane.showMessageDialog(null, "Entradas Compradas!");
                     dispose();
                 } catch (IOException e1) {
-                    JOptionPane.showMessageDialog(null, "Error al comprar las entradas");
+                    JOptionPane.showMessageDialog(null, "Error al comprar las entradas","Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
