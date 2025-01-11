@@ -38,6 +38,10 @@ public class VentanaPrincipal extends JFrame{
         JPanel panelSo = new JPanel();
         JButton botonSo = new JButton("Cambiarme Socio");
         panelSo.add(botonSo);
+        //Boton datos del usuario
+        JPanel panelDatos = new JPanel();
+        JButton botonDatos = new JButton("Tus datos");
+        panelDatos.add(botonDatos);
         //Darse de baja
         JPanel panelBaja = new JPanel();
         JButton botonBaja = new JButton("Darme de baja");
@@ -47,6 +51,7 @@ public class VentanaPrincipal extends JFrame{
         panelPrincipal.add(panelCE, BorderLayout.NORTH);
         panelPrincipal.add(panelSo, BorderLayout.CENTER);
         panelPrincipal.add(panelBaja, BorderLayout.SOUTH);
+        panelPrincipal.add(panelDatos,BorderLayout.NORTH);
         
         setVisible(true);
         
@@ -70,7 +75,16 @@ public class VentanaPrincipal extends JFrame{
 				dispose();
 			}
 		});
-        
+        botonDatos.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VentanaDetallesCuenta ventanaDC = new VentanaDetallesCuenta(user);
+				ventanaDC.setVisible(true);
+				dispose();
+				
+			}
+		});
         botonBaja.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
