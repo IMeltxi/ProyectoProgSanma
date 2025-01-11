@@ -64,7 +64,7 @@ public class BD {
             logger.info("Tabla Usuarios creada correctamente");
 
             // Tabla CategoriasEntradas
-            sql = "CREATE TABLE IF NOT EXISTS CategoriasEntradas ("
+            sql = "CREATE TABLE IF NOT EXISTS TipoDeEntradas ("
                     + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + "nombre_categoria TEXT NOT NULL,"
                     + "precio REAL NOT NULL"
@@ -72,7 +72,7 @@ public class BD {
             stmt = con.createStatement();
             stmt.executeUpdate(sql);
             stmt.close();
-            logger.info("Tabla CategoriasEntradas creada correctamente");
+            logger.info("Tabla TipoDeEntradas creada correctamente");
 
             // Tabla Localizaciones
             sql = "CREATE TABLE IF NOT EXISTS Localizaciones ("
