@@ -2,6 +2,7 @@ package gui;
 
 import javax.swing.*;
 
+import domain.Admin;
 import domain.Usuario;
 
 import java.awt.*;
@@ -19,7 +20,7 @@ public class VentanaAsientos extends JFrame {
     private JPanel panel;
     private List<Asiento> asientos = new ArrayList<>();
     private final String nomFich = "ficheros/";
-
+    private Admin admin;
     private final ImageIcon asientoLibreIcon = redimensionarImagen(new ImageIcon("Imagenes/ImagenesAsientos/AsientoLibre.png"), 100, 100);
     private final ImageIcon asientoOcupadoIcon = redimensionarImagen(new ImageIcon("Imagenes/ImagenesAsientos/AsientoOcupado.png"), 100, 100);
 
@@ -50,6 +51,7 @@ public class VentanaAsientos extends JFrame {
             } else {
                 try {
                     guardarAsientosEnCSV(partido, lado);
+                    admin.guardarCompras(partido, lado, user);
                     JOptionPane.showMessageDialog(null, "Entradas Compradas!");
                     dispose();
                 } catch (IOException e1) {
@@ -164,6 +166,7 @@ public class VentanaAsientos extends JFrame {
         }
         bw.close();
     }
+    
 
     private ImageIcon redimensionarImagen(ImageIcon icono, int ancho, int alto) {
         Image img = icono.getImage();

@@ -117,7 +117,7 @@ public class VentanaAdmin extends JFrame {
         ModeloTabla modelo = new ModeloTabla(usuarios);
         tabla = new JTable(modelo);
 
-        tabla.setDefaultRenderer(Object.class, new RenderJTable());
+        tabla.setDefaultRenderer(Object.class, new RenderTablas());
         JScrollPane scrollPane = new JScrollPane(tabla);
         panelCent.add(scrollPane, BorderLayout.CENTER);
         panelCont.add(panelCent, BorderLayout.CENTER);
@@ -316,20 +316,7 @@ public class VentanaAdmin extends JFrame {
 	        return false; // Las celdas no son editables
 	    }
 	}
-	//RENDERER DE LA TABLA
-	private class RenderJTable extends DefaultTableCellRenderer {
-	    @Override
-	    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
-	            int row, int column) {
-	        Component cellComponent = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-	        
-	        // Cambiar el color de fondo en líneas pares a rojo
-	        if (row % 2 == 0) cellComponent.setBackground(Color.red);
-	            else cellComponent.setBackground(Color.white);
-	        
-	        return cellComponent;
-	    }
-	}
+	
 
 	public static void main(String[] args) {
 		Admin admin = new Admin();

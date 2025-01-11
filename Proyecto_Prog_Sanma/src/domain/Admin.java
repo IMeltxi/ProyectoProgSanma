@@ -1,5 +1,6 @@
 package domain;
 
+import java.awt.image.Kernel;
 import java.io.File;
 
 
@@ -23,6 +24,7 @@ public class Admin {
 		private List<Partido>listaPartidos;
 		private Map<Integer, Usuario> socios;
 		private List<Usuario> usuarios;
+		private Map<Usuario, List<String>> compras;
 		
 		// Constructor de la clase Admin
 		public Admin() {
@@ -31,7 +33,8 @@ public class Admin {
 			listaEsperaUsuarios = new LinkedList<Usuario>();
 			listaPartidos = new ArrayList<Partido>();
 			usuarios = new ArrayList<>();
-
+			socios = new HashMap<Integer, Usuario>();
+			compras = new HashMap<Usuario, List<String>>();
 		}
 		// Método para obtener la lista de usuarios
 	    public List<Usuario> getUsuarios() {
@@ -211,6 +214,17 @@ public class Admin {
 	        }
 	    }
 	    return null;
+	}
+	
+	public void guardarCompras(String partido, String lado, Usuario user) {
+		for(Usuario u: compras.keySet()) {
+			if(compras.containsKey(user)) {
+				//Falta por hacer
+
+			}
+			
+		}
+		        
 	}
 	
 	public void cargarPartidos() {
