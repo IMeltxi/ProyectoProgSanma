@@ -88,7 +88,7 @@ public class VentanaInicio extends JFrame {
 				// se abre una nueva ventana para gestionar la compra de entradas (VentanaEntradas).
 				// La ventana actual se cierra automáticamente para dar paso a la nueva.
 				if(!(user==null)) {
-					VentanaEntradas ventanaentradas = new VentanaEntradas(user);
+					VentanaEntradas ventanaentradas = new VentanaEntradas();
 					ventanaentradas.setVisible(true);
 					dispose();
 				}else {

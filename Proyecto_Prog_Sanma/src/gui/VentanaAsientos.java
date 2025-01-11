@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * El codigo necesitado para realizar el metodo que carga y guarda para diferenciar cada partido
- * ha sido realizado con ChatGPT-4
+ * ha sido realizado con ChatGPT-4. 
  */
 public class VentanaAsientos extends JFrame {
     private static final long serialVersionUID = 1L;
