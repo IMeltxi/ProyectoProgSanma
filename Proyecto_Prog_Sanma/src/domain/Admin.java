@@ -231,9 +231,26 @@ public class Admin {
 			}
 		}
 		
+	
+		
 	}
 
+	public boolean Menor26(String fechaNacimiento, String fechaActual){
+	    // Parsear las fechas a objetos LocalDate
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	    LocalDate nacimiento = LocalDate.parse(fechaNacimiento, formatter);
+	    LocalDate actual = LocalDate.parse(fechaActual, formatter);
 
+	    // Calcular la diferencia de años
+	    int edad = actual.getYear() - nacimiento.getYear();
+
+	    // Verificar si la persona tiene 26 años exactos
+	    if (edad < 26) {
+	    	return true;
+	    }
+
+	    return false;		
+	}
 	
 }
 	

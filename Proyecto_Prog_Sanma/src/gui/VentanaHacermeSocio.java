@@ -156,7 +156,7 @@ public class VentanaHacermeSocio extends JFrame {
         }
 
         private void abrirSocioBasico() {
-            VentanaSocioBasico ventanabasico = new VentanaSocioBasico();
+            VentanaSocioBasico ventanabasico = new VentanaSocioBasico(admin, usuario);
             ventanabasico.setVisible(true);
         }
     }

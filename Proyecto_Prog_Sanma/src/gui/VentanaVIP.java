@@ -38,15 +38,19 @@ public class VentanaVIP extends JFrame {
 
         // Añadir funcionalidad al botón
         botonHacermeVIP.addActionListener(new ActionListener() {
+        	
             @Override
             public void actionPerformed(ActionEvent e) {
+            	if(usuario.getTiposocio().equals("VIP")) {
+            		JOptionPane.showMessageDialog(VentanaVIP.this,"Tu ya eres VIP"
+                 );}else {
                 usuario.setTiposocio(Usuario.tipoSocio.VIP); // Cambiar el tipo de socio a VIP
                 JOptionPane.showMessageDialog(
                         VentanaVIP.this,
                         "¡Felicidades! Ahora eres un Socio VIP.",
                         "Socio VIP",
                         JOptionPane.INFORMATION_MESSAGE
-                );
+                );}
                 guardarCambios(); // Guardar el usuario actualizado
             }
         });

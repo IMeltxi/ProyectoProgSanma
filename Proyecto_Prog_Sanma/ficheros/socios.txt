@@ -46,3 +46,8 @@ SOCIO;Henry;Gray;901234567;2000-09-02;henry.gray@example.com;password45;44
 SOCIOMENSUAL;Aria;Ramirez;234567890;1993-10-03;aria.ramirez@example.com;password46;45
 GAZTEABONO;Dylan;James;567890123;1996-11-04;dylan.james@example.com;password47;46
 VIP;Penelope;Watson;678901234;1999-12-05;penelope.watson@example.com;password48;47
+SOCIO;Elijah;Brooks;345678901;1992-01-06;elijah.brooks@example.com;password49;48
+SOCIOMENSUAL;Chloe;Reed;789012345;1995-02-07;chloe.reed@example.com;password50;49
+GAZTEABONO;em;wew;qee;2003-12-12;dcacac;123;50
+GAZTEABONO;peque;peque;11111111;2007-11-11;peque@peque.com;1234;51
+
