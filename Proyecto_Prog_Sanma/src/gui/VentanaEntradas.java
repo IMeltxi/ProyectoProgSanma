@@ -8,6 +8,8 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.io.IOException;
 import java.util.Collections;
 
@@ -30,7 +32,7 @@ import javax.swing.JList;
 import javax.swing.Icon;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
-import domain.Admin;
+
 
 public class VentanaEntradas extends JFrame {
     /**
@@ -168,23 +170,36 @@ public class VentanaEntradas extends JFrame {
 
         // Panel para imágenes
         JPanel pImagenesGradas = new JPanel();
-        pImagenesGradas.setLayout(new GridLayout(3,3));
-        JLabel imagenNorte = new JLabel(redimensionarIcono2("Imagenes/ImagenesGradas/GradaNorte.png"));
-        JLabel imagenSur = new JLabel(redimensionarIcono2("Imagenes/ImagenesGradas/GradaSur.png"));
-        JLabel imagenCentro = new JLabel(redimensionarIcono2("Imagenes/ImagenesGradas/AthleticLuz.png"));
-        JLabel imagenEste = new JLabel(redimensionarIcono2("Imagenes/ImagenesGradas/GradaEste.png"));
-        JLabel imagenOeste = new JLabel(redimensionarIcono2("Imagenes/ImagenesGradas/GradaOeste.png"));
-        
-        
-        pImagenesGradas.add(new JLabel()); 
+        pImagenesGradas.setLayout(new GridLayout(3, 3));
+        JLabel imagenNorte = new JLabel();
+        JLabel imagenSur = new JLabel();
+        JLabel imagenCentro = new JLabel();
+        JLabel imagenEste = new JLabel();
+        JLabel imagenOeste = new JLabel();
+
+        pImagenesGradas.add(new JLabel());
         pImagenesGradas.add(imagenNorte);
         pImagenesGradas.add(new JLabel());
-        pImagenesGradas.add(imagenOeste); 
-        pImagenesGradas.add(imagenCentro); 
-        pImagenesGradas.add(imagenEste); 
-        pImagenesGradas.add(new JLabel()); 
-        pImagenesGradas.add(imagenSur); 
-        pImagenesGradas.add(new JLabel()); 
+        pImagenesGradas.add(imagenOeste);
+        pImagenesGradas.add(imagenCentro);
+        pImagenesGradas.add(imagenEste);
+        pImagenesGradas.add(new JLabel());
+        pImagenesGradas.add(imagenSur);
+        pImagenesGradas.add(new JLabel());
+
+        pImagenesGradas.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                int ancho = pImagenesGradas.getWidth() / 3; // Dividir entre 3 columnas
+                int alto = pImagenesGradas.getHeight() / 3; // Dividir entre 3 filas
+
+                imagenNorte.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaNorte.png", ancho, alto));
+                imagenSur.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaSur.png", ancho, alto));
+                imagenCentro.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/AthleticLuz.png", ancho, alto));
+                imagenEste.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaEste.png", ancho, alto));
+                imagenOeste.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaOeste.png", ancho, alto));
+            }
+        });
 
         // Panel para botones de selección
         JPanel pOpciones = new JPanel();
@@ -209,34 +224,46 @@ public class VentanaEntradas extends JFrame {
         // Añadir las imágenes y los botones al panel de zona de estadio
         pZonaEstadio.add(pImagenesGradas, BorderLayout.CENTER);
         pZonaEstadio.add(pOpciones, BorderLayout.SOUTH);
-        
-     // Añadir funcionalidad a los botones
+
+        // Añadir funcionalidad a los botones
         opcionNorte.addActionListener(e -> {
-            imagenNorte.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaNorte.png"));
-            imagenSur.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaSurBN.png"));
-            imagenEste.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaEsteBN.png"));
-            imagenOeste.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaOesteBN.png"));
+            int ancho = imagenNorte.getWidth();
+            int alto = imagenNorte.getHeight();
+
+            imagenNorte.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaNorte.png", ancho, alto));
+            imagenSur.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaSurBN.png", ancho, alto));
+            imagenEste.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaEsteBN.png", ancho, alto));
+            imagenOeste.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaOesteBN.png", ancho, alto));
         });
 
         opcionSur.addActionListener(e -> {
-        	imagenNorte.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaNorteBN.png"));
-            imagenSur.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaSur.png"));
-            imagenEste.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaEsteBN.png"));
-            imagenOeste.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaOesteBN.png"));
+            int ancho = imagenSur.getWidth();
+            int alto = imagenSur.getHeight();
+
+            imagenNorte.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaNorteBN.png", ancho, alto));
+            imagenSur.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaSur.png", ancho, alto));
+            imagenEste.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaEsteBN.png", ancho, alto));
+            imagenOeste.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaOesteBN.png", ancho, alto));
         });
 
         opcionEste.addActionListener(e -> {
-        	imagenNorte.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaNorteBN.png"));
-            imagenSur.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaSurBN.png"));
-            imagenEste.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaEste.png"));
-            imagenOeste.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaOesteBN.png"));
+            int ancho = imagenEste.getWidth();
+            int alto = imagenEste.getHeight();
+
+            imagenNorte.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaNorteBN.png", ancho, alto));
+            imagenSur.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaSurBN.png", ancho, alto));
+            imagenEste.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaEste.png", ancho, alto));
+            imagenOeste.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaOesteBN.png", ancho, alto));
         });
 
         opcionOeste.addActionListener(e -> {
-        	imagenNorte.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaNorteBN.png"));
-            imagenSur.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaSurBN.png"));
-            imagenEste.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaEsteBN.png"));
-            imagenOeste.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaOeste.png"));
+            int ancho = imagenOeste.getWidth();
+            int alto = imagenOeste.getHeight();
+
+            imagenNorte.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaNorteBN.png", ancho, alto));
+            imagenSur.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaSurBN.png", ancho, alto));
+            imagenEste.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaEsteBN.png", ancho, alto));
+            imagenOeste.setIcon(redimensionarIcono2("Imagenes/ImagenesGradas/GradaOeste.png", ancho, alto));
         });
         
     
@@ -300,9 +327,9 @@ public class VentanaEntradas extends JFrame {
         return new ImageIcon(imagen);
     }
     
-    private Icon redimensionarIcono2(String rIcono) {
+    private Icon redimensionarIcono2(String rIcono, int ancho, int alto) {
         ImageIcon iconoOriginal = new ImageIcon(rIcono);
-        Image imagen = iconoOriginal.getImage().getScaledInstance(400, 200, Image.SCALE_SMOOTH);
+        Image imagen = iconoOriginal.getImage().getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
         return new ImageIcon(imagen);
     }
 
