@@ -32,8 +32,9 @@ public class VentanaIniciarSesion extends JFrame {
 	private Admin admin;
 	private JTextField correoField;
 	private JPasswordField contraseñaField;
-	public VentanaIniciarSesion(Admin admin) {
-		this.admin = admin;
+	public VentanaIniciarSesion() {
+		this.admin = new Admin();
+		admin.cargarUsuarios();
 		// Configuracion Ventana
 		
 		setTitle("Iniciar Sesion");
@@ -110,7 +111,12 @@ public class VentanaIniciarSesion extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				verificarUsuario();
+				Usuario user = verificarUsuario();
+				if(!(user==null)) {
+					VentanaInicio ventanaInicio = new VentanaInicio(user);
+					ventanaInicio.setVisible(true);
+				}
+				
 			}
 		});
 		botonregistrate.addActionListener(new ActionListener() {
@@ -125,11 +131,11 @@ public class VentanaIniciarSesion extends JFrame {
 		});
 	}
 		
-			private void verificarUsuario() {
+			private Usuario verificarUsuario() {
 			    // Validar campos vacíos antes de continuar
 			    if (correoField.getText().trim().isEmpty() || contraseñaField.getPassword().length == 0) {
 			        JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
-			        return;
+			        return null;
 			    }
 
 			    // Obtener el correo y la contraseña ingresados
@@ -142,6 +148,7 @@ public class VentanaIniciarSesion extends JFrame {
 			    // Validar si el usuario existe y la contraseña es correcta
 			    if (usuarioEncontrado == null || !usuarioEncontrado.verificarContrasena(contrasena)) {
 			        JOptionPane.showMessageDialog(this, "Correo o contraseña incorrectos.", "Error", JOptionPane.ERROR_MESSAGE);
+			        return null;
 			    } else {
 			        // Inicio de sesión exitoso
 			        JOptionPane.showMessageDialog(this, "Inicio de sesión válido", "Ongi Etorri", JOptionPane.INFORMATION_MESSAGE);
@@ -149,21 +156,13 @@ public class VentanaIniciarSesion extends JFrame {
 			        // Abrir la ventana principal
 			        VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();
 			        ventanaPrincipal.setVisible(true);
-
+			        
 			        // Cerrar la ventana actual
 			        dispose();
+			        return usuarioEncontrado;
 			    }
-
-			    // Borrar el contenido de la contraseña para mayor seguridad
-			    java.util.Arrays.fill(contrasena, '\0');
+			    
 			}
 
-		
-	
-	
-	public static void main(String[] args) {
-		Admin admin = new Admin();
-		new VentanaIniciarSesion(admin);
-		}
 
 }

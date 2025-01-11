@@ -7,16 +7,16 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import domain.Admin;
+import domain.Usuario;
 
 public class VentanaInicio extends JFrame {
 	
-	private Admin admin;
 
-
-	public VentanaInicio() {
+	public VentanaInicio(Usuario user) {
 		
 		// Configuración inicial de la ventana
         // Establece el título de la ventana, maximiza su tamaño, define la operación de cierre
@@ -60,7 +60,7 @@ public class VentanaInicio extends JFrame {
 				// Cuando el usuario hace clic en el botón "IniciarSesion",
 				// se abre la ventana de inicio de sesión (VentanaIniciarSesion),
 				// se pasa el objeto Admin como referencia y se cierra la ventana actual.
-				VentanaIniciarSesion ventanaIniciarSesion = new VentanaIniciarSesion(admin);
+				VentanaIniciarSesion ventanaIniciarSesion = new VentanaIniciarSesion();
 				ventanaIniciarSesion.setVisible(true);
 				dispose(); 
 			}
@@ -87,15 +87,17 @@ public class VentanaInicio extends JFrame {
 				// Cuando el usuario hace clic en el botón "Comprar entradas",
 				// se abre una nueva ventana para gestionar la compra de entradas (VentanaEntradas).
 				// La ventana actual se cierra automáticamente para dar paso a la nueva.
-				VentanaEntradas ventanaentradas = new VentanaEntradas();
-				ventanaentradas.setVisible(true);
-				dispose();
+				if(!(user==null)) {
+					VentanaEntradas ventanaentradas = new VentanaEntradas(user);
+					ventanaentradas.setVisible(true);
+					dispose();
+				}else {
+					JOptionPane.showMessageDialog(VentanaInicio.this, "Para comprar una entrada es necesario iniciar sesion primero", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+				
 			}
 		});
         
 	}
 	
-    public static void main(String[] args) {
-        new VentanaInicio();
-    }
 }

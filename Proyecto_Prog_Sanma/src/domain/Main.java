@@ -6,7 +6,7 @@ public class Main  {
 	public static void main(String[] args) {
 		
 		// ejecucucion ventana de inicio
-        new VentanaInicio();
+        new VentanaInicio(null);
 
 		// Creamos una instancia de la clase Admin para gestionar usuarios y socios
 		Admin a = new Admin();

@@ -36,7 +36,7 @@ public class VentanaAdmin extends JFrame {
     private Admin admin;
     private JTable tabla;
     private JPanel panelLateral; // Panel para añadir socios
-    private JTextField txtNombre, txtApellido, txtTelefono, txtFechaNacimiento, txtCorreo,txtContrasenia, txtNumeroSocio;
+    private JTextField txtNombre, txtApellido, txtTelefono, txtFechaNacimiento, txtCorreo,txtContrasenia;
     private JComboBox<String> cbTipoSocio;
 
     public VentanaAdmin(Admin admin) {
@@ -214,7 +214,7 @@ public class VentanaAdmin extends JFrame {
                     nuevoSocio.setNumeroSocio(admin.getUsuarios().size());
                     admin.añadirUsuarios(nuevoSocio);
             	}else
-            		JOptionPane.showMessageDialog(this, "Este email ya esta asociado a un socio", "Error", JOptionPane.ERROR_MESSAGE);;
+            		JOptionPane.showMessageDialog(this, "Este email ya esta asociado a un socio", "Error", JOptionPane.ERROR_MESSAGE);
             	
             }
             
