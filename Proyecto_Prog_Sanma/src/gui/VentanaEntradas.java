@@ -281,7 +281,7 @@ public class VentanaEntradas extends JFrame {
                 JOptionPane.showMessageDialog(null, "Compra Exitosa para " + partido.getNombrePartido() + "! Selecciona el asiento deseado.");
                 VentanaAsientos ventanaAsientos = null;
                 try {
-                    ventanaAsientos = new VentanaAsientos(partido.getNombrePartido(),lado);
+                    ventanaAsientos = new VentanaAsientos(partido.getNombrePartido(),lado,user);
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }

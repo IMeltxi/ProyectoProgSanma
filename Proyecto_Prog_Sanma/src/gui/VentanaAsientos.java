@@ -1,6 +1,9 @@
 package gui;
 
 import javax.swing.*;
+
+import domain.Usuario;
+
 import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -20,7 +23,7 @@ public class VentanaAsientos extends JFrame {
     private final ImageIcon asientoLibreIcon = redimensionarImagen(new ImageIcon("Imagenes/ImagenesAsientos/AsientoLibre.png"), 100, 100);
     private final ImageIcon asientoOcupadoIcon = redimensionarImagen(new ImageIcon("Imagenes/ImagenesAsientos/AsientoOcupado.png"), 100, 100);
 
-    public VentanaAsientos(String partido, String lado) throws IOException {
+    public VentanaAsientos(String partido, String lado, Usuario user) throws IOException {
         setTitle("Selección de Asientos - " + partido + " (" + lado + ")");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -57,7 +60,7 @@ public class VentanaAsientos extends JFrame {
 
         JButton atrasBtn = new JButton("Atrás");
         atrasBtn.addActionListener(e -> {
-            VentanaEntradas ventanaEntradas = new VentanaEntradas();
+            VentanaEntradas ventanaEntradas = new VentanaEntradas(user);
             ventanaEntradas.setVisible(true);
             dispose();
         });
