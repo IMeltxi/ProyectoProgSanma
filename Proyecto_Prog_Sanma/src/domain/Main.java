@@ -1,8 +1,13 @@
 package domain;
 import db.BD;
+import gui.VentanaInicio;
 
 public class Main  {
 	public static void main(String[] args) {
+		
+		// ejecucucion ventana de inicio
+        new VentanaInicio();
+
 		// Creamos una instancia de la clase Admin para gestionar usuarios y socios
 		Admin a = new Admin();
 		a.cargarUsuarios();
