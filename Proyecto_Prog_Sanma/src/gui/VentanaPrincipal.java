@@ -36,7 +36,7 @@ public class VentanaPrincipal extends JFrame{
         panelCE.add(botonCE);
         //Panel hacerme socio
         JPanel panelSo = new JPanel();
-        JButton botonSo = new JButton("Hacerme Socio");
+        JButton botonSo = new JButton("Cambiarme Socio");
         panelSo.add(botonSo);
         //Darse de baja
         JPanel panelBaja = new JPanel();

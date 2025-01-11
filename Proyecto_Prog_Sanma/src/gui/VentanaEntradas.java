@@ -375,11 +375,6 @@ public class VentanaEntradas extends JFrame {
         }	
     }
     
-   
-    
-    
-    
-    
 
     public static void main(String[] args) {
             VentanaEntradas ventana = new VentanaEntradas();
