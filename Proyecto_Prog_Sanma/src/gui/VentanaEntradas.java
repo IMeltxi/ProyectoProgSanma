@@ -24,6 +24,8 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import domain.Entradas;
+import domain.Usuario;
+
 import javax.swing.JList;
 import javax.swing.Icon;
 import javax.swing.BoxLayout;
@@ -40,7 +42,7 @@ public class VentanaEntradas extends JFrame {
     private JComboBox<PartidoCombo> cbPartido;
     private JComboBox<String> cbTipoSocio;
 
-    public VentanaEntradas() {
+    public VentanaEntradas(Usuario user) {
         setTitle("Gestión de Entradas de San Mamés");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -377,7 +379,7 @@ public class VentanaEntradas extends JFrame {
     
 
     public static void main(String[] args) {
-            VentanaEntradas ventana = new VentanaEntradas();
+            VentanaEntradas ventana = new VentanaEntradas(null);
             ventana.setVisible(true);
         };
     }
