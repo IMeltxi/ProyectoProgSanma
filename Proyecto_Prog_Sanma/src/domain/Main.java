@@ -14,10 +14,6 @@ public class Main  {
 		Admin a = new Admin();
 		a.cargarUsuarios();
 		a.visualizarSocios();
-		//BD.initBD("resources/db/sanMames.db");
-		//BD.borrarTablas();
-		 // Creamos las tablas necesarias en la base de datos
-		//BD.crearTablas();
 		
 		pruebas();
 	

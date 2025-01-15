@@ -262,26 +262,45 @@ public class BD {
             }
         }
     }
-         // Muestra las entradas junto con los datos de los usuarios que las compraron.
-    	 //Generado con ia generativa chat gpt4o
-    public static void mostrarEntradasConUsuarios() {
-        // Consulta SQL que combina datos de las tablas Entradas y Usuarios
-        String sql = "SELECT e.id, u.Nombre, u.Apellido, e.fecha_compra " +
-                     "FROM Entradas e " +
-                     "JOIN Usuarios u ON e.usuario_id = u.Numero_socio";
+    
+    //generado con ia generativa chat gpt4o
+    /**
+     * Obtiene una lista de usuarios (socios) filtrados por un tipo específico.
+     *
+     * @param tipoSocio Tipo de socio por el cual se filtrarán los usuarios. 
+     *                  Debe ser un valor del enum `Usuario.tipoSocio`, como `VIP` o `BASIC`.
+     * @return Una lista de objetos `Usuario` que pertenecen al tipo especificado.
+     *         Si no se encuentra ningún usuario, retorna una lista vacía.
+     * @throws SQLException Si ocurre algún error al ejecutar la consulta SQL.
+     */
+
+    public static List<Usuario> obtenerSociosPorTipo(Usuario.tipoSocio tipoSocio) {
+        List<Usuario> socios = new ArrayList<>();
+
+        String sql = "SELECT * FROM Usuarios WHERE Tiposocio = ?";
         
-        try (Statement st = con.createStatement(); ResultSet rs = st.executeQuery(sql)) {
-            // Iteramos sobre el resultado de la consulta
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, tipoSocio.name());
+            ResultSet rs = ps.executeQuery();
+
             while (rs.next()) {
-                // Obtenemos y mostramos los datos de cada fila
-                System.out.println("ID Entrada: " + rs.getInt("id") + 
-                                   ", Nombre: " + rs.getString("Nombre") + 
-                                   ", Apellido: " + rs.getString("Apellido") + 
-                                   ", Fecha Compra: " + rs.getString("fecha_compra"));
+                Usuario.tipoSocio tiposocio = Usuario.tipoSocio.valueOf(rs.getString("Tiposocio").toUpperCase());
+                String nombre = rs.getString("Nombre");
+                String apellido = rs.getString("Apellido");
+                String tlf = rs.getString("Telefono");
+                String fechaNacimiento = rs.getString("FechaNacimiento");
+                String email = rs.getString("Email");
+                String contrasena = rs.getString("Contrasena");
+
+                Usuario usuario = new Usuario(tiposocio, nombre, apellido, tlf, fechaNacimiento, email, contrasena);
+                socios.add(usuario);
             }
+            rs.close();
         } catch (SQLException e) {
-            e.printStackTrace(); // Muestra un error en caso de fallo en la consulta
+            e.printStackTrace();
         }
+
+        return socios;
     }
 
     /**
