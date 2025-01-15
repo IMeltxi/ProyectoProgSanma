@@ -1,7 +1,9 @@
 package gui;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -54,6 +56,27 @@ public class VentanaRegistrarse extends JFrame {
         panel2.setBorder(BorderFactory.createCompoundBorder(titledBorder, new EmptyBorder(20, 20, 20, 20)));
         panel2.setLayout(new BoxLayout(panel2, BoxLayout.Y_AXIS));
 
+        JPanel panelSuperior = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
+		// Crear el botón "Atrás"
+		JButton botonAtras = new JButton("Atrás");
+
+		// Configurar el evento del botón "Atrás"
+		botonAtras.addActionListener(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        VentanaInicio inicio = new VentanaInicio(null);
+		        inicio.setVisible(true);
+		        dispose();
+		    }
+		});
+		// Añadir el botón al panel superior
+		panelSuperior.add(botonAtras);
+
+		// Añadir el panel superior al contenedor principal (por ejemplo, usando BorderLayout)
+		add(panelSuperior, BorderLayout.NORTH);
+		
+        
         JLabel panelLateral = new JLabel("Tipo de Socio:");
         JComboBox<String> cbTipoSocio = new JComboBox<>(new String[] { "SocioMensual", "Socio", "VIP", "GAZTEABONO" });
         panel2.add(cbTipoSocio);
@@ -148,53 +171,59 @@ public class VentanaRegistrarse extends JFrame {
         botonRegistrarse.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String tipoSocioStr = (String) cbTipoSocio.getSelectedItem();
-                Usuario.tipoSocio tipoSocio = Usuario.tipoSocio.valueOf(tipoSocioStr.toUpperCase());
-                String nombre = nombreField.getText();
-                String apellido = apellidoField.getText();
-                String telefono = tlfField.getText();
-                String fechanac = fechaNacimientoField.getText();
-                String gmail = correoField.getText();
+            	try {
+            		String tipoSocioStr = (String) cbTipoSocio.getSelectedItem();
+                    Usuario.tipoSocio tipoSocio = Usuario.tipoSocio.valueOf(tipoSocioStr.toUpperCase());
+                    String nombre = nombreField.getText();
+                    String apellido = apellidoField.getText();
+                    String telefono = tlfField.getText();
+                    String fechanac = fechaNacimientoField.getText();
+                    String gmail = correoField.getText();
 
-                // Obtener contraseñas desde JPasswordField
-                char[] contraseñaArray = contraseniaField.getPassword();
-                String contraseña = new String(contraseñaArray); // Convertir el arreglo de char a String
-                char[] confirmarContraseñaArray = contrasenia2Field.getPassword();
-                String confirmarContraseña = new String(confirmarContraseñaArray); // Convertir el arreglo de char a String
+                    // Obtener contraseñas desde JPasswordField
+                    char[] contraseñaArray = contraseniaField.getPassword();
+                    String contraseña = new String(contraseñaArray); // Convertir el arreglo de char a String
+                    char[] confirmarContraseñaArray = contrasenia2Field.getPassword();
+                    String confirmarContraseña = new String(confirmarContraseñaArray); // Convertir el arreglo de char a String
 
-                // Confirmar si es un nuevo usuario
-                boolean verificador = false;
-                for (Usuario lista : admin.getUsuarios()) {
-                    if (gmail.equals(lista.getEmail())) {
-                        verificador = true;
-                    }
-                }
-
-                if (verificador) {
-                    // Usuario ya registrado
-                    JOptionPane.showMessageDialog(null, "Este usuario ya está registrado ", "Error",
-                            JOptionPane.ERROR_MESSAGE);
-                } else if (contraseña.equals(confirmarContraseña)) {
-                    // Verificar edad para GAZTEABONO
-                    if (tipoSocio == Usuario.tipoSocio.GAZTEABONO) {
-                        String fechaActual = LocalDate.now().toString();
-                        if (!admin.Menor26(fechanac, fechaActual)) {
-                            JOptionPane.showMessageDialog(null,
-                                    "El GAZTEABONO solo está disponible para personas menores de 26 años.",
-                                    "Restricción de edad", JOptionPane.WARNING_MESSAGE);
-                            return; // Detener el proceso de registro
+                    // Confirmar si es un nuevo usuario
+                    boolean verificador = false;
+                    for (Usuario lista : admin.getUsuarios()) {
+                        if (gmail.equals(lista.getEmail())) {
+                            verificador = true;
                         }
                     }
 
-                    // Crear y registrar el nuevo usuario
-                    Usuario u = new Usuario(tipoSocio, nombre, apellido, telefono, fechanac, gmail, contraseña);
-                    u.setNumeroSocio(admin.getUsuarios().size());
-                    admin.añadirUsuarios(u);
-                    System.out.println(u);
-                    JOptionPane.showMessageDialog(null, "Registrado");
-                } else {
-                    JOptionPane.showMessageDialog(null, "La contraseña no coincide");
-                }
+                    if (verificador) {
+                        // Usuario ya registrado
+                        JOptionPane.showMessageDialog(null, "Este usuario ya está registrado ", "Error",
+                                JOptionPane.ERROR_MESSAGE);
+                    } else if (contraseña.equals(confirmarContraseña)) {
+                        // Verificar edad para GAZTEABONO
+                        if (tipoSocio == Usuario.tipoSocio.GAZTEABONO) {
+                            String fechaActual = LocalDate.now().toString();
+                            if (!admin.Menor26(fechanac, fechaActual)) {
+                                JOptionPane.showMessageDialog(null,
+                                        "El GAZTEABONO solo está disponible para personas menores de 26 años.",
+                                        "Restricción de edad", JOptionPane.WARNING_MESSAGE);
+                                return; // Detener el proceso de registro
+                            }
+                        }
+
+                        // Crear y registrar el nuevo usuario
+                        Usuario u = new Usuario(tipoSocio, nombre, apellido, telefono, fechanac, gmail, contraseña);
+                        u.setNumeroSocio(admin.getUsuarios().size());
+                        admin.añadirUsuarios(u);
+                        System.out.println(u);
+                        JOptionPane.showMessageDialog(null, "Registrado");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "La contraseña no coincide");
+                    }
+				} catch (Exception e2) {
+					 JOptionPane.showMessageDialog(null, "Error, verifica que los datos cumplen los requisitos y estan todos los campos llenos ", "Error",
+                             JOptionPane.ERROR_MESSAGE);
+				}
+                
 
             }
         });
