@@ -11,10 +11,12 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 import domain.Usuario.tipoSocio;
 
@@ -22,9 +24,9 @@ public class Admin {
 		
 		private List<Usuario>listaEsperaUsuarios;
 		private List<Partido>listaPartidos;
+		private List<Compras> listaCompras;
 		private Map<Integer, Usuario> socios;
 		private List<Usuario> usuarios;
-		private Map<Usuario, List<String>> compras;
 		
 		// Constructor de la clase Admin
 		public Admin() {
@@ -33,8 +35,8 @@ public class Admin {
 			listaEsperaUsuarios = new LinkedList<Usuario>();
 			listaPartidos = new ArrayList<Partido>();
 			usuarios = new ArrayList<>();
+			listaCompras = new ArrayList<>();
 			socios = new HashMap<Integer, Usuario>();
-			compras = new HashMap<Usuario, List<String>>();
 		}
 		// Método para obtener la lista de usuarios
 	    public List<Usuario> getUsuarios() {
@@ -44,7 +46,20 @@ public class Admin {
 	    public void setUsuarios(List<Usuario> usuarios) {
 	        this.usuarios = usuarios;
 	    }
-		
+		// Método para obtener la lista de usuarios
+	    public List<Compras> getCompras() {
+	        return listaCompras;
+	    }
+	 // Método para establecer la lista de usuarios
+	    public void setListaCompras(List<Compras> listaCompras) {
+	        this.listaCompras = listaCompras;
+	    }
+	    
+	    
+	    //Metodo para añadir la entrada a la lista de compras
+	    public void añadirCompras(Compras compra) {
+	    	listaCompras.add(compra);
+	    }
 		
 	    // Método para añadir usuarios al sistema
 	    public void añadirUsuarios(Usuario user) {	    	
@@ -216,17 +231,6 @@ public class Admin {
 	    return null;
 	}
 	
-	public void guardarCompras(String partido, String lado, Usuario user) {
-		for(Usuario u: compras.keySet()) {
-			if(compras.containsKey(user)) {
-				//Falta por hacer
-
-			}
-			
-		}
-		        
-	}
-	
 	public void cargarPartidos() {
 		File f = new File("ficheros/partidos.txt");
 		if(f.exists()) {
@@ -264,6 +268,15 @@ public class Admin {
 	    }
 
 	    return false;		
+	}
+	public List<Compras> obtenerComprasPorUsuario(Usuario usuario) {
+		List<Compras> usuarioC = new ArrayList<Compras>();
+		for(Compras c:listaCompras) {
+			if(c.getUser().equals(usuario)) {
+				usuarioC.add(c);
+			}
+		}
+		return usuarioC;
 	}
 	
 }

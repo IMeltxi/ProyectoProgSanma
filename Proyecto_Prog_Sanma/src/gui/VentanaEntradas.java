@@ -25,6 +25,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+
+import domain.Admin;
 import domain.Entradas;
 import domain.Usuario;
 
@@ -43,7 +45,7 @@ public class VentanaEntradas extends JFrame {
     private JButton bComprar, bCancelar;
     private JComboBox<PartidoCombo> cbPartido;
     private JComboBox<String> cbTipoSocio;
-
+    private Admin admin;
     public VentanaEntradas(Usuario user) {
         setTitle("Gestión de Entradas de San Mamés");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -308,7 +310,7 @@ public class VentanaEntradas extends JFrame {
                 JOptionPane.showMessageDialog(null, "Compra Exitosa para " + partido.getNombrePartido() + "! Selecciona el asiento deseado.");
                 VentanaAsientos ventanaAsientos = null;
                 try {
-                    ventanaAsientos = new VentanaAsientos(partido.getNombrePartido(),lado,user);
+                    ventanaAsientos = new VentanaAsientos(partido.getNombrePartido(),lado,user, admin);
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }

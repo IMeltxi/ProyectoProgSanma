@@ -3,12 +3,16 @@ package gui;
 import javax.swing.*;
 
 import domain.Admin;
+import domain.Compras;
 import domain.Usuario;
+import domain.Usuario.tipoSocio;
 
 import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -24,7 +28,8 @@ public class VentanaAsientos extends JFrame {
     private final ImageIcon asientoLibreIcon = redimensionarImagen(new ImageIcon("Imagenes/ImagenesAsientos/AsientoLibre.png"), 100, 100);
     private final ImageIcon asientoOcupadoIcon = redimensionarImagen(new ImageIcon("Imagenes/ImagenesAsientos/AsientoOcupado.png"), 100, 100);
 
-    public VentanaAsientos(String partido, String lado, Usuario user) throws IOException {
+    public VentanaAsientos(String partido, String lado, Usuario user, Admin admin) throws IOException {
+        this.admin = admin; // Asignar el admin
         setTitle("Selección de Asientos - " + partido + " (" + lado + ")");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -47,18 +52,41 @@ public class VentanaAsientos extends JFrame {
             boolean hayAsientosSeleccionados = asientos.stream().anyMatch(asiento -> asiento.getEstado().equals("Ocupado"));
 
             if (!hayAsientosSeleccionados) {
-                JOptionPane.showMessageDialog(null, "Debe seleccionar al menos un asiento.","Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Debe seleccionar al menos un asiento.", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 try {
-                    guardarAsientosEnCSV(partido, lado);
-                    admin.guardarCompras(partido, lado, user);
+                    Compras compra = new Compras(user, partido, lado, new ArrayList<String>());
+                    for (Asiento asiento : asientos) {
+                        if (asiento.getEstado().equals("Ocupado")) {
+                            String asientoInfo = "Fila: " + asiento.getFila() + ", Asiento: " + asiento.getColumna();
+
+                            // Verificar si el asiento ya está en la lista antes de agregarlo
+                            if (!compra.getListaAsientos().contains(asientoInfo)) {
+                                compra.añadirAsiento(asientoInfo);  // Añadir el asiento solo si no existe ya
+                                System.out.println("Asiento: " + asientoInfo );
+                            }
+                        }
+                    }
+
+                    // Guardar asientos en CSV
+                    guardarAsientosEnCSV(partido, lado, compra);
+                    System.out.println(compra);
+
+                    if (admin == null) {
+                        JOptionPane.showMessageDialog(this, "El administrador no está configurado.", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    admin.añadirCompras(compra);
                     JOptionPane.showMessageDialog(null, "Entradas Compradas!");
                     dispose();
+
                 } catch (IOException e1) {
-                    JOptionPane.showMessageDialog(null, "Error al comprar las entradas","Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Error al comprar las entradas", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
+
 
         JButton atrasBtn = new JButton("Atrás");
         atrasBtn.addActionListener(e -> {
@@ -73,6 +101,8 @@ public class VentanaAsientos extends JFrame {
         add(pBotones, BorderLayout.SOUTH);
         setVisible(true);
     }
+
+
 
     private void cargarAsientosDesdeCSV(String partido, String lado) throws IOException {
         asientos.clear();
@@ -152,20 +182,37 @@ public class VentanaAsientos extends JFrame {
         panel.repaint();
     }
 
-    private void guardarAsientosEnCSV(String partido, String lado) throws IOException {
+    public void guardarAsientosEnCSV(String partido, String lado, Compras compras) throws IOException {
         String rutaArchivo = nomFich + partido + "_" + lado + "_Asientos.csv";
         BufferedWriter bw = new BufferedWriter(new FileWriter(rutaArchivo));
         int currentRow = -1;
+
+        // Usar un HashSet para guardar los asientos ocupados sin duplicados
+        Set<String> asientosOcupados = new HashSet<>();  // Se asegura de que los asientos ocupados no se repitan
 
         for (Asiento asiento : asientos) {
             if (asiento.getFila() != currentRow) {
                 if (currentRow != -1) bw.newLine();
                 currentRow = asiento.getFila();
             }
+
+            // Guardar solo los asientos ocupados
+            if (asiento.getEstado().equals("Ocupado")) {
+                String asientoInfo = "Fila: " + asiento.getFila() + " Asiento: " + asiento.getColumna();
+                // Solo agregar si no está en el HashSet
+                if (!asientosOcupados.contains(asientoInfo)) {
+                    compras.añadirAsiento(asientoInfo);  // Añadir el asiento a la lista de compras
+                    asientosOcupados.add(asientoInfo);  // Marcar este asiento como agregado en el HashSet
+                }
+            }
+
+            // Escribir el estado del asiento en el archivo CSV
             bw.write((asiento.getColumna() > 0 ? ";" : "") + asiento.getEstado());
         }
         bw.close();
     }
+
+
     
 
     private ImageIcon redimensionarImagen(ImageIcon icono, int ancho, int alto) {
@@ -204,19 +251,39 @@ public class VentanaAsientos extends JFrame {
     
 
     
-//    public static void main(String[] args) {
-//    	
-//        // Crear y mostrar la ventana.
-//        javax.swing.SwingUtilities.invokeLater(() -> {
-//            try {
-//                String partido = "Athletic_vs_RealSociedad";
-//                String lado = "Norte";
-//
-//                new VentanaAsientos(partido, lado).setVisible(true);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//                JOptionPane.showMessageDialog(null, "Error al cargar los asientos.");
-//            }
-//        });
-//    }
+    public static void main(String[] args) {
+        // Crear y mostrar la ventana.
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            try {
+                // Definir el tipo de socio
+                tipoSocio tipo = tipoSocio.SOCIO;  // Ajusta este valor según tu implementación de tipoSocio
+
+                // Crear un objeto Usuario
+                String nombre = "Juan";
+                String apellido = "Pérez";
+                String tlf = "123456789";
+                String fechNacStr = "2000-01-01";  // Fecha en formato "yyyy-MM-dd"
+                String email = "juan.perez@example.com";
+                String contrasena = "contraseña123";
+
+                // Crear el usuario con el constructor proporcionado
+                Usuario user = new Usuario(tipo, nombre, apellido, tlf, fechNacStr, email, contrasena);
+
+                // Definir un objeto Admin
+                Admin admin = new Admin(); // Asegúrate de tener un constructor adecuado en la clase Admin
+
+                // Definir el partido y lado
+                String partido = "Athletic_vs_RealSociedad";
+                String lado = "Norte";
+
+                // Crear la ventana de asientos y pasar el admin y el usuario
+                new VentanaAsientos(partido, lado, user, admin).setVisible(true);
+            } catch (IOException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error al cargar los asientos.");
+            }
+        });
+    }
+
+
 }
