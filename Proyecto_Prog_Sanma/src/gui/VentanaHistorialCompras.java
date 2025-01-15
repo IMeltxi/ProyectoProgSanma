@@ -6,7 +6,11 @@ import java.util.ArrayList;
 
 public class VentanaHistorialCompras extends JFrame {
 
-    private JTable tablaHistorial;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -3149893019431349781L;
+	private JTable tablaHistorial;
     private JScrollPane scrollPane;
 
     public VentanaHistorialCompras(ArrayList<String[]> historialCompras) {

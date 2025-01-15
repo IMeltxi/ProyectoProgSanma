@@ -2,13 +2,13 @@ package domain;
 import db.BD;
 import domain.Entradas.TipoEntrada;
 import domain.Usuario.tipoSocio;
-import gui.VentanaInicio;
+import gui.VentanaCargando;
 
 public class Main  {
 	public static void main(String[] args) {
 		
 		// ejecucucion ventana de inicio
-        new VentanaInicio(null);
+        new VentanaCargando();
 
 		// Creamos una instancia de la clase Admin para gestionar usuarios y socios
 		Admin a = new Admin();

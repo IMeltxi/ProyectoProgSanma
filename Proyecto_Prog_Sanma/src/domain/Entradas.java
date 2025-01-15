@@ -15,11 +15,6 @@ public class Entradas{
 	private String asiento;
 	private float precio;
 	
-	private String nombre;
-	private String apellido;
-	private String email;
-	
-	private String contraseña;
 	public Entradas() {
 		
 	}
@@ -34,10 +29,6 @@ public class Entradas{
 		this.bloque = bloque;
 		this.asiento = asiento;
 		this.precio = precio;
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.email = email;
-		this.contraseña = contraseña;
 	}
 
 	// Métodos getter y setter para acceder y modificar los atributos

@@ -12,7 +12,12 @@ import javax.swing.JPanel;
 
 public class VentanaSeleccion extends JFrame {
 
-    public VentanaSeleccion() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -475211810647273896L;
+
+	public VentanaSeleccion() {
     	
         setTitle("Seleccionar Acción");
         setSize(400, 200);

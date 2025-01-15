@@ -15,11 +15,11 @@ import javax.swing.JTextField;
 import domain.Admin;
 
 public class VentanaDarDeBaja extends JFrame {
-    private Admin admin;
-
-    public VentanaDarDeBaja(Admin admin) {
-        this.admin = admin;
-
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -1601326861268919900L;
+	public VentanaDarDeBaja(Admin admin) {
         // Configuración básica
         setTitle("Dar de Baja");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -87,7 +87,8 @@ public class VentanaDarDeBaja extends JFrame {
                 try {
                     // Obtener el número de socio
                     int numeroSocio = Integer.parseInt(TextoNumeroSocio.getText());
-                    String contrasena = new String(ContraseñaTexto.getPassword()); // Convertimos la contraseña a String
+                    @SuppressWarnings("unused")
+					String contrasena = new String(ContraseñaTexto.getPassword()); // Convertimos la contraseña a String
                     String gmail = TextoGmailSocio.getText(); // Obtener el correo (Gmail)
 
                     // Verificar si el usuario existe y si la contraseña es correcta

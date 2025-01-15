@@ -6,7 +6,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Usuario implements Serializable {
-    public enum tipoSocio {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3448870983534263106L;
+	public enum tipoSocio {
         SOCIOMENSUAL, SOCIO, VIP, GAZTEABONO
     }
 

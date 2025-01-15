@@ -1,6 +1,5 @@
 package domain;
 
-import java.awt.image.Kernel;
 import java.io.File;
 
 
@@ -11,13 +10,10 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.Set;
-
 import domain.Usuario.tipoSocio;
 
 public class Admin {

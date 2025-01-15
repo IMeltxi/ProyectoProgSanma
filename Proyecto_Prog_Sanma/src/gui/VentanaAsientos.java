@@ -24,12 +24,10 @@ public class VentanaAsientos extends JFrame {
     private JPanel panel;
     private List<Asiento> asientos = new ArrayList<>();
     private final String nomFich = "ficheros/";
-    private Admin admin;
     private final ImageIcon asientoLibreIcon = redimensionarImagen(new ImageIcon("Imagenes/ImagenesAsientos/AsientoLibre.png"), 100, 100);
     private final ImageIcon asientoOcupadoIcon = redimensionarImagen(new ImageIcon("Imagenes/ImagenesAsientos/AsientoOcupado.png"), 100, 100);
 
     public VentanaAsientos(String partido, String lado, Usuario user, Admin admin) throws IOException {
-        this.admin = admin; // Asignar el admin
         setTitle("Selección de Asientos - " + partido + " (" + lado + ")");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(EXIT_ON_CLOSE);

@@ -12,7 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VentanaDetallesCuenta extends JFrame {
-    private JLabel nombreLbl;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 4518022496194003912L;
+	private JLabel nombreLbl;
     private JLabel emailLbl;
     private JLabel telefonoLbl;
     private Admin admin;

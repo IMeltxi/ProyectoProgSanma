@@ -15,7 +15,12 @@ import javax.swing.JTextField;
 
 public class VentanaGazteAbono extends JFrame {
     
-    public VentanaGazteAbono() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -3487537045620349667L;
+
+	public VentanaGazteAbono() {
         // Configuración de la ventana
         setTitle("Gazte Abono");
         setExtendedState(JFrame.MAXIMIZED_BOTH);

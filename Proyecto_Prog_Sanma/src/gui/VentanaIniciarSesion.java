@@ -1,23 +1,17 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Properties;
-import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
@@ -30,7 +24,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
@@ -40,11 +33,11 @@ import domain.Usuario.tipoSocio;
 
 
 public class VentanaIniciarSesion extends JFrame {
+	private static final long serialVersionUID = -6943318915759697807L;
 	private Admin admin;
 	private JTextField correoField;
 	private JPasswordField contraseñaField;
 	
-	private Properties properties;
 	private String adminName;
 	private String adminPassword;
 	

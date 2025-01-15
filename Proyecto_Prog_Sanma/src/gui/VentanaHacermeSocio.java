@@ -18,9 +18,13 @@ import javax.swing.table.TableCellRenderer;
 import domain.Usuario;
 import domain.Admin;
 public class VentanaHacermeSocio extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3568857438521178666L;
 	private Admin admin; // Referencia al administrador para actualizar los usuarios
     private Usuario usuario; // Usuario actual que está iniciando la sesión
-    public VentanaHacermeSocio() {
+    public VentanaHacermeSocio(Admin admin, Usuario usuario) {
         this.admin = admin;
         this.usuario = usuario;
         // Configuración de la ventana
@@ -41,7 +45,12 @@ public class VentanaHacermeSocio extends JFrame {
         };
 
         DefaultTableModel model = new DefaultTableModel(datos, header) {
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = -6851399335473764144L;
+
+			@Override
             public boolean isCellEditable(int row, int column) {
                 // Solo la columna de acción es editable
                 return column == 3;
@@ -88,7 +97,11 @@ public class VentanaHacermeSocio extends JFrame {
 
     // Editor para convertir las labels en botones ayudado con una ia
     class ButtonColumnEditor extends AbstractCellEditor implements TableCellEditor {
-        private JButton boton;
+        /**
+		 * 
+		 */
+		private static final long serialVersionUID = -6012798275889807142L;
+		private JButton boton;
 
         public ButtonColumnEditor() {
             boton = new JButton();
@@ -163,6 +176,6 @@ public class VentanaHacermeSocio extends JFrame {
 
     // Método principal para probar la ventana
     public static void main(String[] args) {
-        new VentanaHacermeSocio();
+        new VentanaHacermeSocio(null, null);
     }
 }

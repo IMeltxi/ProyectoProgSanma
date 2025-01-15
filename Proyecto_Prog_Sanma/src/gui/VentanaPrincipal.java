@@ -1,9 +1,11 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -13,16 +15,13 @@ import domain.Usuario;
 import domain.Usuario.tipoSocio;
 
 public class VentanaPrincipal extends JFrame {
-    
+    private static final long serialVersionUID = -481611237702984322L;
     private Admin admin;
-    private Usuario usuario;
-    
-    public static void main(String[] args) {
-        // Asegúrate de pasar un Usuario válido y esAdmin en true/false según sea necesario
-    	Usuario usuario = new Usuario(tipoSocio.SOCIO, "Juan", "Perez", "123456789", "1990-05-15", "juan.perez@email.com", "miContrasenaSegura");
+    private PanelCargando panelFondo;
 
-    	new VentanaPrincipal(usuario, true);
-        
+    public static void main(String[] args) {
+        Usuario usuario = new Usuario(tipoSocio.SOCIO, "Juan", "Perez", "123456789", "1990-05-15", "juan.perez@email.com", "miContrasenaSegura");
+        new VentanaPrincipal(usuario, true);
     }
 
     public VentanaPrincipal(Usuario user, boolean esAdmin) {
@@ -31,70 +30,54 @@ public class VentanaPrincipal extends JFrame {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        
-        // Panel Principal
-        JPanel panelPrincipal = new JPanel(new BorderLayout());
-        add(panelPrincipal);
 
-        // Panel Comprar entradas
-        JPanel panelCE = new JPanel();
-        JButton botonCE = new JButton("Comprar entradas");
-        panelCE.add(botonCE);
+        // Configuración del panel de fondo con imagen
+        panelFondo = new PanelCargando(new ImageIcon("Imagenes/ImagenesFondo/AthleticAficion.png").getImage());
+        setContentPane(panelFondo);
 
-        // Panel Hacerme socio
-        JPanel panelSo = new JPanel();
+        // Crear panel para botones y establecer diseño
+        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+        panelBotones.setOpaque(false); // Hacer transparente para mostrar el fondo
+
+        // Botones de acciones
+        JButton botonCE = new JButton("Comprar Entradas");
         JButton botonSo = new JButton("Cambiarme Socio");
-        panelSo.add(botonSo);
+        JButton botonBaja = new JButton("Darme de Baja");
+        JButton botonDatos;
 
-        // Mostrar el botón adecuado dependiendo si es Admin o no
         if (esAdmin) {
-        	Admin admin = new Admin();
-            // Botón Admin
-            JPanel panelDatos = new JPanel();
-            JButton botonDatos = new JButton("Admin");
-            panelDatos.add(botonDatos);
-            panelPrincipal.add(panelDatos, BorderLayout.NORTH);
-            
+            admin = new Admin();
+            botonDatos = new JButton("Admin");
             botonDatos.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    // Llamar a la ventana de admin
                     VentanaAdmin ventanaAdmin = new VentanaAdmin(admin);
                     ventanaAdmin.setVisible(true);
                     dispose();
                 }
             });
         } else {
-            // Botón de tus datos (Usuario normal)
-            JPanel panelDatos = new JPanel();
-            JButton botonDatos = new JButton("Tus datos");
-            panelDatos.add(botonDatos);
-            panelPrincipal.add(panelDatos, BorderLayout.NORTH);
-            
+            botonDatos = new JButton("Tus Datos");
             botonDatos.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    // Llamar a la ventana de detalles de cuenta del usuario
                     VentanaDetallesCuenta ventanaDC = new VentanaDetallesCuenta(user);
                     ventanaDC.setVisible(true);
                     dispose();
                 }
             });
         }
-        
-        // Panel Darme de baja
-        JPanel panelBaja = new JPanel();
-        JButton botonBaja = new JButton("Darme de baja");
-        panelBaja.add(botonBaja);
 
-        // Añadir paneles al panel principal (Cada uno en su respectiva posición)
-        panelPrincipal.add(panelCE, BorderLayout.WEST);  // Ajustado a BorderLayout.WEST
-        panelPrincipal.add(panelSo, BorderLayout.CENTER);  // Ajustado a BorderLayout.CENTER
-        panelPrincipal.add(panelBaja, BorderLayout.SOUTH); // Ajustado a BorderLayout.SOUTH
+        // Añadir los botones al panel
+        panelBotones.add(botonCE);
+        panelBotones.add(botonSo);
+        panelBotones.add(botonBaja);
+        panelBotones.add(botonDatos);
 
-        setVisible(true);  // Asegúrate de llamar a setVisible después de agregar todos los componentes
-        
-        // Action listener de cada botón
+        // Añadir el panel de botones al sur de la ventana
+        add(panelBotones, BorderLayout.SOUTH);
+
+        // Configurar eventos para los otros botones
         botonCE.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -107,7 +90,7 @@ public class VentanaPrincipal extends JFrame {
         botonSo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                VentanaHacermeSocio ventanaSocio = new VentanaHacermeSocio();
+                VentanaHacermeSocio ventanaSocio = new VentanaHacermeSocio(null, null);
                 ventanaSocio.setVisible(true);
                 dispose();
             }
@@ -121,5 +104,7 @@ public class VentanaPrincipal extends JFrame {
                 dispose();
             }
         });
+
+        setVisible(true);
     }
 }

@@ -2,7 +2,6 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -23,8 +22,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.MatteBorder;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableCellRenderer;
-
 import domain.Admin;
 import domain.Usuario;
 import domain.Usuario.tipoSocio;
@@ -33,7 +30,11 @@ import domain.Usuario.tipoSocio;
  * realizado con ChatGPT-4
  */
 public class VentanaAdmin extends JFrame {
-    private Admin admin;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -3607422923372058967L;
+	private Admin admin;
     private JTable tabla;
     private JPanel panelLateral; // Panel para añadir socios
     private JTextField txtNombre, txtApellido, txtTelefono, txtFechaNacimiento, txtCorreo,txtContrasenia;

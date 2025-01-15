@@ -9,8 +9,6 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -77,7 +75,8 @@ public class VentanaRegistrarse extends JFrame {
 		add(panelSuperior, BorderLayout.NORTH);
 		
         
-        JLabel panelLateral = new JLabel("Tipo de Socio:");
+        @SuppressWarnings("unused")
+		JLabel panelLateral = new JLabel("Tipo de Socio:");
         JComboBox<String> cbTipoSocio = new JComboBox<>(new String[] { "SocioMensual", "Socio", "VIP", "GAZTEABONO" });
         panel2.add(cbTipoSocio);
 
