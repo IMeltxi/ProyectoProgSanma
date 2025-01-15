@@ -198,36 +198,58 @@ public class VentanaAdmin extends JFrame {
     private void añadirSocio() {
         try {
             String tipoSocioStr = (String) cbTipoSocio.getSelectedItem();
+            // Verifica si el tipo de socio seleccionado es válido
+            if (tipoSocioStr == null || tipoSocioStr.isEmpty()) {
+                throw new IllegalArgumentException("Debe seleccionar un tipo de socio.");
+            }
+            
+            // Convierte el tipo de socio
             Usuario.tipoSocio tipoSocio = Usuario.tipoSocio.valueOf(tipoSocioStr.toUpperCase());
+            
+            // Obtiene los valores de los campos
             String nombre = txtNombre.getText().trim();
             String apellido = txtApellido.getText().trim();
             String telefono = txtTelefono.getText().trim();
             String fechaNacimiento = txtFechaNacimiento.getText().trim();
             String correo = txtCorreo.getText().trim();
 
+            // Verifica si los campos no están vacíos
             if (nombre.isEmpty() || apellido.isEmpty() || telefono.isEmpty() || fechaNacimiento.isEmpty() || correo.isEmpty()) {
                 throw new IllegalArgumentException("Todos los campos deben estar llenos.");
             }
-            for(Usuario u:admin.getUsuarios()) {
-            	if(!(u.getEmail().equals(correo))) {
-            		Usuario nuevoSocio = new Usuario(tipoSocio, nombre, apellido, telefono, fechaNacimiento, correo, "");
-                    nuevoSocio.setNumeroSocio(admin.getUsuarios().size());
-                    admin.añadirUsuarios(nuevoSocio);
-            	}else
-            		JOptionPane.showMessageDialog(this, "Este email ya esta asociado a un socio", "Error", JOptionPane.ERROR_MESSAGE);
-            	
+
+            // Verifica si el correo ya está registrado
+            boolean emailExistente = false;
+            for (Usuario u : admin.getUsuarios()) {
+                if (u.getEmail().equals(correo)) {
+                    emailExistente = true;
+                    break;
+                }
             }
-            
 
-            ((ModeloTabla) tabla.getModel()).setUsuarios(admin.getUsuarios());
-            ((ModeloTabla) tabla.getModel()).fireTableDataChanged();
+            // Si el correo ya existe, muestra un mensaje de error
+            if (emailExistente) {
+                JOptionPane.showMessageDialog(this, "Este email ya está asociado a un socio", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                // Si el correo no existe, crea el nuevo socio
+                Usuario nuevoSocio = new Usuario(tipoSocio, nombre, apellido, telefono, fechaNacimiento, correo, "");
+                nuevoSocio.setNumeroSocio(admin.getUsuarios().size() + 1); // Número único para el socio
+                admin.añadirUsuarios(nuevoSocio); // Agregar el nuevo socio a la lista de usuarios
+                
+                // Actualiza la tabla
+                ((ModeloTabla) tabla.getModel()).setUsuarios(admin.getUsuarios());
+                ((ModeloTabla) tabla.getModel()).fireTableDataChanged();
 
-            JOptionPane.showMessageDialog(this, "Socio añadido correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            ocultarPanelLateral();
+                // Muestra un mensaje de éxito
+                JOptionPane.showMessageDialog(this, "Socio añadido correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                ocultarPanelLateral(); // Oculta el panel lateral después de agregar
+            }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Error al añadir socio", "Error", JOptionPane.ERROR_MESSAGE);
+            // Captura cualquier excepción y muestra un mensaje de error
+            JOptionPane.showMessageDialog(this, "Error al añadir socio: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
 
     private void eliminarSocioSeleccionado() {
         int filaSeleccionada = tabla.getSelectedRow();
@@ -318,8 +340,5 @@ public class VentanaAdmin extends JFrame {
 	}
 	
 
-	public static void main(String[] args) {
-		Admin admin = new Admin();
-		new VentanaAdmin(admin);
-	}
+
 }
