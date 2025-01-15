@@ -269,6 +269,58 @@ public class BD {
             }
         }
     }
+         // Muestra las entradas junto con los datos de los usuarios que las compraron.
+    public static void mostrarEntradasConUsuarios() {
+        // Consulta SQL que combina datos de las tablas Entradas y Usuarios
+        String sql = "SELECT e.id, u.Nombre, u.Apellido, e.fecha_compra " +
+                     "FROM Entradas e " +
+                     "JOIN Usuarios u ON e.usuario_id = u.Numero_socio";
+        
+        try (Statement st = con.createStatement(); ResultSet rs = st.executeQuery(sql)) {
+            // Iteramos sobre el resultado de la consulta
+            while (rs.next()) {
+                // Obtenemos y mostramos los datos de cada fila
+                System.out.println("ID Entrada: " + rs.getInt("id") + 
+                                   ", Nombre: " + rs.getString("Nombre") + 
+                                   ", Apellido: " + rs.getString("Apellido") + 
+                                   ", Fecha Compra: " + rs.getString("fecha_compra"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Muestra un error en caso de fallo en la consulta
+        }
+    }
+
+    /**
+     * Muestra las entradas filtradas por una categoría específica.
+     *
+     * @param categoria Nombre de la categoría a filtrar.
+     */
+    public static void mostrarEntradasPorCategoria(String categoria) {
+        // Consulta SQL que combina Entradas, Usuarios y CategoriasEntradas
+        String sql = "SELECT e.id, u.Nombre, e.fecha_compra, c.nombre_categoria " +
+                     "FROM Entradas e " +
+                     "JOIN Usuarios u ON e.usuario_id = u.Numero_socio " +
+                     "JOIN CategoriasEntradas c ON e.categoria_id = c.id " +
+                     "WHERE c.nombre_categoria = ?";
+        
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, categoria); // Asigna el nombre de la categoría al parámetro de la consulta
+            ResultSet rs = ps.executeQuery(); // Ejecuta la consulta
+
+            // Iteramos sobre el resultado de la consulta
+            while (rs.next()) {
+                // Obtenemos y mostramos los datos de cada fila
+                System.out.println("ID Entrada: " + rs.getInt("id") +
+                                   ", Usuario: " + rs.getString("Nombre") +
+                                   ", Categoría: " + rs.getString("nombre_categoria") +
+                                   ", Fecha: " + rs.getString("fecha_compra"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Muestra un error en caso de fallo en la consulta
+        }
+    }
+
+    
     
     public static List<Usuario> obtenerListaUsario(Connection con){
 		String sql = "SELECT * FROM Usuario";
