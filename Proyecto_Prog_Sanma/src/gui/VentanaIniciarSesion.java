@@ -10,6 +10,14 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Properties;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -27,11 +35,19 @@ import javax.swing.border.TitledBorder;
 
 import domain.Admin;
 import domain.Usuario;
+import domain.Usuario.tipoSocio;
+
 
 public class VentanaIniciarSesion extends JFrame {
 	private Admin admin;
 	private JTextField correoField;
 	private JPasswordField contraseñaField;
+	
+	private Properties properties;
+	private String adminName;
+	private String adminPassword;
+	
+	private static Logger logger = Logger.getLogger(VentanaIniciarSesion.class.getName());
 	public VentanaIniciarSesion() {
 		this.admin = new Admin();
 		admin.cargarUsuarios();
@@ -105,6 +121,26 @@ public class VentanaIniciarSesion extends JFrame {
 		add(panelprincipal);
 		
 		setVisible(true);
+	
+		Properties properties = new Properties();
+        
+		// Obtener el administrador
+		try (FileInputStream fis = new FileInputStream("conf/admin.properties")) {
+		    // Lectura del fichero properties
+		    properties.load(fis);  // Cargar las propiedades del archivo
+
+		    // Obtener las propiedades
+		    adminName = properties.getProperty("user");
+		    adminPassword = properties.getProperty("password");
+
+		} catch (IOException ex) {
+		    logger.warning(String.format("Error al cargar el archivo de configuración: %s", ex.getMessage()));
+		}
+    
+        
+
+		
+		
 		
 		botonInicioSesion.addActionListener(new ActionListener() {
 			
@@ -113,9 +149,17 @@ public class VentanaIniciarSesion extends JFrame {
 				// TODO Auto-generated method stub
 				Usuario user = verificarUsuario();
 				if(!(user==null)) {
-					VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(user);
-					ventanaPrincipal.setVisible(true);
+					VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(user,false);
+	                ventanaPrincipal.setVisible(true);
 				}
+				
+				if (correoField.getText().trim().equals(adminName) && 
+				    Arrays.equals(contraseñaField.getPassword(), adminPassword.trim().toCharArray())) {
+					VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(new Usuario
+							(tipoSocio.SOCIO, "admin", "admin", "123", "2004-01-01", adminName, adminPassword),true);
+					ventanaPrincipal.setVisible(true);
+				} 
+				
 				
 			}
 		});
@@ -144,10 +188,20 @@ public class VentanaIniciarSesion extends JFrame {
 
 			    // Buscar usuario en la lista de usuarios del administrador
 			    Usuario usuarioEncontrado = admin.buscarUsuarioPorEmail(email);
-
+			    boolean esAdmin=false;
+			    if (correoField.getText().trim().equals(adminName) && 
+					    Arrays.equals(contraseñaField.getPassword(), adminPassword.trim().toCharArray())) {
+						esAdmin = true;
+				} 
+			    
 			    // Validar si el usuario existe y la contraseña es correcta
 			    if (usuarioEncontrado == null || !usuarioEncontrado.verificarContrasena(contrasena)) {
-			        JOptionPane.showMessageDialog(this, "Correo o contraseña incorrectos.", "Error", JOptionPane.ERROR_MESSAGE);
+			        if(!(esAdmin)) {
+			        	JOptionPane.showMessageDialog(this, "Correo o contraseña incorrectos.", "Error", JOptionPane.ERROR_MESSAGE);
+				        
+			        }else {
+			        	JOptionPane.showMessageDialog(this, "Inicio de sesión válido", "Ongi Etorri Admin", JOptionPane.INFORMATION_MESSAGE);
+			        }
 			        return null;
 			    } else {
 			        // Inicio de sesión exitoso
@@ -157,6 +211,7 @@ public class VentanaIniciarSesion extends JFrame {
 			        dispose();
 			        return usuarioEncontrado;
 			    }
+				
 			    
 			}
 
