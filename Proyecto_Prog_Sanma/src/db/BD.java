@@ -9,9 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
-
 import domain.Usuario;
-import domain.Entradas.Localidad;
 import domain.Entradas.TipoEntrada;
 import domain.Usuario.tipoSocio;
 
@@ -64,54 +62,49 @@ public class BD {
             stmt.executeUpdate(sql);
             stmt.close();
             logger.info("Tabla Usuarios creada correctamente");
-
-            // Tabla Localizaciones
-            sql = "CREATE TABLE IF NOT EXISTS Localizaciones ("
-                    + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + "nombre_tribuna TEXT NOT NULL"
-                    + ")";
-            stmt = con.createStatement();
-            stmt.executeUpdate(sql);
-            stmt.close();
-            logger.info("Tabla Localizaciones creada correctamente");
-
             // Tabla Entradas
             sql = "CREATE TABLE IF NOT EXISTS Entradas ("
                     + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + "usuario_id INTEGER,"
+                    + "usuario_id INTEGER NOT NULL,"
                     + "categoria_id INTEGER,"
                     + "localizacion_id INTEGER,"
                     + "fecha_compra DATETIME DEFAULT CURRENT_TIMESTAMP,"
-                    + "FOREIGN KEY (usuario_id) REFERENCES Usuarios(id),"
-                    + "FOREIGN KEY (categoria_id) REFERENCES CategoriasEntradas(id),"
+                    + "FOREIGN KEY (usuario_id) REFERENCES Usuarios(Numero_socio),"
+                    + "FOREIGN KEY (categoria_id) REFERENCES Partidos(id),"
                     + "FOREIGN KEY (localizacion_id) REFERENCES Localizaciones(id)"
                     + ")";
             stmt = con.createStatement();
             stmt.executeUpdate(sql);
             stmt.close();
             logger.info("Tabla Entradas creada correctamente");
-
-            // Tabla Partidos
-            sql = "CREATE TABLE IF NOT EXISTS Partidos ("
-                    + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + "nombrePart TEXT NOT NULL,"
-                    + "fecha TEXT NOT NULL,"
-                    + "hora TEXT NOT NULL,"
-                    + "competicion TEXT NOT NULL,"
-                    + "descripcion TEXT,"
-                    + "jornada INTEGER"
-                    + ")";
-            stmt = con.createStatement();
-            stmt.executeUpdate(sql);
-            stmt.close();
-            logger.info("Tabla Partidos creada correctamente");
-
             logger.info("Todas las tablas creadas correctamente");
         } catch (SQLException e) {
             e.printStackTrace();
 
         }
     }
+    
+    public static void borrarTablas() {
+        String sql;
+        try (Statement stmt = con.createStatement()) {
+            
+            sql = "DROP TABLE IF EXISTS Entradas";
+            stmt.executeUpdate(sql);
+
+            sql = "DROP TABLE IF EXISTS CategoriasEntradas";
+            stmt.executeUpdate(sql);
+            
+
+            sql = "DROP TABLE IF EXISTS Usuarios";
+            stmt.executeUpdate(sql);
+
+            logger.info("Todas las tablas han sido eliminadas correctamente.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.severe("Error al intentar borrar las tablas.");
+        }
+    }
+
     
 
 
@@ -129,23 +122,8 @@ public class BD {
         }
     }
 
-
-    public static void insertarLocalizaciones(Localidad localidad) {
-        String sql = "INSERT OR IGNORE INTO Localizaciones (nombre_tribuna) VALUES (?)";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, localidad.name()); // Mapeamos el enum a su nombre en texto
-            ps.execute();
-            ps.close();
-            logger.info("Localización insertada correctamente");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-
     public static void insertarUsuario(tipoSocio tiposocio,String nombre, String apellido, String tlf, String fechNacStr, String email, String contrasena) {
-        String sql = "INSERT INTO Usuarios (TipoSocio,Nombre, Apellido, Tlf,FechNac, Email, Contrasena) "
+        String sql = "INSERT INTO Usuarios (TipoSocio,Nombre, Apellido, Telefono,FechaNacimiento, Email, Contrasena) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -161,6 +139,21 @@ public class BD {
             logger.info("Usuario insertado correctamente");
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+    
+    public static void insertarCompras(int usuarioId, int partidoId, String asiento, String bloque, float precio, String tipoEntrada) {
+        String sql = "INSERT INTO Entradas (usuario_id, categoria_id, localizacion_id, fecha_compra) " +
+                     "VALUES (?, ?, ?, datetime('now'))";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, usuarioId);
+            ps.setInt(2, partidoId); // Se usa como categoría
+            ps.setInt(3, 1);         // Asigna una localización predeterminada para este ejemplo
+            ps.executeUpdate();
+            logger.info("Compra insertada correctamente: Usuario ID " + usuarioId + ", Partido ID " + partidoId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.severe("Error al insertar compra.");
         }
     }
 
@@ -270,6 +263,7 @@ public class BD {
         }
     }
          // Muestra las entradas junto con los datos de los usuarios que las compraron.
+    	 //Generado con ia generativa chat gpt4o
     public static void mostrarEntradasConUsuarios() {
         // Consulta SQL que combina datos de las tablas Entradas y Usuarios
         String sql = "SELECT e.id, u.Nombre, u.Apellido, e.fecha_compra " +
@@ -292,7 +286,7 @@ public class BD {
 
     /**
      * Muestra las entradas filtradas por una categoría específica.
-     *
+     * Generado con ia generativa chat gpt4o
      * @param categoria Nombre de la categoría a filtrar.
      */
     public static void mostrarEntradasPorCategoria(String categoria) {
