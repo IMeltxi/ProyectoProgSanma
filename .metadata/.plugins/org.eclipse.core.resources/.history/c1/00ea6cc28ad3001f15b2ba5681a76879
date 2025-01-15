@@ -84,7 +84,7 @@ public class BD {
         }
     }
     
-    /*public static void borrarTablas() {
+    public static void borrarTablas() {
         String sql;
         try (Statement stmt = con.createStatement()) {
             
@@ -103,7 +103,7 @@ public class BD {
             e.printStackTrace();
             logger.severe("Error al intentar borrar las tablas.");
         }
-    }*/
+    }
 
     
 
@@ -268,7 +268,7 @@ public class BD {
      * Obtiene una lista de usuarios (socios) filtrados por un tipo específico.
      *
      * @param tipoSocio Tipo de socio por el cual se filtrarán los usuarios. 
-     *
+     *                  Debe ser un valor del enum `Usuario.tipoSocio`, como `VIP` o `BASIC`.
      * @return Una lista de objetos `Usuario` que pertenecen al tipo especificado.
      *         Si no se encuentra ningún usuario, retorna una lista vacía.
      * @throws SQLException Si ocurre algún error al ejecutar la consulta SQL.

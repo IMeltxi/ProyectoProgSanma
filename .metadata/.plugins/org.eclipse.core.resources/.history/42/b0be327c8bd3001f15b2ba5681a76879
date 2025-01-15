@@ -84,7 +84,7 @@ public class BD {
         }
     }
     
-    /*public static void borrarTablas() {
+    public static void borrarTablas() {
         String sql;
         try (Statement stmt = con.createStatement()) {
             
@@ -103,7 +103,7 @@ public class BD {
             e.printStackTrace();
             logger.severe("Error al intentar borrar las tablas.");
         }
-    }*/
+    }
 
     
 

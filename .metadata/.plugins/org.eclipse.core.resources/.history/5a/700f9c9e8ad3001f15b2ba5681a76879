@@ -84,7 +84,7 @@ public class BD {
         }
     }
     
-    /*public static void borrarTablas() {
+    public static void borrarTablas() {
         String sql;
         try (Statement stmt = con.createStatement()) {
             
@@ -103,7 +103,7 @@ public class BD {
             e.printStackTrace();
             logger.severe("Error al intentar borrar las tablas.");
         }
-    }*/
+    }
 
     
 
@@ -268,7 +268,7 @@ public class BD {
      * Obtiene una lista de usuarios (socios) filtrados por un tipo específico.
      *
      * @param tipoSocio Tipo de socio por el cual se filtrarán los usuarios. 
-     *
+     *                  Debe ser un valor del enum `Usuario.tipoSocio`, como `VIP` o `BASIC`.
      * @return Una lista de objetos `Usuario` que pertenecen al tipo especificado.
      *         Si no se encuentra ningún usuario, retorna una lista vacía.
      * @throws SQLException Si ocurre algún error al ejecutar la consulta SQL.
@@ -301,6 +301,36 @@ public class BD {
         }
 
         return socios;
+    }
+
+    /**
+     * Muestra las entradas filtradas por una categoría específica.
+     * Generado con ia generativa chat gpt4o
+     * @param categoria Nombre de la categoría a filtrar.
+     */
+    public static void mostrarEntradasPorCategoria(String categoria) {
+        // Consulta SQL que combina Entradas, Usuarios y CategoriasEntradas
+        String sql = "SELECT e.id, u.Nombre, e.fecha_compra, c.nombre_categoria " +
+                     "FROM Entradas e " +
+                     "JOIN Usuarios u ON e.usuario_id = u.Numero_socio " +
+                     "JOIN CategoriasEntradas c ON e.categoria_id = c.id " +
+                     "WHERE c.nombre_categoria = ?";
+        
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, categoria); // Asigna el nombre de la categoría al parámetro de la consulta
+            ResultSet rs = ps.executeQuery(); // Ejecuta la consulta
+
+            // Iteramos sobre el resultado de la consulta
+            while (rs.next()) {
+                // Obtenemos y mostramos los datos de cada fila
+                System.out.println("ID Entrada: " + rs.getInt("id") +
+                                   ", Usuario: " + rs.getString("Nombre") +
+                                   ", Categoría: " + rs.getString("nombre_categoria") +
+                                   ", Fecha: " + rs.getString("fecha_compra"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Muestra un error en caso de fallo en la consulta
+        }
     }
 
     
