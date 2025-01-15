@@ -155,7 +155,7 @@ public class BD {
             ps.setString(4, tlf);
             ps.setString(5, fechNacStr);
             ps.setString(6, email);
-            ps.setString(7, contrasena); // Fecha en formato 'YYYY-MM-DD'
+            ps.setString(7, contrasena);
             ps.execute();
             ps.close();
             logger.info("Usuario insertado correctamente");
@@ -214,7 +214,29 @@ public class BD {
 	 * @param con Conexion de la base de datos
 	 * @param usuario Usuario que queremos insertar en la base de datos
 	 */
+    public static void actualizarUsuario(int id, String nuevoTelefono) {
+        String sql = "UPDATE Usuarios SET Telefono = ? WHERE Numero_socio = ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, nuevoTelefono);
+            ps.setInt(2, id);
+            ps.executeUpdate();
+            logger.info("Usuario actualizado correctamente");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     
+    public static void eliminarUsuario(int id) {
+        String sql = "DELETE FROM Usuarios WHERE Numero_socio = ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            logger.info("Usuario eliminado correctamente");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
    
     public static void insertarUsuario(Connection con, Usuario usuario) {
         if (buscarUsuario(con, usuario.getEmail()) == null) {
