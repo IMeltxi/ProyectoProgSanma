@@ -20,13 +20,14 @@ public class Main  {
 	public static void pruebas() {
 	    try {
 	        // Inicializar base de datos y crear tablas
-	        BD.initBD("resources/db/sanMames.db");
+	    	System.out.println("Base de datos abierta.");
+	    	BD.initBD("resources/db/sanMames.db");
 	        //BD.borrarTablas(); // Borrar tablas para evitar conflictos
 	        BD.crearTablas();
 
 	        // Cerrar base de datos
 	        BD.closeBD();
-	        System.out.println("Pruebas completadas y base de datos cerrada.");
+	        System.out.println("Base de datos cerrada.");
 
 	    } catch (Exception e) {
 	        System.err.println("Error: " + e.getMessage());
