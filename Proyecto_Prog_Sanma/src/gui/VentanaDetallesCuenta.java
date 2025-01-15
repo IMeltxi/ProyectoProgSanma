@@ -22,7 +22,7 @@ public class VentanaDetallesCuenta extends JFrame {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        
+        admin = new Admin();
         
         // Panel para mostrar los datos del usuario
         JPanel panelDatosUsuario = new JPanel();
