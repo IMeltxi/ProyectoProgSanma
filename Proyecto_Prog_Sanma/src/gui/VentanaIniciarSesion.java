@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -72,6 +73,30 @@ public class VentanaIniciarSesion extends JFrame {
         panelBotones.setBorder(BorderFactory.createCompoundBorder(titledBorder,new EmptyBorder(20, 20, 20, 20)));
 		panelBotones.setLayout(new BoxLayout(panelBotones, BoxLayout.Y_AXIS));
 		
+		//Posicionamiento del boton generado con gpt-4
+		// Crear un panel superior con FlowLayout alineado a la izquierda
+		JPanel panelSuperior = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
+		// Crear el botón "Atrás"
+		JButton botonAtras = new JButton("Atrás");
+
+		// Configurar el evento del botón "Atrás"
+		botonAtras.addActionListener(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        VentanaInicio inicio = new VentanaInicio(null);
+		        inicio.setVisible(true);
+		        dispose();
+		    }
+		});
+
+		// Añadir el botón al panel superior
+		panelSuperior.add(botonAtras);
+
+		// Añadir el panel superior al contenedor principal (por ejemplo, usando BorderLayout)
+		add(panelSuperior, BorderLayout.NORTH);
+		
+		
 		//Correo etiqueta
 		JLabel correoLabel = new JLabel("Correo:");
 		correoLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -97,7 +122,7 @@ public class VentanaIniciarSesion extends JFrame {
 		panelBotones.add(contraseñaField);
 		
 		panelBotones.add(Box.createRigidArea(new Dimension(0,20)));
-		
+	
 		//Boton iniciar sesion
 		
 		JButton botonInicioSesion = new JButton("Iniciar Sesion");
