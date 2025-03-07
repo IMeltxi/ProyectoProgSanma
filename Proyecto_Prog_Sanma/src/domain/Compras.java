@@ -10,6 +10,7 @@ public class Compras {
     private String lado;
     private Set<String> listaAsientos;  // Cambiar a HashSet
 
+
     public Compras(Usuario user, String partido, String lado, ArrayList<String> asientos) {
         this.user = user;
         this.partido = partido;
